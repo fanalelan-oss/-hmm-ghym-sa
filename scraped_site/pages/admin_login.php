@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>تسجيل الدخول — لوحة التحكم</title>
+  <link rel="icon" href="../assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kufam:wght@700&family=Tajawal:wght@400;500;700;800&display=swap">
+  <link rel="stylesheet" href="assets/admin.css?v=1792939846">
+</head>
+<body>
+  <main class="auth">
+    <div class="auth__card">
+      <img class="auth__logo" src="../assets/images/logo.svg" alt="شركة همم غيم">
+      <h1 class="auth__title">تسجيل الدخول</h1>
+      <p class="auth__sub">لوحة تحكم موقع شركة همم غيم</p>
+
+
+      <form method="post">
+        <input type="hidden" name="_csrf" value="5114cff839c0d360d5595ec8fcec25b3e24ce1b45613b434876cdb3096dffa19">        <div class="field">
+          <label for="username">اسم الدخول أو البريد الإلكتروني</label>
+          <input class="input" id="username" name="username" dir="ltr" autocomplete="username" required autofocus value="">
+        </div>
+        <div class="field">
+          <label for="password">كلمة المرور</label>
+          <input class="input" id="password" name="password" type="password" dir="ltr" autocomplete="current-password" required>
+        </div>
+        <div class="form-actions" style="margin-top:20px">
+          <button class="btn btn--primary btn--block" type="submit">دخول</button>
+        </div>
+      </form>
+      <p class="auth__foot"><a href="../index.php">← العودة إلى الموقع</a></p>
+    </div>
+  </main>
+</body>
+</html>

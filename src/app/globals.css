@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--font-tajawal), system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, h4, .font-display, .font-heading {
+    font-family: var(--font-display), var(--font-tajawal), system-ui, sans-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Endless Flowing Geometric Stream Animations for Hero Section */
+@keyframes heroStreamFlow {
+  0% {
+    transform: translate3d(115vw, 40px, 0) rotate(0deg) scale(0.85);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate3d(0vw, -25px, 0) rotate(180deg) scale(1.05);
+    opacity: 0.9;
+  }
+  88% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(-115vw, -70px, 0) rotate(360deg) scale(0.85);
+    opacity: 0;
+  }
+}
+
+@keyframes heroStreamReverse {
+  0% {
+    transform: translate3d(-115vw, -30px, 0) rotate(0deg) scale(0.9);
+    opacity: 0;
+  }
+  12% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translate3d(0vw, 25px, 0) rotate(-180deg) scale(1);
+    opacity: 0.8;
+  }
+  88% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate3d(115vw, 60px, 0) rotate(-360deg) scale(0.9);
+    opacity: 0;
+  }
+}
+
+@keyframes heroWaveFloat {
+  0%, 100% {
+    transform: translateX(0px) translateY(0px);
+  }
+  50% {
+    transform: translateX(-28px) translateY(8px);
+  }
+}
+
+.animate-hero-stream {
+  animation: heroStreamFlow linear infinite;
+  will-change: transform, opacity;
+}
+
+.animate-hero-stream-reverse {
+  animation: heroStreamReverse linear infinite;
+  will-change: transform, opacity;
+}
+
+.animate-wave-float {
+  animation: heroWaveFloat 9s ease-in-out infinite;
+}
+
+@layer components {
+  /* Smart Fluid Container: adapts across laptop, desktop & widescreen without cramming in the center */
+  .smart-container {
+    @apply w-full max-w-[1780px] mx-auto px-4 sm:px-7 lg:px-10 xl:px-14 2xl:px-20;
+  }
+
+  /* Clean modern card used across all pages */
+  .clean-card {
+    @apply bg-white dark:bg-[#0d1f38] border border-slate-200/80 dark:border-white/10 shadow-sm transition-all duration-300;
+  }
+}
+
+/* Smooth page entrance animation */
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageFadeIn 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: floatSlow 5s ease-in-out infinite;
+}
