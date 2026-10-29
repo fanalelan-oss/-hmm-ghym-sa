@@ -28,17 +28,10 @@ export default function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      const y = window.scrollY;
-      setIsScrolled(y > 24);
-      const docHeight =
-        document.documentElement.scrollHeight - window.innerHeight;
-      if (docHeight > 0) {
-        setScrollProgress(Math.min(100, Math.max(0, (y / docHeight) * 100)));
-      }
+      setIsScrolled(window.scrollY > 24);
     };
     handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -76,16 +69,6 @@ export default function SiteHeader() {
               isScrolled ? 'h-[58px]' : 'h-[66px]'
             }`}
           >
-            {/* Subtle Bottom Reading Progress Line when Scrolled */}
-            {isScrolled && scrollProgress > 1 && (
-              <div className="absolute bottom-0 inset-x-8 h-[2px] overflow-hidden rounded-full pointer-events-none">
-                <div
-                  className="h-full bg-gradient-to-r from-[#0f2544] via-[#208EC1] to-sky-400 transition-all duration-150"
-                  style={{ width: `${scrollProgress}%` }}
-                />
-              </div>
-            )}
-
             {/* ZONE 1 (RTL Start): Brand Logo */}
             <div className="flex items-center shrink-0">
               <Link
