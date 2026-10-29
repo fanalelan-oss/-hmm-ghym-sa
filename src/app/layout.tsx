@@ -5,6 +5,7 @@ import { AppProvider } from '@/context/AppContext';
 import SiteHeader from '@/components/layout/SiteHeader';
 import SiteFooter from '@/components/layout/SiteFooter';
 import FloatingActions from '@/components/layout/FloatingActions';
+import PageTransition from '@/components/layout/PageTransition';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
 const cairo = Cairo({
@@ -67,7 +68,7 @@ export default function RootLayout({
         <AppProvider>
           <JsonLdSchema />
           <SiteHeader />
-          <main className="flex-1 page-enter">{children}</main>
+          <PageTransition>{children}</PageTransition>
           <SiteFooter />
           <FloatingActions />
         </AppProvider>

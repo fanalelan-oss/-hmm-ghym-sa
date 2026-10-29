@@ -55,18 +55,18 @@ export default function ReviewsPage() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-24">
+    <div className="min-h-screen pt-28 pb-24 bg-[#eef3f8] dark:bg-brand-950">
       <div className="smart-container">
         <ScrollReveal>
           <div className="max-w-3xl mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-xs font-bold mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#208EC1] text-xs font-bold mb-4 shadow-sm">
               <Star className="w-4 h-4 fill-current" />
               <span>4.9 / 5.0 ({approvedReviews.length} تقييم موثق)</span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4">
+            <h1 className="heading-3d-section text-xl sm:text-2xl lg:text-[28px] font-extrabold font-heading mb-2.5">
               {dict.reviewsSection.title}
             </h1>
-            <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
               {dict.reviewsSection.subtitle}
             </p>
           </div>
@@ -80,10 +80,10 @@ export default function ReviewsPage() {
                   <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                     <div>
                       <div className="flex items-center gap-2">
-                        <h2 className="text-lg font-bold text-slate-900 dark:text-white">
+                        <h2 className="text-lg font-bold text-[#0f2544] dark:text-white">
                           {rev.name}
                         </h2>
-                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold">
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#208EC1]/10 text-[#208EC1] text-[11px] font-bold">
                           <CheckCircle2 className="w-3 h-3" />
                           {lang === "ar" ? "عميل موثق" : "Verified"}
                         </span>
@@ -96,13 +96,13 @@ export default function ReviewsPage() {
                       </p>
                     </div>
 
-                    <div className="flex items-center gap-1 text-amber-400">
+                    <div className="flex items-center gap-1 text-[#208EC1]">
                       {Array.from({ length: 5 }).map((_, i) => (
                         <Star
                           key={i}
                           className={`w-4 h-4 ${
                             i < rev.rating
-                              ? "fill-current text-amber-400"
+                              ? "fill-current text-[#208EC1]"
                               : "text-slate-300 dark:text-slate-700"
                           }`}
                         />
@@ -141,7 +141,7 @@ export default function ReviewsPage() {
                     <MessageSquarePlus className="w-6 h-6" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-bold font-heading text-slate-900 dark:text-white">
+                    <h2 className="text-xl font-bold font-heading text-[#0f2544] dark:text-white">
                       {dict.reviewsSection.addReviewBtn}
                     </h2>
                     <p className="text-xs text-slate-500">
@@ -153,8 +153,8 @@ export default function ReviewsPage() {
                 </div>
 
                 {successMsg && (
-                  <div className="mb-6 p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-sm font-medium flex items-center gap-2">
-                    <ShieldCheck className="w-5 h-5 shrink-0" />
+                  <div className="mb-6 p-4 rounded-2xl bg-[#208EC1]/10 border border-[#208EC1]/30 text-[#0f2544] dark:text-sky-200 text-sm font-medium flex items-center gap-2">
+                    <ShieldCheck className="w-5 h-5 text-[#208EC1] shrink-0" />
                     <span>
                       {lang === "ar"
                         ? "شكراً لتقييمك! تم نشر تقييمك في سجل آراء العملاء بنجاح."
@@ -228,12 +228,12 @@ export default function ReviewsPage() {
                           key={num}
                           type="button"
                           onClick={() => setRating(num)}
-                          className="p-2 rounded-xl hover:bg-amber-500/10 transition-colors"
+                          className="p-2 rounded-xl hover:bg-[#208EC1]/10 transition-colors"
                         >
                           <Star
                             className={`w-6 h-6 ${
                               num <= rating
-                                ? "fill-amber-400 text-amber-400"
+                                ? "fill-[#208EC1] text-[#208EC1]"
                                 : "text-slate-300 dark:text-slate-700"
                             }`}
                           />
@@ -265,7 +265,7 @@ export default function ReviewsPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-4 rounded-2xl bg-[#11345C] hover:bg-[#208EC1] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg"
+                    className="w-full py-4 rounded-2xl bg-[#0f2544] hover:bg-[#208EC1] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-lg"
                   >
                     <Send className="w-4 h-4" />
                     {lang === "ar" ? "نشر التقييم الآن" : "Publish Review"}

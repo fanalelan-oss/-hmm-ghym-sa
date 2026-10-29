@@ -79,7 +79,7 @@ export default function CalculatorPage() {
         city,
         service: pickLang(selectedService.name, "ar"),
         source: "cost-calculator",
-        details: `طلب تسعير من الحاسبة الهندسية - الأبعاد: ${widthM}×${heightM} متر (${calculation.area} م²) - الفئة: ${tier} - التقدير: ${calculation.minTotal.toLocaleString()} - ${calculation.maxTotal.toLocaleString()} ريال`,
+        details: `طلب تسعير من الحاسبة الهندسية - الأبعاد: ${widthM}×${heightM} متر (${calculation.area} م²) - الفئة: ${tier} - التقدير: ${calculation.minTotal.toLocaleString("en-US")} - ${calculation.maxTotal.toLocaleString("en-US")} ريال`,
       }),
     });
 
@@ -319,8 +319,8 @@ export default function CalculatorPage() {
                     : "Estimated Price Range (SAR):"}
                 </p>
                 <p className="text-3xl sm:text-4xl font-extrabold text-white">
-                  {calculation.minTotal.toLocaleString()} –{" "}
-                  {calculation.maxTotal.toLocaleString()}{" "}
+                  {calculation.minTotal.toLocaleString("en-US")} –{" "}
+                  {calculation.maxTotal.toLocaleString("en-US")}{" "}
                   <span className="text-base font-normal text-sky-300">
                     SAR
                   </span>

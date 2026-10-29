@@ -1,360 +1,492 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
 import { tText } from '@/lib/i18n';
 import {
-  Bot,
   ArrowLeft,
   ArrowRight,
   Sparkles,
   Calculator,
   CheckCircle2,
-  Layers,
-  ShieldCheck,
-  Compass,
-  Building2,
-  Umbrella,
-  Paintbrush,
-  PhoneCall,
+  MapPin,
 } from 'lucide-react';
+
+interface AnimatedCounterProps {
+  valueStr: string;
+  duration?: number;
+  triggerKey?: number;
+}
+
+function AnimatedCounter({
+  valueStr,
+  duration = 1800,
+  triggerKey = 0,
+}: AnimatedCounterProps) {
+  const numericMatch = valueStr.match(/\d+/);
+  const target = numericMatch ? parseInt(numericMatch[0], 10) : 0;
+  const hasPlus = valueStr.includes('+');
+  const padZero = target < 10 && !hasPlus;
+
+  const [count, setCount] = useState(0);
+  const [runKey, setRunKey] = useState(0);
+
+  useEffect(() => {
+    let startTime: number | null = null;
+    let rafId: number;
+
+    const step = (timestamp: number) => {
+      if (!startTime) startTime = timestamp;
+      const elapsed = timestamp - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.round(eased * target));
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        setCount(target);
+      }
+    };
+
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [target, duration, runKey, triggerKey]);
+
+  const formatted = padZero && count < 10 ? `0${count}` : `${count}`;
+
+  return (
+    <span
+      onMouseEnter={() => setRunKey((k) => k + 1)}
+      className="inline-flex items-baseline gap-0.5 tabular-nums tracking-tight select-none"
+    >
+      {hasPlus && <span className="text-[#208EC1] font-black">+</span>}
+      <span>{formatted}</span>
+    </span>
+  );
+}
 
 export default function HeroSection() {
   const { lang, dict, db } = useApp();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
 
-  // Cycle through top executed storefront/cladding projects or allow clicking
+  const heroRef = useRef<HTMLElement | null>(null);
+  const isSnappingRef = useRef<boolean>(false);
+
   const showcaseProjects = db.portfolio.slice(0, 6);
   const [activeIdx, setActiveIdx] = useState(0);
+  const [activeSpotlight, setActiveSpotlight] = useState(0);
+  const [badgeIdx, setBadgeIdx] = useState(0);
 
+  const badgeMessages =
+    lang === 'ar'
+      ? [
+          'لوحات إعلانية، واجهات ومقاولات في كل مناطق المملكة',
+          'تصنيع وتنفيذ مباشر من مصانعنا بضمان يصل إلى 10 سنوات',
+          'معاينة مجانية لموقعك وتصميم 3D قبل البدء بالتنفيذ',
+        ]
+      : lang === 'ur'
+      ? [
+          'سعودی عرب کے تمام شہروں میں سائن بورڈز، واجهات اور کنٹریکٹنگ',
+          'ہماری اپنی فیکٹری سے براہ راست تیاری اور 10 سال تک کی وارنٹی',
+          'مفت سائٹ وزٹ اور کام شروع کرنے سے پہلے تھری ڈی ڈیزائن',
+        ]
+      : [
+          'Signage, Facades & Contracting Across Saudi Arabia',
+          'Direct In-House Manufacturing With Up to 10-Year Warranty',
+          'Free Site Survey & 3D Preview Before Execution',
+        ];
+
+  // Seamless 3-message rotation inside the top badge (no dots or indicators)
+  useEffect(() => {
+    const badgeTimer = setInterval(() => {
+      setBadgeIdx((prev) => (prev + 1) % 3);
+    }, 3600);
+    return () => clearInterval(badgeTimer);
+  }, []);
+
+  // Auto-advance project showcase
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % showcaseProjects.length);
-    }, 5000);
+    }, 4800);
     return () => clearInterval(timer);
   }, [showcaseProjects.length]);
 
+  // Auto-spotlight cycle across the 4 quick-service rows & 4 stats pods
+  useEffect(() => {
+    const spotTimer = setInterval(() => {
+      setActiveSpotlight((prev) => (prev + 1) % 4);
+    }, 2800);
+    return () => clearInterval(spotTimer);
+  }, []);
+
+  // Full-Viewport One-Scroll Section Transition
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (window.innerWidth < 1024) return;
+      const heroEl = heroRef.current;
+      if (!heroEl) return;
+
+      if (isSnappingRef.current) {
+        e.preventDefault();
+        return;
+      }
+
+      const heroHeight = heroEl.offsetHeight;
+      const scrollY = window.scrollY;
+      const nextTargetY = Math.max(0, heroHeight - 86);
+
+      if (e.deltaY > 12 && scrollY < nextTargetY - 24) {
+        e.preventDefault();
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: nextTargetY,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 720);
+      } else if (
+        e.deltaY < -12 &&
+        scrollY > 10 &&
+        scrollY <= nextTargetY + 45
+      ) {
+        e.preventDefault();
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 720);
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (window.innerWidth < 1024) return;
+      const tag = (e.target as HTMLElement)?.tagName;
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
+
+      const heroEl = heroRef.current;
+      if (!heroEl) return;
+      const heroHeight = heroEl.offsetHeight;
+      const scrollY = window.scrollY;
+      const nextTargetY = Math.max(0, heroHeight - 86);
+
+      if (
+        (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') &&
+        scrollY < nextTargetY - 24
+      ) {
+        e.preventDefault();
+        window.scrollTo({ top: nextTargetY, behavior: 'smooth' });
+      } else if (
+        (e.key === 'ArrowUp' || e.key === 'PageUp') &&
+        scrollY > 10 &&
+        scrollY <= nextTargetY + 45
+      ) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
+
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
 
-  // 4 Frosted Glass Bento Cards (each holding 2 core links just like the reference image)
-  const glassCards = [
+  const serviceRows = [
     {
-      items: [
-        {
-          label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
-          href: '/services/3d-signage-and-cladding-facades',
-          icon: Sparkles,
-        },
-        {
-          label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
-          href: '/services/interior-design-and-fitout',
-          icon: Paintbrush,
-        },
-      ],
+      left: {
+        label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
+        href: '/services/3d-signage-and-cladding-facades',
+      },
+      right: {
+        label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
+        href: '/services/3d-signage-and-cladding-facades',
+      },
     },
     {
-      items: [
-        {
-          label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
-          href: '/services/general-contracting-and-glass',
-          icon: Building2,
-        },
-        {
-          label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
-          href: '/services/project-hoarding-and-fencing',
-          icon: Layers,
-        },
-      ],
+      left: {
+        label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
+        href: '/services/general-contracting-and-glass',
+      },
+      right: {
+        label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
+        href: '/services/interior-design-and-fitout',
+      },
     },
     {
-      items: [
-        {
-          label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
-          href: '/services/3d-signage-and-cladding-facades',
-          icon: Compass,
-        },
-        {
-          label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
-          href: '/services/car-shades-and-pergolas',
-          icon: Umbrella,
-        },
-      ],
+      left: {
+        label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
+        href: '/services/car-shades-and-pergolas',
+      },
+      right: {
+        label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
+        href: '/services/project-hoarding-and-fencing',
+      },
     },
     {
-      items: [
-        {
-          label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
-          href: '/services/exhibition-booths-and-events',
-          icon: ShieldCheck,
-        },
-        {
-          label: lang === 'ar' ? 'تواصل معنا' : 'Contact Us',
-          href: '/contact',
-          icon: PhoneCall,
-        },
-      ],
+      left: {
+        label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
+        href: '/services/exhibition-booths-and-events',
+      },
+      right: {
+        label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
+        href: '/contact',
+      },
+    },
+  ];
+
+  const statsItems = [
+    {
+      num: `+${db.settings.stats.projectsCount.replace('+', '')}`,
+      title: dict.hero.statsProjects,
+      sub:
+        lang === 'ar'
+          ? 'في الرياض وجدة والدمام ومختلف مدن المملكة'
+          : 'Delivered across Riyadh, Jeddah, Dammam & KSA',
+    },
+    {
+      num: db.settings.stats.servicesCount,
+      title: dict.hero.statsServices,
+      sub:
+        lang === 'ar'
+          ? 'تصنيع وتنفيذ مباشر من مصانعنا بدون وسطاء'
+          : 'Direct in-house fabrication & installation',
+    },
+    {
+      num: `+${db.settings.stats.partnersCount.replace('+', '')}`,
+      title: dict.hero.statsPartners,
+      sub:
+        lang === 'ar'
+          ? 'جهات حكومية ومستشفيات وشركات رائدة'
+          : 'Trusted by ministries, hospitals & brands',
+    },
+    {
+      num: '+10',
+      title: dict.hero.statsWarranty,
+      sub:
+        lang === 'ar'
+          ? 'ضمان شامل على الخامات والتركيب والإضاءة'
+          : 'Full warranty on materials & LED systems',
     },
   ];
 
   return (
-    <section className="relative overflow-hidden bg-[#f4f7fb] dark:bg-[#071324] transition-colors duration-300 -mt-24 pt-28">
-      {/* Continuous Flowing Geometric Stream & Animated Wave Background (انميشن سيل هندسي متصل بدون توقف) */}
+    <section
+      ref={heroRef}
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[90px] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+    >
+      {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Soft Ambient Light Glows (No harsh giant circles) */}
-        <div className="absolute top-10 right-1/4 w-[420px] h-[260px] rounded-full bg-[#38bdf8]/12 dark:bg-[#208EC1]/15 blur-[95px]" />
-        <div className="absolute bottom-16 left-1/4 w-[380px] h-[240px] rounded-full bg-[#208EC1]/10 dark:bg-sky-500/10 blur-[90px]" />
-
-        {/* Subtle Architectural Blueprint Mesh (Soft Faded Edges) */}
+        <div className="absolute -top-10 right-[18%] w-[520px] h-[320px] rounded-full bg-white/80 dark:bg-[#208EC1]/12 blur-[95px] animate-aura-slow" />
         <div
-          className="absolute inset-0 opacity-[0.18] dark:opacity-[0.07]"
+          className="absolute bottom-8 left-[15%] w-[460px] h-[280px] rounded-full bg-[#208EC1]/10 dark:bg-sky-500/10 blur-[110px] animate-aura-slow"
+          style={{ animationDelay: '-5s' }}
+        />
+
+        <div
+          className="absolute inset-0 opacity-[0.14] dark:opacity-[0.05]"
           style={{
             backgroundImage:
               'linear-gradient(to right, #94a3b8 1px, transparent 1px), linear-gradient(to bottom, #94a3b8 1px, transparent 1px)',
-            backgroundSize: '38px 38px',
+            backgroundSize: '48px 48px',
             maskImage:
-              'radial-gradient(ellipse at 50% 45%, black 20%, transparent 75%)',
+              'radial-gradient(ellipse at 50% 42%, black 15%, transparent 72%)',
             WebkitMaskImage:
-              'radial-gradient(ellipse at 50% 45%, black 20%, transparent 75%)',
+              'radial-gradient(ellipse at 50% 42%, black 15%, transparent 72%)',
           }}
         />
 
-        {/* Animated Flowing Wave Ribbons across the bottom */}
-        <svg
-          className="absolute -inset-x-10 bottom-0 w-[calc(100%+80px)] h-[490px] opacity-90 dark:opacity-35 animate-wave-float"
-          viewBox="0 0 1920 500"
-          fill="none"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M-100 390 C 340 240, 720 490, 1140 315 C 1490 175, 1730 250, 2020 365 L 2020 500 L -100 500 Z"
-            fill="url(#cyanWaveGrad)"
-          />
-          <path
-            d="M-100 330 C 380 175, 760 445, 1200 265 C 1540 125, 1780 215, 2020 325"
-            stroke="#208EC1"
-            strokeOpacity="0.26"
-            strokeWidth="2"
-            strokeDasharray="10 8"
-          />
-          <path
-            d="M-100 358 C 380 200, 760 470, 1200 292 C 1540 152, 1780 242, 2020 352"
-            stroke="#11345C"
-            strokeOpacity="0.14"
-            strokeWidth="1.5"
-          />
-          <defs>
-            <linearGradient id="cyanWaveGrad" x1="0" y1="0" x2="1920" y2="500" gradientUnits="userSpaceOnUse">
-              <stop offset="0%" stopColor="#bae6fd" stopOpacity="0.32" />
-              <stop offset="55%" stopColor="#7dd3fc" stopOpacity="0.52" />
-              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.22" />
-            </linearGradient>
-          </defs>
-        </svg>
-
-        {/* Continuous Non-Stop Stream of Delicate Geometric Triangles & Diamonds (سيل متحرك بلا توقف) */}
-        {[
-          { top: '9%', size: 22, dur: '18s', delay: '-1s', color: '#208EC1', type: 'tri-solid', rev: false },
-          { top: '14%', size: 16, dur: '22s', delay: '-7s', color: '#38bdf8', type: 'tri-outline', rev: false },
-          { top: '19%', size: 28, dur: '25s', delay: '-14s', color: '#11345C', type: 'tri-solid', rev: false },
-          { top: '24%', size: 18, dur: '19s', delay: '-4s', color: '#0284c7', type: 'diamond', rev: true },
-          { top: '29%', size: 24, dur: '21s', delay: '-11s', color: '#38bdf8', type: 'tri-solid', rev: false },
-          { top: '34%', size: 15, dur: '17s', delay: '-16s', color: '#f59e0b', type: 'tri-outline', rev: false },
-          { top: '39%', size: 26, dur: '24s', delay: '-6s', color: '#208EC1', type: 'tri-outline', rev: true },
-          { top: '44%', size: 20, dur: '20s', delay: '-13s', color: '#7dd3fc', type: 'tri-solid', rev: false },
-          { top: '49%', size: 16, dur: '16s', delay: '-2s', color: '#11345C', type: 'diamond', rev: false },
-          { top: '54%', size: 24, dur: '23s', delay: '-9s', color: '#208EC1', type: 'tri-solid', rev: true },
-          { top: '59%', size: 19, dur: '18s', delay: '-15s', color: '#38bdf8', type: 'tri-outline', rev: false },
-          { top: '64%', size: 28, dur: '26s', delay: '-5s', color: '#0ea5e9', type: 'tri-solid', rev: false },
-          { top: '69%', size: 17, dur: '19s', delay: '-12s', color: '#fbbf24', type: 'diamond', rev: true },
-          { top: '74%', size: 23, dur: '22s', delay: '-8s', color: '#11345C', type: 'tri-outline', rev: false },
-          { top: '79%', size: 21, dur: '20s', delay: '-17s', color: '#38bdf8', type: 'tri-solid', rev: false },
-          { top: '84%', size: 15, dur: '17s', delay: '-3s', color: '#208EC1', type: 'tri-outline', rev: true },
-          { top: '16%', size: 20, dur: '21s', delay: '-19s', color: '#0284c7', type: 'tri-solid', rev: false },
-          { top: '62%', size: 22, dur: '24s', delay: '-21s', color: '#38bdf8', type: 'tri-outline', rev: false },
-        ].map((p, idx) => (
-          <div
-            key={idx}
-            className={`absolute left-1/2 ${
-              p.rev ? 'animate-hero-stream-reverse' : 'animate-hero-stream'
-            }`}
-            style={{
-              top: p.top,
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-              animationDuration: p.dur,
-              animationDelay: p.delay,
-            }}
-          >
-            <svg
-              viewBox="0 0 32 32"
-              className="w-full h-full overflow-visible drop-shadow-sm"
-            >
-              {p.type === 'tri-solid' && (
-                <polygon
-                  points="16,3 29,27 3,27"
-                  fill={p.color}
-                  fillOpacity="0.45"
-                />
-              )}
-              {p.type === 'tri-outline' && (
-                <polygon
-                  points="16,3 29,27 3,27"
-                  fill="none"
-                  stroke={p.color}
-                  strokeWidth="2.4"
-                  strokeOpacity="0.55"
-                />
-              )}
-              {p.type === 'diamond' && (
-                <polygon
-                  points="16,2 30,16 16,30 2,16"
-                  fill={p.color}
-                  fillOpacity="0.38"
-                />
-              )}
-            </svg>
-          </div>
-        ))}
+        <div className="absolute top-[20%] inset-x-0 h-[1px] bg-gradient-to-r from-transparent via-[#208EC1]/15 to-transparent overflow-hidden">
+          <div className="w-1/4 h-full bg-gradient-to-r from-transparent via-[#208EC1]/50 to-transparent animate-line-glide" />
+        </div>
       </div>
 
-      {/* Main Hero Content Container */}
-      <div className="relative z-10 w-full max-w-[1560px] mx-auto px-4 sm:px-8 lg:px-12 pt-6 pb-14 lg:py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 xl:gap-14 items-center">
-          {/* Right Column (RTL Start): Badge + Giant Headline + Subtitle + 2 Pill Buttons + 4 Glass Cards */}
-          <div className="lg:col-span-7 space-y-6 text-start">
-            {/* Soft Frosted Pill Badge */}
-            <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-slate-200/80 dark:bg-white/10 border border-slate-300/80 dark:border-white/15 text-[#0f2544] dark:text-sky-200 text-xs sm:text-[13px] font-bold shadow-sm">
-              <span className="flex items-center gap-1">
-                <span className="w-2 h-2 rounded-full border border-slate-500 dark:border-sky-300" />
-                <span className="w-2 h-2 rounded-full bg-[#208EC1]" />
+      {/* Main Center Hero Content */}
+      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1480px] mx-auto px-4 sm:px-8 lg:px-12 py-1.5">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-7 xl:gap-10 items-center">
+          {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
+          <div className="lg:col-span-7 space-y-3.5 text-start max-w-2xl">
+            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Zero Dots/Indicators) */}
+            <div
+              style={{ animationDelay: '0ms' }}
+              className="animate-card-cascade inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#0f2544] dark:text-slate-100 text-[11px] sm:text-xs font-extrabold shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden"
+            >
+              <span className="relative flex h-2 w-2 shrink-0">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#208EC1] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#208EC1]" />
               </span>
-              <span>{dict.hero.badge}</span>
+              <span key={badgeIdx} className="animate-badge-text inline-block">
+                {badgeMessages[badgeIdx]}
+              </span>
             </div>
 
-            {/* 3-Line Executive Headline with New Cairo Display Font */}
-            <h1 className="font-display font-black text-3xl sm:text-5xl xl:text-[54px] leading-[1.32] text-[#0f2544] dark:text-white tracking-tight">
+            {/* Clean Monochromatic 3D Extruded Headline */}
+            <h1
+              style={{ animationDelay: '80ms' }}
+              className="animate-card-cascade heading-3d-hero font-display font-extrabold text-2xl sm:text-3xl lg:text-[31px] xl:text-[34px] leading-[1.4] tracking-tight"
+            >
               <span className="block">
                 {lang === 'ar' ? (
                   <>
-                    نصنع <span className="text-[#208EC1]">حضورك البصري..</span>
+                    نصمم وننفذ{' '}
+                    <span className="heading-3d-cyan">واجهة مشروعك</span>
                   </>
                 ) : (
-                  <span className="text-[#208EC1]">{dict.hero.titleLine1}</span>
+                  <span className="heading-3d-cyan">{dict.hero.titleLine1}</span>
                 )}
               </span>
-              <span className="block mt-1.5">
-                {lang === 'ar'
-                  ? 'ونبني واجهات المستقبل بأعلى'
-                  : dict.hero.titleLine2}
-              </span>
-              {lang === 'ar' && (
-                <span className="block mt-1.5">المعايير الهندسية</span>
-              )}
+              <span className="block mt-1.5">{dict.hero.titleLine2}</span>
             </h1>
 
-            {/* Clean Subtitle */}
-            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-[15.5px] leading-relaxed max-w-2xl font-medium">
+            {/* Natural, Easy-to-Read Subtitle */}
+            <p
+              style={{ animationDelay: '150ms' }}
+              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium max-w-xl"
+            >
               {dict.hero.subtitle}
             </p>
 
-            {/* 2 Primary Pill Buttons in a Horizontal Row (Removed AI Engineer Button as requested) */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
+            {/* 2 Primary Pill Buttons */}
+            <div
+              style={{ animationDelay: '210ms' }}
+              className="animate-card-cascade flex flex-wrap items-center gap-2.5 pt-0.5"
+            >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2.5 whitespace-nowrap px-7 py-3.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-lg shadow-[#0f2544]/20 transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Sparkles className="w-4 h-4 text-sky-300" />
+                <Sparkles className="w-3.5 h-3.5 text-[#208EC1]" />
                 <span>{dict.hero.ctaPrimary}</span>
-                <ArrowIcon className="w-4 h-4 text-sky-300" />
+                <ArrowIcon className="w-3.5 h-3.5" />
               </Link>
 
               <Link
                 href="/calculator"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-3.5 rounded-full bg-white/90 dark:bg-white/10 hover:bg-white text-[#0f2544] dark:text-white border border-slate-300/80 dark:border-white/20 font-extrabold text-xs sm:text-sm shadow-sm backdrop-blur-md transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Calculator className="w-4 h-4 text-[#208EC1]" />
+                <Calculator className="w-3.5 h-3.5 text-[#208EC1]" />
                 <span>{dict.nav.calculator}</span>
               </Link>
             </div>
 
-            {/* 4 Frosted Glass Bento Cards Below Buttons */}
-            <div className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {glassCards.map((card, cIdx) => (
-                <div
-                  key={cIdx}
-                  className="rounded-2xl bg-white/75 dark:bg-[#0d213b]/80 backdrop-blur-md border border-white dark:border-white/10 shadow-[0_8px_25px_-8px_rgba(15,37,68,0.1)] p-3.5 flex flex-col justify-center space-y-2.5"
-                >
-                  {card.items.map((it, iIdx) => {
-                    const ItemIcon = it.icon;
-                    return (
-                      <Link
-                        key={iIdx}
-                        href={it.href}
-                        className="group flex items-center gap-2 text-xs sm:text-[13px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors"
-                      >
-                        <CheckCircle2 className="w-4 h-4 text-[#208EC1] shrink-0 group-hover:scale-110 transition-transform" />
-                        <span className="truncate">{it.label}</span>
-                      </Link>
-                    );
-                  })}
-                </div>
-              ))}
+            {/* Auto-Presenting 2x2 Floating Porcelain Quick-Service Cards */}
+            <div className="pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {serviceRows.map((pair, idx) => {
+                const isSpotlit = activeSpotlight === idx;
+                return (
+                  <div
+                    key={idx}
+                    style={{ animationDelay: `${260 + idx * 55}ms` }}
+                    onMouseEnter={() => setActiveSpotlight(idx)}
+                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3.5 py-2 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                      isSpotlit
+                        ? 'border-[#208EC1]/65 shadow-[0_14px_30px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
+                        : 'border-slate-200/95 dark:border-white/10 shadow-[0_10px_24px_-8px_rgba(15,37,68,0.09)] hover:border-[#208EC1]/50 hover:-translate-y-0.5'
+                    }`}
+                  >
+                    <Link
+                      href={pair.left.href}
+                      className="flex items-center gap-1.5 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate"
+                    >
+                      <CheckCircle2
+                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 ${
+                          isSpotlit
+                            ? 'text-[#208EC1] scale-110'
+                            : 'text-[#208EC1]'
+                        }`}
+                      />
+                      <span className="truncate">{pair.left.label}</span>
+                    </Link>
+                    <Link
+                      href={pair.right.href}
+                      className="flex items-center gap-1.5 ps-2 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate"
+                    >
+                      <CheckCircle2
+                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 ${
+                          isSpotlit
+                            ? 'text-[#208EC1] scale-110'
+                            : 'text-[#208EC1]'
+                        }`}
+                      />
+                      <span className="truncate">{pair.right.label}</span>
+                    </Link>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Left Column (RTL End): Single Bold Framed Project Card matching reference image */}
-          <div className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[490px]">
-              {/* Outer White/Glass Frame */}
-              <div className="rounded-[34px] p-2.5 bg-white/85 dark:bg-white/10 backdrop-blur-xl border border-white dark:border-white/20 shadow-[0_30px_70px_-15px_rgba(15,37,68,0.32)]">
-                <Link
-                  href={`/portfolio/${currentProject.slug}`}
-                  className="group relative block rounded-[26px] overflow-hidden aspect-[11/10] bg-slate-900"
-                >
-                  <img
-                    src={
-                      currentProject.type === 'video'
-                        ? currentProject.poster || currentProject.src
-                        : currentProject.src
-                    }
-                    alt={tText(currentProject.alt, lang)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/15 to-transparent" />
+          {/* Left Column (RTL End): Animated Floating 3D Project Showcase with Smooth Crossfade */}
+          <div
+            style={{ animationDelay: '180ms' }}
+            className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end"
+          >
+            <div className="relative w-full max-w-[435px] animate-float-3d">
+              <div className="rounded-[32px] p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_24px_54px_-14px_rgba(15,37,68,0.16),0_6px_18px_-4px_rgba(15,37,68,0.06)]">
+                <div className="rounded-[25px] p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
+                  <Link
+                    href={`/portfolio/${currentProject.slug}`}
+                    className="group relative block rounded-[18px] overflow-hidden aspect-[16/11] bg-slate-900"
+                  >
+                    <img
+                      key={currentProject.id}
+                      src={
+                        currentProject.type === 'video'
+                          ? currentProject.poster || currentProject.src
+                          : currentProject.src
+                      }
+                      alt={tText(currentProject.alt, lang)}
+                      className="w-full h-full object-cover animate-hero-showcase transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0f2544]/85 via-[#0f2544]/15 to-transparent" />
 
-                  {/* Bottom Overlay Info matching reference image */}
-                  <div className="absolute bottom-4 inset-x-4 flex items-end justify-between gap-3">
-                    <div className="text-start">
-                      <p className="text-[11px] font-bold text-sky-300">
-                        {lang === 'ar'
-                          ? `مشروع منفذ ومعتمد · ${tText(currentProject.city, lang)}`
-                          : `Verified Project · ${tText(currentProject.city, lang)}`}
-                      </p>
-                      <h2 className="text-base sm:text-lg font-extrabold text-white line-clamp-1">
-                        {tText(currentProject.title, lang)}
-                      </h2>
+                    <div
+                      key={`caption-${currentProject.id}`}
+                      className="animate-tab-switch absolute bottom-3 inset-x-3.5 flex items-end justify-between gap-2.5"
+                    >
+                      <div className="text-start">
+                        <p className="text-[11px] font-bold text-sky-300 flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#208EC1] shrink-0" />
+                          <span>
+                            {lang === 'ar'
+                              ? `من أعمالنا · ${tText(currentProject.city, lang)}`
+                              : `Delivered · ${tText(currentProject.city, lang)}`}
+                          </span>
+                        </p>
+                        <h2 className="text-xs sm:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
+                          {tText(currentProject.title, lang)}
+                        </h2>
+                      </div>
+
+                      <span className="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/95 text-[#0f2544] text-[10px] font-extrabold shadow-sm">
+                        {lang === 'ar' ? 'ضمان 10 سنوات' : '10-Yr Warranty'}
+                      </span>
                     </div>
-
-                    <span className="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-black/65 backdrop-blur-md text-white text-xs font-bold border border-white/15">
-                      {lang === 'ar' ? 'ضمان 10 سنوات' : '10-Yr Warranty'}
-                    </span>
-                  </div>
-                </Link>
+                  </Link>
+                </div>
               </div>
 
-              {/* Subtle Slide Dots under the frame */}
-              <div className="flex items-center justify-center gap-1.5 mt-3">
+              <div className="flex items-center justify-center gap-1.5 mt-2">
                 {showcaseProjects.map((p, idx) => (
                   <button
                     key={p.id}
                     type="button"
                     onClick={() => setActiveIdx(idx)}
                     aria-label={`عرض مشروع ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all ${
+                    className={`h-1.5 rounded-full transition-all duration-500 ${
                       activeIdx === idx
                         ? 'w-7 bg-[#208EC1]'
-                        : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-[#208EC1]/50'
+                        : 'w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-[#208EC1]/50'
                     }`}
                   />
                 ))}
@@ -364,59 +496,50 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Unified Stats Bar on Soft Grey Band matching reference image */}
-      <div className="relative z-10 bg-[#e9eef5]/90 dark:bg-[#09182c] py-7 border-y border-slate-200/80 dark:border-white/10">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
-          <div className="rounded-[28px] bg-white dark:bg-[#0d213b] border border-slate-200/80 dark:border-white/10 shadow-[0_10px_30px_-12px_rgba(15,37,68,0.08)] px-6 sm:px-10 py-6 grid grid-cols-2 lg:grid-cols-4 gap-6 lg:divide-x lg:divide-x-reverse divide-slate-100 dark:divide-white/10">
-            {[
-              {
-                num: `+${db.settings.stats.projectsCount.replace('+', '')}`,
-                title: dict.hero.statsProjects,
-                sub:
-                  lang === 'ar'
-                    ? 'في الرياض وجدة والدمام وكافة مناطق المملكة'
-                    : 'Delivered across Riyadh, Jeddah, Dammam & KSA',
-              },
-              {
-                num: db.settings.stats.servicesCount,
-                title: dict.hero.statsServices,
-                sub:
-                  lang === 'ar'
-                    ? 'تصنيع وتنفيذ مباشر بأحدث المكائن بدون وسطاء'
-                    : 'Direct in-house fabrication & engineering',
-              },
-              {
-                num: `+${db.settings.stats.partnersCount.replace('+', '')}`,
-                title: dict.hero.statsPartners,
-                sub:
-                  lang === 'ar'
-                    ? 'شراكات استراتيجية مع وزارات ومستشفيات كبرى'
-                    : 'Trusted by ministries, hospitals & top brands',
-              },
-              {
-                num: '+10',
-                title: dict.hero.statsWarranty,
-                sub:
-                  lang === 'ar'
-                    ? 'ضمان رسمي مكتوب على الخامات والتركيب والإضاءة'
-                    : 'Written warranty on materials & LED systems',
-              },
-            ].map((st, i) => (
-              <div key={i} className="text-center px-2">
-                <p
-                  dir="ltr"
-                  className="font-display font-extrabold text-3xl sm:text-4xl text-[#208EC1]"
+      {/* Bottom Double-Framed 4-Pod Floating Stats Bar Inside the Same 100dvh Screen */}
+      <div className="relative z-10 w-full max-w-[1460px] mx-auto px-4 sm:px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
+        <div className="rounded-[26px] bg-white/65 dark:bg-[#0b1b32]/80 backdrop-blur-xl border border-white dark:border-white/10 p-2 shadow-[0_18px_44px_-12px_rgba(15,37,68,0.11)]">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+            {statsItems.map((st, i) => {
+              const isSpotlit = activeSpotlight === i;
+              return (
+                <div
+                  key={i}
+                  onMouseEnter={() => setActiveSpotlight(i)}
+                  className={`group relative rounded-[18px] bg-white dark:bg-[#0c1d34] border px-3.5 py-2.5 sm:px-4 sm:py-3 text-center transition-all duration-500 ${
+                    isSpotlit
+                      ? 'border-[#208EC1]/70 shadow-[0_12px_26px_-6px_rgba(32,142,193,0.16)] -translate-y-0.5'
+                      : 'border-slate-200/85 dark:border-white/10 shadow-[0_6px_18px_-6px_rgba(15,37,68,0.06)] hover:-translate-y-0.5 hover:border-[#208EC1]/60'
+                  }`}
                 >
-                  {st.num}
-                </p>
-                <p className="font-display font-bold text-xs sm:text-sm text-[#0f2544] dark:text-white mt-1">
-                  {st.title}
-                </p>
-                <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5 line-clamp-1">
-                  {st.sub}
-                </p>
-              </div>
-            ))}
+                  <span
+                    className={`block h-[2.5px] rounded-full transition-all duration-500 mx-auto mb-1 ${
+                      isSpotlit
+                        ? 'w-10 bg-[#208EC1]'
+                        : 'w-5 bg-[#208EC1]/35 group-hover:w-9 group-hover:bg-[#208EC1]'
+                    }`}
+                  />
+
+                  <p
+                    dir="ltr"
+                    className="font-display font-black text-xl sm:text-2xl xl:text-[26px] leading-none text-[#208EC1]"
+                  >
+                    <AnimatedCounter
+                      valueStr={st.num}
+                      duration={1600 + i * 220}
+                    />
+                  </p>
+
+                  <p className="font-display font-extrabold text-xs sm:text-[13px] text-[#0f2544] dark:text-white mt-1">
+                    {st.title}
+                  </p>
+
+                  <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5 line-clamp-1 hidden sm:block">
+                    {st.sub}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
