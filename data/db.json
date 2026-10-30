@@ -9314,7 +9314,14 @@
       }
     ],
     "learnedQA": [],
-    "unansweredQuestions": []
+    "unansweredQuestions": [
+      {
+        "id": "uq-1793370847249",
+        "question": "تسوون كلادنج لمحطات ؟",
+        "userLang": "ar",
+        "createdAt": "2026-10-30 14:34"
+      }
+    ]
   },
   "leads": [
     {
