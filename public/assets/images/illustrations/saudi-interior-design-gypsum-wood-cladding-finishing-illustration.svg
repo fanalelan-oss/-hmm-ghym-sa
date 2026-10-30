@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="صالة بتشطيب داخلي وجدار شرائح خشبية">
+  <defs>
+    <linearGradient id="cove" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5CB8E4" stop-opacity=".35"/>
+      <stop offset="1" stop-color="#5CB8E4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#D9DDE5"/>
+      <stop offset="1" stop-color="#C9CFDA"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="#F3F4F7"/>
+
+  <!-- السقف والإضاءة المخفية -->
+  <rect width="800" height="70" fill="#FFFFFF"/>
+  <rect y="70" width="800" height="16" fill="#E1E5EC"/>
+  <rect y="86" width="800" height="5" fill="#5CB8E4" opacity=".7"/>
+  <rect y="91" width="800" height="80" fill="url(#cove)"/>
+
+  <!-- ألواح رخام جانبية -->
+  <rect x="70" y="150" width="160" height="300" fill="#FFFFFF"/>
+  <rect x="570" y="150" width="160" height="300" fill="#FFFFFF"/>
+  <path d="M90 190c30 20 40 60 90 80M110 330c20-30 60-30 100-60M590 210c40 10 60 50 120 60M600 380c30-20 70-10 110-50" stroke="#E1E5EC" stroke-width="3" fill="none"/>
+
+  <!-- جدار الشرائح الخشبية -->
+  <rect x="250" y="150" width="300" height="300" fill="#7A4E2C"/>
+  <g fill="#B98A5E">
+    <rect x="258" y="150" width="14" height="300"/><rect x="282" y="150" width="14" height="300"/>
+    <rect x="306" y="150" width="14" height="300"/><rect x="330" y="150" width="14" height="300"/>
+    <rect x="354" y="150" width="14" height="300"/><rect x="378" y="150" width="14" height="300"/>
+    <rect x="402" y="150" width="14" height="300"/><rect x="426" y="150" width="14" height="300"/>
+    <rect x="450" y="150" width="14" height="300"/><rect x="474" y="150" width="14" height="300"/>
+    <rect x="498" y="150" width="14" height="300"/><rect x="522" y="150" width="14" height="300"/>
+  </g>
+
+  <!-- الأرضية -->
+  <rect y="450" width="800" height="150" fill="url(#floor)"/>
+  <path d="M0 500h800M0 556h800M200 450l-44 150M400 450v150M600 450l44 150" stroke="#B8BFCC" stroke-width="2"/>
+
+  <!-- الكنبة -->
+  <rect x="244" y="352" width="312" height="52" rx="16" fill="#3AA3D3"/>
+  <rect x="230" y="392" width="340" height="62" rx="14" fill="#208EC1"/>
+  <rect x="212" y="382" width="46" height="80" rx="12" fill="#1A77A3"/>
+  <rect x="542" y="382" width="46" height="80" rx="12" fill="#1A77A3"/>
+  <rect x="236" y="460" width="10" height="16" rx="2" fill="#3A4255"/>
+  <rect x="554" y="460" width="10" height="16" rx="2" fill="#3A4255"/>
+  <rect x="300" y="366" width="70" height="40" rx="10" fill="#5CB8E4"/>
+
+  <!-- الإضاءة المعلّقة -->
+  <path d="M660 91v130" stroke="#3A4255" stroke-width="3"/>
+  <path d="M624 252c0-22 16-34 36-34s36 12 36 34z" fill="#0F1523"/>
+  <ellipse cx="660" cy="254" rx="30" ry="6" fill="#5CB8E4"/>
+  <ellipse cx="660" cy="300" rx="70" ry="40" fill="#5CB8E4" opacity=".12"/>
+
+  <!-- نبتة -->
+  <rect x="110" y="410" width="44" height="46" rx="6" fill="#4E5870"/>
+  <path d="M132 410c-26-30-30-60-10-80M132 410c10-40 30-56 46-60M132 410c-6-30 4-60 14-76" stroke="#0F7A4F" stroke-width="8" stroke-linecap="round" fill="none"/>
+</svg>

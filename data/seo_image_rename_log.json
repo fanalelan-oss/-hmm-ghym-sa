@@ -1,0 +1,818 @@
+[
+  {
+    "original": "assets/images/logo.svg",
+    "seo_path": "/assets/images/brand/himam-ghaim-signage-contracting-company-logo-saudi.svg",
+    "keywords_ar": "شعار شركة همم غيم للدعاية والإعلان والمقاولات السعودية",
+    "keywords_en": "Himam Ghaim Advertising Signage and Contracting Company Saudi Arabia Logo"
+  },
+  {
+    "original": "assets/images/logo-light.svg",
+    "seo_path": "/assets/images/brand/himam-ghaim-signage-contracting-logo-white-saudi.svg",
+    "keywords_ar": "شعار شركة همم غيم الأبيض للدعاية والإعلان والمقاولات",
+    "keywords_en": "Himam Ghaim Advertising and Contracting White Logo Saudi Arabia"
+  },
+  {
+    "original": "assets/images/favicon.svg",
+    "seo_path": "/assets/images/brand/himam-ghaim-favicon-icon.svg",
+    "keywords_ar": "أيقونة شركة همم غيم",
+    "keywords_en": "Himam Ghaim Favicon"
+  },
+  {
+    "original": "assets/images/illustrations/signage.svg",
+    "seo_path": "/assets/images/illustrations/saudi-3d-signage-acrylic-cladding-storefront-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة signage شركة همم غيم",
+    "keywords_en": "Himam Ghaim signage service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/stickers.svg",
+    "seo_path": "/assets/images/illustrations/saudi-vehicle-wrapping-Fleet-glass-stickers-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة stickers شركة همم غيم",
+    "keywords_en": "Himam Ghaim stickers service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/hoarding.svg",
+    "seo_path": "/assets/images/illustrations/saudi-construction-project-hoarding-fence-printing-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة hoarding شركة همم غيم",
+    "keywords_en": "Himam Ghaim hoarding service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/exhibitions.svg",
+    "seo_path": "/assets/images/illustrations/saudi-exhibition-booth-stand-design-fabrication-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة exhibitions شركة همم غيم",
+    "keywords_en": "Himam Ghaim exhibitions service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/shades.svg",
+    "seo_path": "/assets/images/illustrations/saudi-car-parking-tensile-shades-pergolas-screens-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة shades شركة همم غيم",
+    "keywords_en": "Himam Ghaim shades service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/interiors.svg",
+    "seo_path": "/assets/images/illustrations/saudi-interior-design-gypsum-wood-cladding-finishing-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة interiors شركة همم غيم",
+    "keywords_en": "Himam Ghaim interiors service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/contracting.svg",
+    "seo_path": "/assets/images/illustrations/saudi-general-contracting-building-construction-renovation-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة contracting شركة همم غيم",
+    "keywords_en": "Himam Ghaim contracting service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/illustrations/safety.svg",
+    "seo_path": "/assets/images/illustrations/saudi-cctv-security-fire-fighting-sprinklers-safety-illustration.svg",
+    "keywords_ar": "رسم توضيحي خدمة safety شركة همم غيم",
+    "keywords_en": "Himam Ghaim safety service illustration Saudi Arabia"
+  },
+  {
+    "original": "assets/images/letter-types/front-lit.webp",
+    "seo_path": "/assets/images/letter-types/3d-front-lit-acrylic-led-channel-letters-saudi.webp",
+    "keywords_ar": "أحرف بارزة مضيئة من الأمام (Front-Lit)",
+    "keywords_en": "Front-Lit 3D Acrylic Letters"
+  },
+  {
+    "original": "assets/images/letter-types/halo-lit.webp",
+    "seo_path": "/assets/images/letter-types/3d-halo-backlit-stainless-steel-gold-letters-saudi.webp",
+    "keywords_ar": "أحرف بإضاءة خلفية هالة (Halo / Backlit)",
+    "keywords_en": "Halo Backlit 3D Luxury Letters"
+  },
+  {
+    "original": "assets/images/letter-types/side-lit.webp",
+    "seo_path": "/assets/images/letter-types/3d-side-lit-edge-glow-letters-saudi.webp",
+    "keywords_ar": "أحرف بإضاءة جانبية (Side-Lit)",
+    "keywords_en": "Edge / Side-Lit 3D Letters"
+  },
+  {
+    "original": "assets/images/letter-types/front-side-lit.webp",
+    "seo_path": "/assets/images/letter-types/3d-full-lit-front-and-side-rgb-letters-saudi.webp",
+    "keywords_ar": "أحرف مضيئة بالكامل من الأمام والجوانب",
+    "keywords_en": "Full-Lit Front & Side 3D Letters"
+  },
+  {
+    "original": "assets/images/letter-types/metal.webp",
+    "seo_path": "/assets/images/letter-types/3d-stainless-steel-aluminum-metallic-letters-saudi.webp",
+    "keywords_ar": "أحرف معدنية (ستانلس ستيل وألمنيوم)",
+    "keywords_en": "Brushed & Mirror Metal 3D Letters"
+  },
+  {
+    "original": "assets/images/letter-types/perforated-lit.webp",
+    "seo_path": "/assets/images/letter-types/3d-perforated-cnc-laser-lit-letters-saudi.webp",
+    "keywords_ar": "أحرف مخرّمة بالليزر مضيئة",
+    "keywords_en": "Perforated Laser-Cut Lit Letters"
+  },
+  {
+    "original": "assets/images/letter-types/printed-face.webp",
+    "seo_path": "/assets/images/letter-types/3d-uv-printed-colorful-brand-letters-saudi.webp",
+    "keywords_ar": "أحرف بوجه مطبوع بألوان الهوية (UV)",
+    "keywords_en": "UV Color-Printed Face 3D Letters"
+  },
+  {
+    "original": "assets/images/letter-types/totem-sign.webp",
+    "seo_path": "/assets/images/letter-types/pylon-totem-freestanding-commercial-sign-saudi.webp",
+    "keywords_ar": "لوحات قائمة وتوتم (Pylon / Totem Signs)",
+    "keywords_en": "Pylon & Totem Freestanding Signs"
+  },
+  {
+    "original": "assets/images/partners/narcotics-control.webp",
+    "seo_path": "/assets/images/partners/partner-narcotics-control-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار المديرية العامة لمكافحة المخدرات شريك نجاح شركة همم غيم",
+    "keywords_en": "General Directorate of Narcotics Control Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/sustainable-agriculture-center.webp",
+    "seo_path": "/assets/images/partners/partner-sustainable-agriculture-center-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار المركز الوطني لأبحاث وتطوير الزراعة المستدامة (استدامة) شريك نجاح شركة همم غيم",
+    "keywords_en": "National Research and Development Center for Sustainable Agriculture (Estidamah) Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/petromin.webp",
+    "seo_path": "/assets/images/partners/partner-petromin-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار بترومين (Petromin) شريك نجاح شركة همم غيم",
+    "keywords_en": "Petromin Corporation Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/albaik.webp",
+    "seo_path": "/assets/images/partners/partner-albaik-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار البيك (ALBAIK) شريك نجاح شركة همم غيم",
+    "keywords_en": "ALBAIK Food Systems Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/aster-pharmacy.webp",
+    "seo_path": "/assets/images/partners/partner-aster-pharmacy-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار صيدليات أستر (Aster Pharmacy) شريك نجاح شركة همم غيم",
+    "keywords_en": "Aster Pharmacy Group Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/majesty-hospital.webp",
+    "seo_path": "/assets/images/partners/partner-majesty-hospital-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار مستشفى ماجستي (Majesty Hospital) شريك نجاح شركة همم غيم",
+    "keywords_en": "Majesty Hospital Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/al-faris-medical.webp",
+    "seo_path": "/assets/images/partners/partner-al-faris-medical-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار مجمع الفارس الطبي شريك نجاح شركة همم غيم",
+    "keywords_en": "Al-Faris Medical Complex Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/al-marwani.webp",
+    "seo_path": "/assets/images/partners/partner-al-marwani-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار مجموعة محلات المرواني للعطارة شريك نجاح شركة همم غيم",
+    "keywords_en": "Al-Marwani Group Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/nemow-amaal.webp",
+    "seo_path": "/assets/images/partners/partner-nemow-amaal-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار نمو أعمال للتشغيل والصيانة شريك نجاح شركة همم غيم",
+    "keywords_en": "Nemow Amaal Operation & Maintenance Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/altanfeethi.webp",
+    "seo_path": "/assets/images/partners/partner-altanfeethi-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار التنفيذي (Altanfeethi) شريك نجاح شركة همم غيم",
+    "keywords_en": "Altanfeethi Executive Lounges Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/mahkoor-tea.webp",
+    "seo_path": "/assets/images/partners/partner-mahkoor-tea-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار محكور تي (Mahkoor Tea) شريك نجاح شركة همم غيم",
+    "keywords_en": "Mahkoor Tea Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/fatoor-faris.webp",
+    "seo_path": "/assets/images/partners/partner-fatoor-faris-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار فطور فارس (Fatoor Faris) شريك نجاح شركة همم غيم",
+    "keywords_en": "Fatoor Faris Restaurants Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/partners/faris.webp",
+    "seo_path": "/assets/images/partners/partner-faris-himam-ghaim-saudi-client.webp",
+    "keywords_ar": "شعار علامة فارس التجارية (Faris) شريك نجاح شركة همم غيم",
+    "keywords_en": "Faris Brand Partner of Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/black-stamp-cafe-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp",
+    "keywords_ar": "أحرف بارزة لمقهى بلاك ستامب - واجهة مقهى بلاك ستامب بأحرف بارزة عربية وإنجليزية وشعار أخضر",
+    "keywords_en": "black-stamp-cafe-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/ncrdsa-booth.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-ncrdsa-booth-himam-ghaim.webp",
+    "keywords_ar": "جناح المركز الوطني لأبحاث وتطوير الزراعة المستدامة - جناح المركز الوطني لأبحاث وتطوير الزراعة المستدامة بخطوط خضراء وبيضاء مضيئة في قاعة معرض",
+    "keywords_en": "ncrdsa-booth exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/frosted-glass-office-pattern.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-frosted-glass-office-pattern-himam-ghaim.webp",
+    "keywords_ar": "استيكرات سنفرة لواجهات مكاتب - استيكر سنفرة بنقشة مثلثات ملوّنة على واجهات زجاج مكاتب",
+    "keywords_en": "frosted-glass-office-pattern stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/horses-relief-wall.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-horses-relief-wall-himam-ghaim.webp",
+    "keywords_ar": "جدار منحوت بخيول بارزة - جدار مجلس بمنحوتة جبسية بارزة لخيول خلف كنب بيج",
+    "keywords_en": "horses-relief-wall interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/islamic-pattern-screens.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-islamic-pattern-screens-himam-ghaim.webp",
+    "keywords_ar": "سواتر مخرّمة بنقوش إسلامية - سواتر مخرّمة بنقوش هندسية إسلامية أمام واجهة زجاجية تعلوها مظلة بيضاء منحنية أثناء التركيب",
+    "keywords_en": "islamic-pattern-screens shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/muhaidib-hoarding-night.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-muhaidib-hoarding-night-himam-ghaim.webp",
+    "keywords_ar": "تسوير مشروع المهيدب للتطوير العقاري - سور مشروع المهيدب للتطوير والاستثمار العقاري بطباعة ملوّنة على امتداد الطريق ليلاً",
+    "keywords_en": "muhaidib-hoarding-night hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/videos/villa-finishing-corridor.mp4",
+    "seo_path": "/assets/videos/portfolio/saudi-general-contracting-facade-cladding-glass-villa-finishing-corridor-himam-ghaim.mp4",
+    "keywords_ar": "ممرات بإضاءة مخفية",
+    "keywords_en": "villa-finishing-corridor contracting video Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/villa-finishing-corridor-poster.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-villa-finishing-corridor-poster-himam-ghaim.webp",
+    "keywords_ar": "ممرات بإضاءة مخفية صورة غلاف",
+    "keywords_en": "villa-finishing-corridor-poster poster Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/sprinkler-riser-pipes.webp",
+    "seo_path": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-sprinkler-riser-pipes-himam-ghaim.webp",
+    "keywords_ar": "تمديد شبكة إطفاء الحريق - تمديدات مواسير إطفاء حريق حمراء في غرفة خدمات",
+    "keywords_en": "sprinkler-riser-pipes safety Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/al-saudi-restaurant-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-al-saudi-restaurant-facade-himam-ghaim.webp",
+    "keywords_ar": "واجهة وأحرف بارزة لمطعم السعودي - واجهة مطعم السعودي بألواح كلادينج رمادية وأحرف بارزة بالعربية والإنجليزية",
+    "keywords_en": "al-saudi-restaurant-facade signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/ncrdsa-booth-front.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-ncrdsa-booth-front-himam-ghaim.webp",
+    "keywords_ar": "واجهة جناح المركز الوطني للزراعة المستدامة - مدخل جناح المركز الوطني للزراعة المستدامة مع شاشة تفاعلية ونباتات",
+    "keywords_en": "ncrdsa-booth-front exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/frosted-glass-office-bands.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-frosted-glass-office-bands-himam-ghaim.webp",
+    "keywords_ar": "أشرطة سنفرة لقواطع زجاجية - أشرطة استيكر سنفرة أفقية على قواطع زجاج مكتب",
+    "keywords_en": "frosted-glass-office-bands stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/leaf-relief-wall.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-leaf-relief-wall-himam-ghaim.webp",
+    "keywords_ar": "جدار منحوت بنقشة أوراق - جدار بمنحوتة أوراق بارزة بإضاءة خلفية وأرضية رخام",
+    "keywords_en": "leaf-relief-wall interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/villas-perforated-screens.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-villas-perforated-screens-himam-ghaim.webp",
+    "keywords_ar": "سواتر مخرّمة لبلكونات فلل - صف فلل بسواتر معدنية مخرّمة على البلكونات وواجهات بلون الخشب",
+    "keywords_en": "villas-perforated-screens shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/aramco-hoarding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-aramco-hoarding-himam-ghaim.webp",
+    "keywords_ar": "سور موقع بشعار أرامكو - سور أبيض بشعار أرامكو البارز وكشافات إضاءة علوية ليلاً",
+    "keywords_en": "aramco-hoarding hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/videos/villa-finishing-stairs.mp4",
+    "seo_path": "/assets/videos/portfolio/saudi-general-contracting-facade-cladding-glass-villa-finishing-stairs-himam-ghaim.mp4",
+    "keywords_ar": "تشطيب فيلا سكنية",
+    "keywords_en": "villa-finishing-stairs contracting video Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/villa-finishing-stairs-poster.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-villa-finishing-stairs-poster-himam-ghaim.webp",
+    "keywords_ar": "تشطيب فيلا سكنية صورة غلاف",
+    "keywords_en": "villa-finishing-stairs-poster poster Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/dahua-cctv-camera.webp",
+    "seo_path": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-dahua-cctv-camera-himam-ghaim.webp",
+    "keywords_ar": "تركيب كاميرا مراقبة خارجية - كاميرا مراقبة خارجية مثبتة على جدار مع صندوق توصيل وأنبوب كابلات",
+    "keywords_en": "dahua-cctv-camera safety Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/maraheb-halo-letters.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-maraheb-halo-letters-himam-ghaim.webp",
+    "keywords_ar": "شعار مطعم مراحب - شعار وأحرف مطعم مراحب بإضاءة خلفية على جدار المدخل",
+    "keywords_en": "maraheb-halo-letters signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/nemow-amaal-booth.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-nemow-amaal-booth-himam-ghaim.webp",
+    "keywords_ar": "جناح نمو أعمال - جناح نمو أعمال بلون أخضر وجلسة بيضاء وإضاءة مخفية في معرض",
+    "keywords_en": "nemow-amaal-booth exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/beez-truck-wrap.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-beez-truck-wrap-himam-ghaim.webp",
+    "keywords_ar": "تغليف شاحنات Beez - شاحنة بصندوق مغلّف باللون البرتقالي وشعار Beez داخل مستودع",
+    "keywords_en": "beez-truck-wrap stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/tv-wall-unit.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-tv-wall-unit-himam-ghaim.webp",
+    "keywords_ar": "وحدة جدار تلفزيون - جدار تلفزيون بوحدات بيضاء ورفوف زجاجية بإضاءة مخفية",
+    "keywords_en": "tv-wall-unit interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/villa-carport-tensile.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-villa-carport-tensile-himam-ghaim.webp",
+    "keywords_ar": "مظلة سيارة لفيلا - مظلة سيارة مشدودة بقماش أبيض وأقواس حديد سوداء أمام فيلا",
+    "keywords_en": "villa-carport-tensile shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/diriyah-hoarding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-diriyah-hoarding-himam-ghaim.webp",
+    "keywords_ar": "سور مطبوع بهوية الدرعية - سور مطبوع بهوية الدرعية على حواجز خرسانية",
+    "keywords_en": "diriyah-hoarding hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/videos/gold-pattern-facade.mp4",
+    "seo_path": "/assets/videos/portfolio/saudi-general-contracting-facade-cladding-glass-gold-pattern-facade-himam-ghaim.mp4",
+    "keywords_ar": "واجهة كلادينج بزخارف ذهبية",
+    "keywords_en": "gold-pattern-facade contracting video Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/gold-pattern-facade-poster.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-gold-pattern-facade-poster-himam-ghaim.webp",
+    "keywords_ar": "واجهة كلادينج بزخارف ذهبية صورة غلاف",
+    "keywords_en": "gold-pattern-facade-poster poster Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/fitout-sprinklers-extinguisher.webp",
+    "seo_path": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-fitout-sprinklers-extinguisher-himam-ghaim.webp",
+    "keywords_ar": "نظام رشاشات لمساحة تجارية - مساحة تجارية بسقف مكشوف عليه رشاشات حريق حمراء وطفاية حريق بجانب الباب",
+    "keywords_en": "fitout-sprinklers-extinguisher safety Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/majesty-hospital-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-majesty-hospital-facade-himam-ghaim.webp",
+    "keywords_ar": "واجهة مستشفى ماجستي - واجهة مستشفى ماجستي ليلاً بشعار بارز أعلى المدخل وألواح ذهبية مخرّمة على الجانبين",
+    "keywords_en": "majesty-hospital-facade signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/newpharm-tifone-booth.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-newpharm-tifone-booth-himam-ghaim.webp",
+    "keywords_ar": "جناح نيوفارم وتيفوني - جناح مشترك لنيوفارم وتيفوني بلونين أزرق وأحمر وكاونترات استقبال",
+    "keywords_en": "newpharm-tifone-booth exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/lathatha-wall-mural.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-lathatha-wall-mural-himam-ghaim.webp",
+    "keywords_ar": "رسومات جدارية لمطعم لذاذة - رسومات جدارية بأسلوب الرسم اليدوي لبرغر ومشروبات على جدران مطعم لذاذة",
+    "keywords_en": "lathatha-wall-mural stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/bedroom-headboard-wall.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-bedroom-headboard-wall-himam-ghaim.webp",
+    "keywords_ar": "تشطيب غرفة نوم - غرفة نوم بجدار خلفي مكسو بألواح وإضاءة مخفية وإنارة معلّقة",
+    "keywords_en": "bedroom-headboard-wall interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/parking-tensile-shade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-parking-tensile-shade-himam-ghaim.webp",
+    "keywords_ar": "مظلة مواقف سيارات - مظلة مواقف مشدودة بلون بيج على أعمدة حديد في موقف مفتوح",
+    "keywords_en": "parking-tensile-shade shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/calma-hoarding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-calma-hoarding-himam-ghaim.webp",
+    "keywords_ar": "تسوير مشروع كالما - سور مشروع كالما بخلفية سوداء وشعار كبير وصور للمشروع",
+    "keywords_en": "calma-hoarding hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/videos/pharmacy-ocean-cladding.mp4",
+    "seo_path": "/assets/videos/portfolio/saudi-general-contracting-facade-cladding-glass-pharmacy-ocean-cladding-himam-ghaim.mp4",
+    "keywords_ar": "تكسية واجهة صيدلية أوشن",
+    "keywords_en": "pharmacy-ocean-cladding contracting video Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/pharmacy-ocean-cladding-poster.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-pharmacy-ocean-cladding-poster-himam-ghaim.webp",
+    "keywords_ar": "تكسية واجهة صيدلية أوشن صورة غلاف",
+    "keywords_en": "pharmacy-ocean-cladding-poster poster Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/cctv-junction-box.webp",
+    "seo_path": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-cctv-junction-box-himam-ghaim.webp",
+    "keywords_ar": "تمديد وتوصيل كاميرات المراقبة - كاميرا مراقبة مثبتة على جدار مع صندوق توصيل مفتوح للكابلات",
+    "keywords_en": "cctv-junction-box safety Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/black-edition-showroom.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-edition-showroom-himam-ghaim.webp",
+    "keywords_ar": "واجهة معرض بلاك اديشن للسيارات - واجهة معرض بلاك اديشن للسيارات بأحرف بارزة مضيئة وكشافات فوق مدخل الهنجر",
+    "keywords_en": "black-edition-showroom signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/saico-entrance-arch.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-saico-entrance-arch-himam-ghaim.webp",
+    "keywords_ar": "قوس مدخل لسايكو - قوس مدخل أزرق لسايكو بعبارة «بداية جديدة ترحب بكم» أمام مبنى",
+    "keywords_en": "saico-entrance-arch exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/lathatha-counter-mural.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-lathatha-counter-mural-himam-ghaim.webp",
+    "keywords_ar": "تغليف منطقة الطلبات في مطعم لذاذة - منطقة الطلبات في مطعم لذاذة مغطاة برسومات جدارية حول نافذة الاستلام",
+    "keywords_en": "lathatha-counter-mural stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/entrance-backlit-mirrors.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-entrance-backlit-mirrors-himam-ghaim.webp",
+    "keywords_ar": "تشطيب مدخل فيلا - مدخل فيلا بجدار شرائح ومرايا بإضاءة خلفية وإطار جداري مضيء",
+    "keywords_en": "entrance-backlit-mirrors interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/garden-pergola-wood.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-garden-pergola-wood-himam-ghaim.webp",
+    "keywords_ar": "برجولة حديقة بشرائح خشبية - برجولة حديد سوداء بشرائح بلون الخشب فوق جلسة في حديقة",
+    "keywords_en": "garden-pergola-wood shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/render-printed-hoarding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-render-printed-hoarding-himam-ghaim.webp",
+    "keywords_ar": "سور بطباعة منظور المشروع - سور موقع إنشائي مطبوع عليه منظور المشروع التجاري",
+    "keywords_en": "render-printed-hoarding hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/villa-wood-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-villa-wood-cladding-himam-ghaim.webp",
+    "keywords_ar": "تكسية واجهة فيلا - واجهة فيلا مكسوّة بألواح بنقشة الخشب وإطار كلادينج رمادي",
+    "keywords_en": "villa-wood-cladding contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/hall-sprinkler-network.webp",
+    "seo_path": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-hall-sprinkler-network-himam-ghaim.webp",
+    "keywords_ar": "شبكة رشاشات لصالة مكتبية - صالة واسعة بسقف أسود مكشوف عليه شبكة رشاشات حريق حمراء",
+    "keywords_en": "hall-sprinkler-network safety Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/farabi-clinics-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-farabi-clinics-sign-himam-ghaim.webp",
+    "keywords_ar": "أحرف مضيئة لعيادات الفارابي - لوحة الفارابي بأحرف مضيئة ليلاً فوق واجهة عيادات أسنان",
+    "keywords_en": "farabi-clinics-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/abdullatif-jameel-national-day-arch.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-abdullatif-jameel-national-day-arch-himam-ghaim.webp",
+    "keywords_ar": "بوابة اليوم الوطني لعبد اللطيف جميل - بوابة اليوم الوطني 96 لعبد اللطيف جميل للسيارات داخل معرض سيارات",
+    "keywords_en": "abdullatif-jameel-national-day-arch exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/healthy-meals-wall-graphic.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-healthy-meals-wall-graphic-himam-ghaim.webp",
+    "keywords_ar": "جدار إعلاني لمطعم وجبات صحية - جدار إعلاني لمطعم وجبات صحية بصورة طبق سلطة وخضار ورمز QR",
+    "keywords_en": "healthy-meals-wall-graphic stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/majlis-classic.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-majlis-classic-himam-ghaim.webp",
+    "keywords_ar": "تشطيب مجلس كلاسيكي - مجلس واسع بسقف جبس ونجفة كريستال وأرضية رخام وكنب كلاسيكي",
+    "keywords_en": "majlis-classic interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/courtyard-pergola-seating.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-courtyard-pergola-seating-himam-ghaim.webp",
+    "keywords_ar": "برجولة جلسة خارجية - برجولة سوداء بشرائح خشبية فوق جلسة خارجية في فناء منزل",
+    "keywords_en": "courtyard-pergola-seating shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/location-coffee-hoarding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-location-coffee-hoarding-himam-ghaim.webp",
+    "keywords_ar": "سور افتتاح لوكيشن كوفي - سور أسود لمقهى لوكيشن كوفي بعبارة «جيناكم يا أهل الرياض» قبل الافتتاح",
+    "keywords_en": "location-coffee-hoarding hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/multistorey-building-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-multistorey-building-cladding-himam-ghaim.webp",
+    "keywords_ar": "تكسية واجهات مبنى متعدد الطوابق - مبنى كبير متعدد الطوابق مكسوّ بألواح كلادينج رمادية وفضية بتقسيمات رأسية",
+    "keywords_en": "multistorey-building-cladding contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/makeen-project-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-makeen-project-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة تعريفية لمشروع مكين 30 - لوحة مشروع مكين 30 بألواح سوداء وشعار وأرقام بيضاء بجانب الطريق",
+    "keywords_en": "makeen-project-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/moe-stage-design.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-moe-stage-design-himam-ghaim.webp",
+    "keywords_ar": "تصميم منصة لوزارة البيئة والمياه والزراعة - تصميم ثلاثي الأبعاد لمنصة وزارة البيئة والمياه والزراعة بقوس أخضر وخلفية صحراء",
+    "keywords_en": "moe-stage-design exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/saco-white-friday-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-saco-white-friday-facade-himam-ghaim.webp",
+    "keywords_ar": "بنر الجمعة البيضاء لساكو - بنر عروض الجمعة البيضاء لساكو بخصم 70% على واجهة زجاجية",
+    "keywords_en": "saco-white-friday-facade stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/living-room-tv-wall.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-living-room-tv-wall-himam-ghaim.webp",
+    "keywords_ar": "تشطيب صالة معيشة - صالة معيشة بجدار تلفزيون خشبي وحجر ذهبي وسقف بإضاءة مخفية",
+    "keywords_en": "living-room-tv-wall interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/perforated-pattern-pergola.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-perforated-pattern-pergola-himam-ghaim.webp",
+    "keywords_ar": "مظلة بنقشة إسلامية مخرّمة - مظلة حديد بألواح مخرّمة بنقشة إسلامية فوق مدخل منزل",
+    "keywords_en": "perforated-pattern-pergola shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/hoarding-installation.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-hoarding-installation-himam-ghaim.webp",
+    "keywords_ar": "تركيب هيكل سور على حواجز خرسانية - فنيون يركّبون هياكل حديد السور فوق حواجز خرسانية في موقع مشروع",
+    "keywords_en": "hoarding-installation hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/steel-hangar.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-steel-hangar-himam-ghaim.webp",
+    "keywords_ar": "هنجر بهيكل حديدي - هنجر بهيكل حديدي مفتوح الواجهة ومضاء ليلاً بتكسية ألواح معدنية بيضاء",
+    "keywords_en": "steel-hangar contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/sada-alzaeem-corner-signs.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-sada-alzaeem-corner-signs-himam-ghaim.webp",
+    "keywords_ar": "واجهة ركنية لمحلات صدى الزعيم - واجهة ركنية لمحلات صدى الزعيم للألعاب بأحرف ملوّنة مضيئة على كلادينج أحمر ليلاً",
+    "keywords_en": "sada-alzaeem-corner-signs signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/curved-booth-design.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-curved-booth-design-himam-ghaim.webp",
+    "keywords_ar": "تصميم جناح بأقواس منحنية - تصميم ثلاثي الأبعاد لجناح معرض بأقواس زرقاء منحنية وجلسات وشاشات",
+    "keywords_en": "curved-booth-design exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/national-day-column-wrap.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-national-day-column-wrap-himam-ghaim.webp",
+    "keywords_ar": "تغليف واجهة مبنى لليوم الوطني - تغليف عمود واجهة مبنى بتصميم اليوم الوطني «عزنا بطبعنا» مع إضاءة خضراء ليلاً",
+    "keywords_en": "national-day-column-wrap stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/entrance-wood-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-entrance-wood-cladding-himam-ghaim.webp",
+    "keywords_ar": "تجاليد خشبية لمدخل - مدخل بتجاليد خشبية داكنة ومرآة طولية وأرضية رخام لامعة",
+    "keywords_en": "entrance-wood-cladding interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/pergola-swing-deck.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-pergola-swing-deck-himam-ghaim.webp",
+    "keywords_ar": "برجولة بجلسة وأرجوحة - برجولة بشرائح خشبية وثريات وأرجوحة فوق أرضية ديك خشبي",
+    "keywords_en": "pergola-swing-deck shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/hoarding-panels-barriers.webp",
+    "seo_path": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-hoarding-panels-barriers-himam-ghaim.webp",
+    "keywords_ar": "سور ألواح على حواجز خرسانية - سور ألواح بيضاء مثبتة فوق حواجز خرسانية حول أرض مشروع",
+    "keywords_en": "hoarding-panels-barriers hoarding Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/residential-building-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-residential-building-facade-himam-ghaim.webp",
+    "keywords_ar": "واجهة عمارة سكنية - عمارة سكنية بإطارات كلادينج رمادية وألواح بلون الخشب",
+    "keywords_en": "residential-building-facade contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/amazonia-alammariah-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-amazonia-alammariah-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة مدخل أمازونيا العمارية - أحرف أمازونيا العمارية المضيئة ليلاً على جدار شرائح معدنية",
+    "keywords_en": "amazonia-alammariah-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/neon-arch-design.webp",
+    "seo_path": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-neon-arch-design-himam-ghaim.webp",
+    "keywords_ar": "تصميم بوابة فعالية مضيئة - تصميم ثلاثي الأبعاد لبوابة فعالية بإطارات مضيئة باللون الأزرق",
+    "keywords_en": "neon-arch-design exhibitions Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/ajlan-national-day-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-ajlan-national-day-facade-himam-ghaim.webp",
+    "keywords_ar": "واجهة عجلان وإخوانه في اليوم الوطني - واجهة مبنى عجلان وإخوانه بلوحة اليوم الوطني وإضاءة خضراء ليلاً",
+    "keywords_en": "ajlan-national-day-facade stickers Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/hallway-stone-wall.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-hallway-stone-wall-himam-ghaim.webp",
+    "keywords_ar": "ممر بجدار حجري وأرضية باركيه - ممر بأرضية باركيه وجدار حجري بإضاءة مخفية وأبواب خشبية",
+    "keywords_en": "hallway-stone-wall interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/white-louver-pergola.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-white-louver-pergola-himam-ghaim.webp",
+    "keywords_ar": "برجولة بشرائح بيضاء - برجولة بشرائح بيضاء وإطار أسود فوق جلسة خارجية مع إضاءة جدارية",
+    "keywords_en": "white-louver-pergola shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/private-villa-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-private-villa-cladding-himam-ghaim.webp",
+    "keywords_ar": "تكسية واجهات فيلا خاصة - فيلا خاصة قيد التنفيذ بكرانيش من ألواح الكلادينج وسقالات حول الواجهات",
+    "keywords_en": "private-villa-cladding contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/onado-halo-letters.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-onado-halo-letters-himam-ghaim.webp",
+    "keywords_ar": "أحرف بإضاءة خلفية لمتجر أونادو - أحرف ONADO السوداء بإضاءة خلفية فوق واجهة متجر زجاجية",
+    "keywords_en": "onado-halo-letters signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/living-tv-wall-shelves.webp",
+    "seo_path": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-living-tv-wall-shelves-himam-ghaim.webp",
+    "keywords_ar": "جدار تلفزيون برفوف خشبية - صالة بجدار تلفزيون ورفوف خشبية وأرضية رخام فاتحة",
+    "keywords_en": "living-tv-wall-shelves interiors Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/courtyard-pergola-deck.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-courtyard-pergola-deck-himam-ghaim.webp",
+    "keywords_ar": "برجولة فناء بأرضية ديك - برجولة سوداء فوق أرضية ديك خشبي بإضاءة مخفية في فناء منزل",
+    "keywords_en": "courtyard-pergola-deck shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/commercial-complex-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-commercial-complex-cladding-himam-ghaim.webp",
+    "keywords_ar": "تجديد واجهة مجمّع تجاري - واجهة مجمّع تجاري من طابقين مكسوّة بألواح كلادينج ما زال عليها الغلاف الواقي",
+    "keywords_en": "commercial-complex-cladding contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/duster-motor-works-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-duster-motor-works-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة مركز داستر لخدمة السيارات - لوحة داستر موتور ووركس بأحرف خضراء مضيئة فوق واجهة مركز سيارات",
+    "keywords_en": "duster-motor-works-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/pyramid-wall-shade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-pyramid-wall-shade-himam-ghaim.webp",
+    "keywords_ar": "مظلة هرمية لمدخل منزل - مظلة هرمية صفراء مثبتة على سور منزل",
+    "keywords_en": "pyramid-wall-shade shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/mixed-use-building-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-mixed-use-building-cladding-himam-ghaim.webp",
+    "keywords_ar": "تحديث واجهة مبنى قائم - مبنى قائم من عدة طوابق تحيط به السقالات أثناء تركيب ألواح الكلادينج على واجهته",
+    "keywords_en": "mixed-use-building-cladding contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/purple-storefront-cladding.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-purple-storefront-cladding-himam-ghaim.webp",
+    "keywords_ar": "واجهة محلات تجارية بكلادينج بنفسجي - واجهة ركنية لمحلات تجارية مكسوّة بألواح كلادينج بنفسجية مع إضاءة سبوت",
+    "keywords_en": "purple-storefront-cladding signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/wall-louver-screen.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-wall-louver-screen-himam-ghaim.webp",
+    "keywords_ar": "ساتر شرائح فوق السور - ساتر شرائح حديد سوداء أعلى سور جانبي لمنزل",
+    "keywords_en": "wall-louver-screen shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/twin-glass-storefronts.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-twin-glass-storefronts-himam-ghaim.webp",
+    "keywords_ar": "واجهات زجاج لمحلين تجاريين - واجهتا محلين زجاجيتان داخل إطار حجري مع درج أمامي",
+    "keywords_en": "twin-glass-storefronts contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/mlle-alammariah-rock-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-mlle-alammariah-rock-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة مدخل على صخرة طبيعية - أحرف MLLE العمارية بإضاءة خلفية مثبتة على صخرة طبيعية ليلاً",
+    "keywords_en": "mlle-alammariah-rock-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/fabric-pergola.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-fabric-pergola-himam-ghaim.webp",
+    "keywords_ar": "برجولة قماش متموّج - برجولة بقماش أبيض متموّج على عوارض سوداء فوق فناء منزل",
+    "keywords_en": "fabric-pergola shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/rooftop-glass-room.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-rooftop-glass-room-himam-ghaim.webp",
+    "keywords_ar": "غرفة زجاجية على السطح - غرفة زجاجية على سطح مبنى بإطار معدني أسود أثناء التركيب",
+    "keywords_en": "rooftop-glass-room contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/almuhtarif-story-corner.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-almuhtarif-story-corner-himam-ghaim.webp",
+    "keywords_ar": "لوحات ركنية لمتجر حكاية المحترف - لوحات متجر حكاية المحترف للإسبورات على واجهتين بأحرف عربية وإنجليزية مضيئة ليلاً",
+    "keywords_en": "almuhtarif-story-corner signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/black-pergola-install.webp",
+    "seo_path": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-black-pergola-install-himam-ghaim.webp",
+    "keywords_ar": "تركيب برجولة حديد - برجولة حديد سوداء بأعمدة شرائح طولية أثناء التركيب",
+    "keywords_en": "black-pergola-install shades Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/frosted-pattern-partition.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-frosted-pattern-partition-himam-ghaim.webp",
+    "keywords_ar": "قاطع زجاجي بنقشة سنفرة - قاطع زجاجي لمكتب عليه استيكر سنفرة بنقشة خطوط هندسية",
+    "keywords_en": "frosted-pattern-partition contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/unwan-alqahwa-halo-letters.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-unwan-alqahwa-halo-letters-himam-ghaim.webp",
+    "keywords_ar": "أحرف بإضاءة خلفية لمقهى عنوان القهوة - أحرف عنوان القهوة البارزة بإضاءة خلفية على جدار داخلي",
+    "keywords_en": "unwan-alqahwa-halo-letters signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/glass-partitions-corridor.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-glass-partitions-corridor-himam-ghaim.webp",
+    "keywords_ar": "قواطع زجاجية لممر مكاتب - ممر مكاتب بقواطع زجاجية عليها أشرطة سنفرة وأرضية رخام",
+    "keywords_en": "glass-partitions-corridor contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/makkah-mall-neon-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-makkah-mall-neon-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة مركز مكة التجاري - لوحة مركز مكة التجاري بأحرف بيضاء بارزة وإطار LED أزرق ليلاً",
+    "keywords_en": "makkah-mall-neon-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/large-glass-storefront.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-large-glass-storefront-himam-ghaim.webp",
+    "keywords_ar": "واجهة زجاجية بارتفاع كامل - واجهة زجاجية كبيرة بارتفاع المبنى لمحل تجاري جديد",
+    "keywords_en": "large-glass-storefront contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/farm-market-kiosk-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-farm-market-kiosk-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة كشك فارم ماركت - لوحة فارم ماركت بأحرف مضيئة فوق كشك خشبي",
+    "keywords_en": "farm-market-kiosk-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/office-glass-rooms.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-office-glass-rooms-himam-ghaim.webp",
+    "keywords_ar": "قواطع زجاجية لمكاتب - مكاتب بقواطع زجاجية وأبواب بإطارات سوداء وأرضية باركيه",
+    "keywords_en": "office-glass-rooms contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/cnc-backlit-logo.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-cnc-backlit-logo-himam-ghaim.webp",
+    "keywords_ar": "شعار بإضاءة خلفية على جدار شرائح - شعار CNC على شكل منزل بإضاءة خلفية على جدار شرائح",
+    "keywords_en": "cnc-backlit-logo signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/glass-storefront-doors.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-glass-storefront-doors-himam-ghaim.webp",
+    "keywords_ar": "واجهة وأبواب زجاج لمحل - واجهة محل زجاجية بأبواب زجاج سيكوريت ومقابض سوداء أثناء التركيب",
+    "keywords_en": "glass-storefront-doors contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/hena-alzaeem-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-hena-alzaeem-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة مضيئة لمؤسسة هنا الزعيم للاتصالات - لوحة هنا الزعيم للاتصالات مضيئة ليلاً بأحرف بيضاء وشعار أزرق",
+    "keywords_en": "hena-alzaeem-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/glass-office-partitions.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-glass-office-partitions-himam-ghaim.webp",
+    "keywords_ar": "قواطع ومكاتب زجاجية - قواطع زجاجية بأبواب ومقابض طويلة سوداء في مساحة مكتبية",
+    "keywords_en": "glass-office-partitions contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/rawae-view-events-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-rawae-view-events-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة روائع فيو للمناسبات - لوحة روائع فيو للمناسبات بأحرف ملوّنة مضيئة وقائمة خدمات وكشافات علوية",
+    "keywords_en": "rawae-view-events-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/spider-glass-facade.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-spider-glass-facade-himam-ghaim.webp",
+    "keywords_ar": "واجهة زجاج بتثبيت عنكبوتي - واجهة زجاجية بتثبيت عنكبوتي على هيكل معدني بجانب عمود مكسو بالألمنيوم",
+    "keywords_en": "spider-glass-facade contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/entertainment-center-storefront.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-entertainment-center-storefront-himam-ghaim.webp",
+    "keywords_ar": "واجهة مركز ترفيهي - واجهة مركز ترفيهي بألواح كلادينج زرقاء حول واجهة زجاجية أثناء التنفيذ",
+    "keywords_en": "entertainment-center-storefront signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/frosted-glass-room.webp",
+    "seo_path": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-frosted-glass-room-himam-ghaim.webp",
+    "keywords_ar": "غرفة اجتماعات زجاجية مصنفرة - غرفة مكتب بجدران زجاجية مصنفرة وإطار أسود",
+    "keywords_en": "frosted-glass-room contracting Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/nood-storefront-signs.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-nood-storefront-signs-himam-ghaim.webp",
+    "keywords_ar": "لوحات محلات نوود - لوحات محلات تجارية متجاورة منها لوحة نوود بأحرف بارزة عربية وإنجليزية",
+    "keywords_en": "nood-storefront-signs signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/sama-almakala-buffet-sign.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-sama-almakala-buffet-sign-himam-ghaim.webp",
+    "keywords_ar": "لوحة بوفية سماء المكلا - لوحة بوفية سماء المكلا بأحرف بارزة مضيئة وكشافات علوية على واجهة سوداء ليلاً",
+    "keywords_en": "sama-almakala-buffet-sign signage Himam Ghaim Saudi Arabia"
+  },
+  {
+    "original": "assets/images/portfolio/showroom-cladding-installation.webp",
+    "seo_path": "/assets/images/portfolio/saudi-3d-signage-cladding-letters-showroom-cladding-installation-himam-ghaim.webp",
+    "keywords_ar": "تركيب واجهة مبنى تجاري على ارتفاع - فنيون على سلة رافعة يركّبون ألواح كلادينج زرقاء على واجهة مبنى تجاري",
+    "keywords_en": "showroom-cladding-installation signage Himam Ghaim Saudi Arabia"
+  }
+]

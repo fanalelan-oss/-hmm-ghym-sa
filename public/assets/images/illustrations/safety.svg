@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="خوذة سلامة ومخروط تحذيري وطفاية حريق">
+  <defs>
+    <pattern id="hazard" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="24" height="48" fill="#FFB21A"/>
+      <rect x="24" width="24" height="48" fill="#0F1523"/>
+    </pattern>
+    <linearGradient id="hat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFC24A"/>
+      <stop offset="1" stop-color="#FFB21A"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="#F3F4F7"/>
+  <rect y="500" width="800" height="100" fill="#E1E5EC"/>
+  <rect y="540" width="800" height="60" fill="url(#hazard)"/>
+
+  <!-- طفاية الحريق -->
+  <rect x="100" y="300" width="84" height="200" rx="28" fill="#C0262D"/>
+  <rect x="112" y="360" width="60" height="70" rx="6" fill="#FFFFFF"/>
+  <rect x="124" y="376" width="36" height="6" rx="3" fill="#C0262D"/>
+  <rect x="124" y="392" width="28" height="6" rx="3" fill="#8D96AB"/>
+  <rect x="126" y="270" width="32" height="34" rx="4" fill="#3A4255"/>
+  <path d="M158 280h36l18 24" stroke="#3A4255" stroke-width="8" stroke-linecap="round" fill="none"/>
+
+  <!-- الخوذة -->
+  <path d="M250 400a150 150 0 0 1 300 0z" fill="url(#hat)"/>
+  <rect x="386" y="252" width="28" height="148" rx="12" fill="#FFD27A"/>
+  <path d="M290 330c20-40 50-62 80-72" stroke="#FFFFFF" stroke-width="10" stroke-linecap="round" opacity=".45" fill="none"/>
+  <rect x="210" y="394" width="380" height="30" rx="15" fill="#E09700"/>
+
+  <!-- المخروط التحذيري -->
+  <path d="M640 300h40l46 196h-132z" fill="#F57C00"/>
+  <path d="M630 344h60l10 44h-80z" fill="#FFFFFF"/>
+  <path d="M614 430h92l8 36h-108z" fill="#FFFFFF"/>
+  <rect x="574" y="494" width="172" height="16" rx="4" fill="#3A4255"/>
+</svg>

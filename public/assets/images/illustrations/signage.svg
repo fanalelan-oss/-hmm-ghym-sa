@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="واجهة محل بأحرف بارزة مضيئة">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071628"/>
+      <stop offset="1" stop-color="#11345C"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#174273"/>
+      <stop offset=".55" stop-color="#0A2340"/>
+      <stop offset="1" stop-color="#0F3054"/>
+    </linearGradient>
+    <linearGradient id="rail" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6EAF1"/>
+      <stop offset="1" stop-color="#8D96AB"/>
+    </linearGradient>
+    <radialGradient id="spill" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-20%" y="-60%" width="140%" height="220%">
+      <feGaussianBlur stdDeviation="5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- أحرف بأسلوب الخط الكوفي المربع -->
+    <g id="word">
+      <rect x="190" y="228" width="420" height="20" rx="4"/>
+      <rect x="196" y="140" width="22" height="108" rx="4"/>
+      <rect x="250" y="186" width="44" height="62" rx="6"/>
+      <rect x="326" y="168" width="22" height="80" rx="4"/>
+      <rect x="380" y="140" width="22" height="108" rx="4"/>
+      <rect x="434" y="186" width="44" height="62" rx="6"/>
+      <rect x="510" y="168" width="22" height="80" rx="4"/>
+      <rect x="564" y="140" width="22" height="108" rx="4"/>
+      <circle cx="272" cy="162" r="9"/>
+      <circle cx="456" cy="162" r="9"/>
+    </g>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#sky)"/>
+
+  <!-- لوح الكلادينج -->
+  <rect x="40" y="90" width="720" height="210" fill="#208EC1"/>
+  <path d="M160 90v210M280 90v210M400 90v210M520 90v210M640 90v210M40 195h720" stroke="#176E99" stroke-width="4"/>
+  <ellipse cx="400" cy="195" rx="310" ry="115" fill="url(#spill)"/>
+
+  <!-- الجوانب البارزة ثم الوجه المضيء -->
+  <use href="#word" transform="translate(-7 7)" fill="#11345C"/>
+  <use href="#word" transform="translate(-3.5 3.5)" fill="#176E99"/>
+  <use href="#word" fill="#FFFFFF" filter="url(#glow)"/>
+
+  <!-- السكة المعدنية -->
+  <rect x="40" y="300" width="720" height="16" fill="url(#rail)"/>
+
+  <!-- الواجهة الزجاجية -->
+  <rect x="40" y="316" width="720" height="224" fill="url(#glass)"/>
+  <path d="M220 316v224M580 316v224" stroke="#6B7489" stroke-width="6"/>
+  <path d="M64 332h120l-70 196H64z" fill="#FFFFFF" opacity=".06"/>
+  <path d="M600 332h60l-60 150z" fill="#FFFFFF" opacity=".06"/>
+  <rect x="340" y="370" width="120" height="170" fill="#071628" stroke="#6B7489" stroke-width="5"/>
+  <rect x="436" y="444" width="7" height="34" rx="3.5" fill="#C9CFDA"/>
+
+  <!-- الرصيف -->
+  <rect y="540" width="800" height="60" fill="#071628"/>
+  <rect y="540" width="800" height="4" fill="#1B4A7A"/>
+  <ellipse cx="400" cy="552" rx="280" ry="10" fill="#FFFFFF" opacity=".12"/>
+</svg>

@@ -1,0 +1,7 @@
+node_modules
+.next
+out
+scraped_site
+.firebase
+public/assets/videos
+.env*.local
