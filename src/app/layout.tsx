@@ -2,9 +2,7 @@ import type { Metadata } from 'next';
 import { Cairo, Tajawal } from 'next/font/google';
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
-import SiteHeader from '@/components/layout/SiteHeader';
-import SiteFooter from '@/components/layout/SiteFooter';
-import FloatingActions from '@/components/layout/FloatingActions';
+import LayoutShell from '@/components/layout/LayoutShell';
 import PageTransition from '@/components/layout/PageTransition';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
@@ -67,10 +65,9 @@ export default function RootLayout({
       <body className="min-h-screen flex flex-col bg-white dark:bg-brand-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-signal-500 selection:text-white">
         <AppProvider>
           <JsonLdSchema />
-          <SiteHeader />
-          <PageTransition>{children}</PageTransition>
-          <SiteFooter />
-          <FloatingActions />
+          <LayoutShell>
+            <PageTransition>{children}</PageTransition>
+          </LayoutShell>
         </AppProvider>
       </body>
     </html>

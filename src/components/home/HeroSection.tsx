@@ -312,10 +312,10 @@ export default function HeroSection() {
       </div>
 
       {/* Main Center Hero Content */}
-      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1480px] mx-auto px-4 sm:px-8 lg:px-12 py-1.5">
+      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1620px] mx-auto px-4 sm:px-8 lg:px-12 py-1.5">
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-7 xl:gap-10 items-center">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
-          <div className="lg:col-span-7 space-y-3.5 text-start max-w-2xl">
+          <div className="lg:col-span-7 space-y-3.5 text-start max-w-3xl">
             {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Zero Dots/Indicators) */}
             <div
               style={{ animationDelay: '0ms' }}
@@ -333,7 +333,7 @@ export default function HeroSection() {
             {/* Clean Monochromatic 3D Extruded Headline */}
             <h1
               style={{ animationDelay: '80ms' }}
-              className="animate-card-cascade heading-3d-hero font-display font-extrabold text-2xl sm:text-3xl lg:text-[31px] xl:text-[34px] leading-[1.4] tracking-tight"
+              className="animate-card-cascade heading-3d-hero font-display font-extrabold text-2xl sm:text-4xl lg:text-[35px] xl:text-[38px] leading-[1.4] tracking-tight"
             >
               <span className="block">
                 {lang === 'ar' ? (
@@ -351,7 +351,7 @@ export default function HeroSection() {
             {/* Natural, Easy-to-Read Subtitle */}
             <p
               style={{ animationDelay: '150ms' }}
-              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium max-w-xl"
+              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-[15px] leading-relaxed font-medium max-w-2xl"
             >
               {dict.hero.subtitle}
             </p>
@@ -363,7 +363,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 whitespace-nowrap px-7 py-3 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#208EC1]" />
                 <span>{dict.hero.ctaPrimary}</span>
@@ -372,7 +372,7 @@ export default function HeroSection() {
 
               <Link
                 href="/calculator"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-3 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <Calculator className="w-3.5 h-3.5 text-[#208EC1]" />
                 <span>{dict.nav.calculator}</span>
@@ -388,7 +388,7 @@ export default function HeroSection() {
                     key={idx}
                     style={{ animationDelay: `${260 + idx * 55}ms` }}
                     onMouseEnter={() => setActiveSpotlight(idx)}
-                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3.5 py-2 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-4 py-2.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
                       isSpotlit
                         ? 'border-[#208EC1]/65 shadow-[0_14px_30px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
                         : 'border-slate-200/95 dark:border-white/10 shadow-[0_10px_24px_-8px_rgba(15,37,68,0.09)] hover:border-[#208EC1]/50 hover:-translate-y-0.5'
@@ -431,7 +431,7 @@ export default function HeroSection() {
             style={{ animationDelay: '180ms' }}
             className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end"
           >
-            <div className="relative w-full max-w-[435px] animate-float-3d">
+            <div className="relative w-full max-w-[480px] animate-float-3d">
               <div className="rounded-[32px] p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_24px_54px_-14px_rgba(15,37,68,0.16),0_6px_18px_-4px_rgba(15,37,68,0.06)]">
                 <div className="rounded-[25px] p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
                   <Link
@@ -497,7 +497,7 @@ export default function HeroSection() {
       </div>
 
       {/* Bottom Double-Framed 4-Pod Floating Stats Bar Inside the Same 100dvh Screen */}
-      <div className="relative z-10 w-full max-w-[1460px] mx-auto px-4 sm:px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
+      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
         <div className="rounded-[26px] bg-white/65 dark:bg-[#0b1b32]/80 backdrop-blur-xl border border-white dark:border-white/10 p-2 shadow-[0_18px_44px_-12px_rgba(15,37,68,0.11)]">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
             {statsItems.map((st, i) => {

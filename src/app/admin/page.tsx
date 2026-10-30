@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { useApp } from "@/context/AppContext";
 import {
   Settings,
@@ -17,6 +18,9 @@ import {
   Sparkles,
   Phone,
   Mail,
+  ArrowRight,
+  Home,
+  LogOut,
 } from "lucide-react";
 
 type AdminTab =
@@ -316,7 +320,16 @@ export default function AdminDashboardPage() {
 
   if (!isUnlocked) {
     return (
-      <div className="min-h-screen pt-32 pb-24 flex items-center justify-center px-4">
+      <div className="min-h-screen py-16 flex flex-col items-center justify-center px-4 bg-slate-50 dark:bg-slate-950">
+        <div className="mb-6">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-200 hover:text-[#208EC1] text-xs font-bold transition-all shadow-sm"
+          >
+            <ArrowRight className="w-4 h-4" />
+            <span>العودة إلى الموقع الرئيسي</span>
+          </Link>
+        </div>
         <div className="clean-card rounded-3xl p-8 sm:p-10 max-w-md w-full text-center shadow-xl">
           <div className="w-16 h-16 rounded-2xl bg-[#11345C] text-white flex items-center justify-center mx-auto mb-5 shadow-md">
             <Lock className="w-8 h-8 text-[#208EC1]" />
@@ -358,8 +371,44 @@ export default function AdminDashboardPage() {
   }
 
   return (
-    <div className="min-h-screen pt-28 pb-24">
+    <div className="min-h-screen py-8 bg-slate-50/50 dark:bg-slate-950">
       <div className="smart-container">
+        {/* شريط الإدارة العلوي المستقل مع زر العودة للموقع وزر الخروج */}
+        <div className="mb-6 flex items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-[#208EC1] text-slate-800 dark:text-slate-100 hover:text-white text-xs sm:text-sm font-bold transition-all"
+            >
+              <ArrowRight className="w-4 h-4" />
+              <span>العودة للموقع الرئيسي</span>
+            </Link>
+            <span className="hidden sm:inline-block text-xs text-slate-400">|</span>
+            <span className="hidden sm:inline-block text-xs font-medium text-slate-500 dark:text-slate-400">
+              أنت الآن في وضع إدارة موقع شركة همم غيم
+            </span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <Link
+              href="/"
+              target="_blank"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-[#208EC1]"
+            >
+              <Home className="w-3.5 h-3.5" />
+              <span>معاينة الموقع</span>
+            </Link>
+            <button
+              type="button"
+              onClick={() => setIsUnlocked(false)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 hover:bg-rose-100 text-xs font-bold transition-all"
+            >
+              <LogOut className="w-3.5 h-3.5" />
+              <span>قفل وخروج</span>
+            </button>
+          </div>
+        </div>
+
         <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#208EC1] mb-1">
