@@ -79,32 +79,46 @@ export default function HeroSection() {
   const [activeSpotlight, setActiveSpotlight] = useState(0);
   const [badgeIdx, setBadgeIdx] = useState(0);
 
-  const badgeMessages =
-    lang === 'ar'
-      ? [
-          'لوحات إعلانية، واجهات ومقاولات في كل مناطق المملكة',
-          'تصنيع وتنفيذ مباشر من مصانعنا بضمان يصل إلى 10 سنوات',
-          'معاينة مجانية لموقعك وتصميم 3D قبل البدء بالتنفيذ',
-        ]
-      : lang === 'ur'
-      ? [
-          'سعودی عرب کے تمام شہروں میں سائن بورڈز، واجهات اور کنٹریکٹنگ',
-          'ہماری اپنی فیکٹری سے براہ راست تیاری اور 10 سال تک کی وارنٹی',
-          'مفت سائٹ وزٹ اور کام شروع کرنے سے پہلے تھری ڈی ڈیزائن',
-        ]
-      : [
-          'Signage, Facades & Contracting Across Saudi Arabia',
-          'Direct In-House Manufacturing With Up to 10-Year Warranty',
-          'Free Site Survey & 3D Preview Before Execution',
-        ];
+  const badgeItems = [
+    {
+      text:
+        lang === 'ar'
+          ? 'لوحات إعلانية، واجهات ومقاولات في كل مناطق المملكة'
+          : lang === 'ur'
+          ? 'سعودی عرب کے تمام شہروں میں سائن بورڈز، واجهات اور کنٹریکٹنگ'
+          : 'Signage, Facades & Contracting Across Saudi Arabia',
+      colorClass: 'text-[#208EC1] dark:text-sky-400',
+      borderClass: 'border-[#208EC1]/30 dark:border-sky-400/25',
+    },
+    {
+      text:
+        lang === 'ar'
+          ? 'تصنيع وتنفيذ مباشر بأيدي فنيين متخصصين وبأعلى معايير الجودة'
+          : lang === 'ur'
+          ? 'ماہر کاریگروں کے ذریعے اعلیٰ ترین معیار کے مطابق براہ راست تیاری'
+          : 'Direct In-House Execution by Specialists to Highest Standards',
+      colorClass: 'text-emerald-600 dark:text-emerald-400',
+      borderClass: 'border-emerald-500/30 dark:border-emerald-400/25',
+    },
+    {
+      text:
+        lang === 'ar'
+          ? 'معاينة مجانية لموقعك وتصميم 3D قبل البدء بالتنفيذ'
+          : lang === 'ur'
+          ? 'مفت سائٹ وزٹ اور کام شروع کرنے سے پہلے تھری ڈی ڈیزائن'
+          : 'Free Site Survey & 3D Preview Before Execution',
+      colorClass: 'text-amber-600 dark:text-amber-400',
+      borderClass: 'border-amber-500/30 dark:border-amber-400/25',
+    },
+  ];
 
   // Seamless 3-message rotation inside the top badge (no dots or indicators)
   useEffect(() => {
     const badgeTimer = setInterval(() => {
-      setBadgeIdx((prev) => (prev + 1) % 3);
+      setBadgeIdx((prev) => (prev + 1) % badgeItems.length);
     }, 3600);
     return () => clearInterval(badgeTimer);
-  }, []);
+  }, [badgeItems.length]);
 
   // Auto-advance project showcase
   useEffect(() => {
@@ -314,17 +328,16 @@ export default function HeroSection() {
         <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-7 xl:gap-10 items-center">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
           <div className="lg:col-span-7 space-y-3.5 text-start max-w-2xl">
-            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Zero Dots/Indicators) */}
+            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
             <div
               style={{ animationDelay: '0ms' }}
-              className="animate-card-cascade inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#0f2544] dark:text-slate-100 text-[11px] sm:text-xs font-extrabold shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden"
+              className={`animate-card-cascade inline-flex items-center px-4 py-1.5 rounded-full bg-white dark:bg-[#0c1d34] border ${badgeItems[badgeIdx].borderClass} text-[11px] sm:text-xs font-black shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden transition-colors duration-500`}
             >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#208EC1] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#208EC1]" />
-              </span>
-              <span key={badgeIdx} className="animate-badge-text inline-block">
-                {badgeMessages[badgeIdx]}
+              <span
+                key={badgeIdx}
+                className={`animate-badge-text inline-block ${badgeItems[badgeIdx].colorClass}`}
+              >
+                {badgeItems[badgeIdx].text}
               </span>
             </div>
 
