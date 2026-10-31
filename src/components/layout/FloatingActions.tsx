@@ -14,7 +14,7 @@ export default function FloatingActions() {
 
   return (
     <div
-      className="fixed bottom-6 left-6 z-50 flex flex-col items-center gap-3.5 print:hidden select-none"
+      className="fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 flex flex-col items-center gap-3.5 print:hidden select-none"
       aria-label="أزرار التواصل السريع والمساعد الذكي"
     >
       {/* 1. زر المساعد الذكي الهندسي */}
@@ -22,7 +22,7 @@ export default function FloatingActions() {
         href="/ai-engineer"
         title={dict.nav.aiEngineer}
         aria-label={dict.nav.aiEngineer}
-        className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-slate-900/95 backdrop-blur-md text-sky-400 border border-sky-500/30 shadow-[0_8px_20px_rgba(15,23,42,0.4)] hover:shadow-sky-500/30 hover:scale-105 active:scale-95 transition-all duration-300"
+        className="group relative flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/95 backdrop-blur-md text-sky-400 border border-sky-500/30 shadow-[0_8px_20px_rgba(15,23,42,0.4)] hover:shadow-sky-500/30 hover:scale-105 active:scale-95 transition-all duration-300"
       >
         <svg
           viewBox="0 0 24 24"
@@ -51,7 +51,7 @@ export default function FloatingActions() {
         rel="noopener noreferrer"
         title={dict.nav.whatsapp}
         aria-label={dict.nav.whatsapp}
-        className="group relative flex items-center justify-center w-14 h-14 rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(37,211,102,0.45)] hover:shadow-[0_10px_30px_rgba(37,211,102,0.65)] hover:scale-105 active:scale-95 transition-all duration-300"
+        className="group relative flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white shadow-[0_8px_25px_rgba(37,211,102,0.45)] hover:shadow-[0_10px_30px_rgba(37,211,102,0.65)] hover:scale-105 active:scale-95 transition-all duration-300"
       >
         <span className="absolute -inset-1 rounded-full bg-[#25D366] opacity-25 animate-ping -z-10" />
 
