@@ -38,7 +38,46 @@ export default function ServicesGridSection() {
           </div>
         </ScrollReveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {/* MOBILE ONLY: 3 Cards per Row Responsive Grid (نظام شبكة 3 بطاقات متناسقة) */}
+        <div className="grid grid-cols-3 gap-2 sm:hidden">
+          {db.services.map((service, idx) => (
+            <Link
+              key={service.id}
+              href={`/services/${service.slug}`}
+              className="group rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 p-1.5 flex flex-col justify-between text-center transition-all duration-300 active:scale-95 hover:-translate-y-1 hover:border-[#208EC1]/60 shadow-[0_4px_14px_rgba(15,37,68,0.06)]"
+            >
+              <div>
+                <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 mb-1.5 shadow-inner">
+                  <img
+                    src={service.coverImage}
+                    alt={tText(service.name, lang)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <span className="absolute top-1 start-1 w-5 h-5 rounded-full bg-black/60 backdrop-blur-sm text-white font-display font-black text-[9px] flex items-center justify-center shadow-sm">
+                    0{idx + 1}
+                  </span>
+                  <span className="absolute bottom-1 inset-x-1 px-1 py-0.5 rounded-md bg-[#208EC1]/90 backdrop-blur-xs text-white text-[8px] font-extrabold truncate text-center shadow-sm">
+                    {tText(service.shortName, lang)}
+                  </span>
+                </div>
+
+                <h3 className="font-display font-extrabold text-[10.5px] leading-[1.25] text-[#0f2544] dark:text-white line-clamp-2 min-h-[26px] group-hover:text-[#208EC1] transition-colors">
+                  {tText(service.name, lang)}
+                </h3>
+              </div>
+
+              <div className="mt-1 pt-1 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8.5px] font-extrabold text-[#208EC1]">
+                <span>{lang === 'ar' ? 'استكشف' : 'Explore'}</span>
+                <ArrowIcon className="w-2.5 h-2.5" />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* DESKTOP ONLY: 4-Column Grid with Full Expanded Content */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {db.services.map((service, idx) => (
             <ScrollReveal key={service.id} delayMs={idx * 40}>
               <article className="floating-card group h-full flex flex-col rounded-[24px] overflow-hidden p-2.5">

@@ -80,10 +80,53 @@ export default function PortfolioShowcaseSection() {
           </div>
         </ScrollReveal>
 
-        {/* Keyed Grid so switching any filter tab triggers a staggered 3D card cascade */}
+        {/* MOBILE ONLY: 3-Column Responsive Grid (نظام شبكة 3 بطاقات متناسقة) */}
+        <div key={`mob-${activeFilter}`} className="grid grid-cols-3 gap-2 sm:hidden mb-8">
+          {filtered.map((item, idx) => (
+            <Link
+              key={item.id}
+              href={`/portfolio/${item.slug}`}
+              style={{ animationDelay: `${idx * 40}ms` }}
+              className="animate-card-cascade group rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 p-1.5 flex flex-col justify-between text-center transition-all duration-300 active:scale-95 hover:-translate-y-1 hover:border-[#208EC1]/60 shadow-[0_4px_14px_rgba(15,37,68,0.06)]"
+            >
+              <div>
+                <div className="relative aspect-[4/3] rounded-xl bg-slate-900 overflow-hidden block shadow-inner mb-1.5">
+                  <img
+                    src={item.type === 'video' ? item.poster || item.src : item.src}
+                    alt={tText(item.alt, lang)}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  {item.type === 'video' && (
+                    <span className="absolute top-1 start-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded-full bg-[#208EC1] text-white text-[7.5px] font-black shadow-sm">
+                      <Play className="w-2 h-2 fill-current" />
+                      <span>فيديو</span>
+                    </span>
+                  )}
+                  <span className="absolute bottom-1 inset-x-1 inline-flex items-center justify-center gap-0.5 px-1 py-0.5 rounded-md bg-black/65 backdrop-blur-xs text-sky-200 text-[8px] font-extrabold truncate shadow-sm">
+                    <MapPin className="w-2 h-2 text-[#208EC1] shrink-0" />
+                    <span>{tText(item.city, lang)}</span>
+                  </span>
+                </div>
+
+                <h3 className="font-display font-extrabold text-[10.5px] leading-[1.25] text-[#0f2544] dark:text-white line-clamp-2 min-h-[26px] group-hover:text-[#208EC1] transition-colors">
+                  {tText(item.title, lang)}
+                </h3>
+              </div>
+
+              <div className="mt-1 pt-1 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8.5px] font-extrabold text-[#208EC1]">
+                <span>{lang === 'ar' ? 'عرض العمل' : 'Details'}</span>
+                <ArrowIcon className="w-2.5 h-2.5" />
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* DESKTOP ONLY: 4-Column Grid with Expanded Details */}
         <div
           key={activeFilter}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
+          className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"
         >
           {filtered.map((item, idx) => (
             <div

@@ -56,8 +56,63 @@ export default function ReviewsHighlightSection() {
           </div>
         </ScrollReveal>
 
+        {/* MOBILE ONLY: 3 Reviews Side-by-Side in 1 Row (شبكة ثلاث بطاقات متناسقة) */}
         <div
-          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5"
+          className="grid grid-cols-3 gap-2 sm:hidden"
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setTimeout(() => setPaused(false), 4000)}
+        >
+          {approved.slice(0, 3).map((rev, idx) => {
+            const isSpotlit = activeRev === idx;
+            return (
+              <article
+                key={rev.id}
+                onClick={() => setActiveRev(idx)}
+                className={`clean-card group relative p-2 sm:p-2.5 rounded-2xl flex flex-col justify-between transition-all duration-300 cursor-pointer select-none active:scale-95 ${
+                  isSpotlit
+                    ? 'border-[#208EC1] -translate-y-1 shadow-[0_12px_24px_-6px_rgba(32,142,193,0.28)] bg-gradient-to-b from-[#208EC1]/[0.08] to-transparent'
+                    : 'border-slate-200/90 dark:border-white/10'
+                }`}
+              >
+                <div>
+                  {/* Rating + Active Dot */}
+                  <div className="flex items-center justify-between mb-1.5">
+                    <div className="flex items-center gap-0.5 text-amber-400">
+                      {Array.from({ length: Math.min(rev.rating || 5, 5) }).map((_, i) => (
+                        <Star key={i} className="w-2.5 h-2.5 fill-current" />
+                      ))}
+                    </div>
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        isSpotlit ? 'bg-[#208EC1] scale-125' : 'bg-slate-300 dark:bg-slate-700'
+                      }`}
+                    />
+                  </div>
+
+                  {/* Comment */}
+                  <p className="text-[9.5px] leading-tight text-slate-700 dark:text-slate-200 line-clamp-3 min-h-[36px]">
+                    &ldquo;{rev.comment}&rdquo;
+                  </p>
+                </div>
+
+                {/* Reviewer info */}
+                <div className="pt-1.5 mt-2 border-t border-slate-100 dark:border-white/5">
+                  <p className="font-bold text-[10px] text-[#0f2544] dark:text-white truncate flex items-center gap-1">
+                    <span className="truncate">{rev.name}</span>
+                    <CheckCircle className="w-2.5 h-2.5 text-[#208EC1] shrink-0" />
+                  </p>
+                  <p className="text-[8.5px] text-slate-400 truncate">
+                    {rev.role}
+                  </p>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* DESKTOP ONLY: 4 Full-Width Cards */}
+        <div
+          className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-5"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >

@@ -23,6 +23,9 @@ const tajawal = Tajawal({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://himam-ghaim.sa'
+  ),
   title: {
     default:
       'شركة همم غيم | أحرف بارزة ولوحات إعلانية، مظلات وسواتر، تشطيبات ومقاولات عامة بالسعودية',
