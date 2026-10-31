@@ -1,0 +1,1002 @@
+[
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "أحرف بارزة لمقهى بلاك ستامب",
+    "meta": "أحرف وشعار بارز على واجهة كلادينج",
+    "type": "image",
+    "src": "assets/images/portfolio/black-stamp-cafe-sign.webp",
+    "poster": "",
+    "alt": "واجهة مقهى بلاك ستامب بأحرف بارزة عربية وإنجليزية وشعار أخضر"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "جناح المركز الوطني لأبحاث وتطوير الزراعة المستدامة",
+    "meta": "تصميم دائري وإضاءة مخفية · أثناء التجهيز",
+    "type": "image",
+    "src": "assets/images/portfolio/ncrdsa-booth.webp",
+    "poster": "",
+    "alt": "جناح المركز الوطني لأبحاث وتطوير الزراعة المستدامة بخطوط خضراء وبيضاء مضيئة في قاعة معرض"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "استيكرات سنفرة لواجهات مكاتب",
+    "meta": "سنفرة مقصوصة بنقشة هندسية ولمسات ملوّنة",
+    "type": "image",
+    "src": "assets/images/portfolio/frosted-glass-office-pattern.webp",
+    "poster": "",
+    "alt": "استيكر سنفرة بنقشة مثلثات ملوّنة على واجهات زجاج مكاتب"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "جدار منحوت بخيول بارزة",
+    "meta": "نحت جبس ثلاثي الأبعاد وإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/horses-relief-wall.webp",
+    "poster": "",
+    "alt": "جدار مجلس بمنحوتة جبسية بارزة لخيول خلف كنب بيج"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "سواتر مخرّمة بنقوش إسلامية",
+    "meta": "ألواح ACP مقصوصة بنقشة هندسية ومظلة واجهة منحنية",
+    "type": "image",
+    "src": "assets/images/portfolio/islamic-pattern-screens.webp",
+    "poster": "",
+    "alt": "سواتر مخرّمة بنقوش هندسية إسلامية أمام واجهة زجاجية تعلوها مظلة بيضاء منحنية أثناء التركيب"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "تسوير مشروع المهيدب للتطوير العقاري",
+    "meta": "سور مطبوع بطول الطريق",
+    "type": "image",
+    "src": "assets/images/portfolio/muhaidib-hoarding-night.webp",
+    "poster": "",
+    "alt": "سور مشروع المهيدب للتطوير والاستثمار العقاري بطباعة ملوّنة على امتداد الطريق ليلاً"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "ممرات بإضاءة مخفية",
+    "meta": "أسقف جبس بإضاءة مخفية وأبواب خشب · فيديو",
+    "type": "video",
+    "src": "assets/videos/villa-finishing-corridor.mp4",
+    "poster": "assets/images/portfolio/villa-finishing-corridor-poster.webp",
+    "alt": "فيديو لممر داخل فيلا بأسقف جبس وإضاءة مخفية وأبواب خشبية"
+  },
+  {
+    "category": "safety",
+    "tag": "أمن وسلامة",
+    "title": "تمديد شبكة إطفاء الحريق",
+    "meta": "مواسير رشاشات وتمديدات خدمات",
+    "type": "image",
+    "src": "assets/images/portfolio/sprinkler-riser-pipes.webp",
+    "poster": "",
+    "alt": "تمديدات مواسير إطفاء حريق حمراء في غرفة خدمات"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة وأحرف بارزة لمطعم السعودي",
+    "meta": "كلادينج ACP وأحرف بارزة وشعار · تصنيع وتركيب",
+    "type": "image",
+    "src": "assets/images/portfolio/al-saudi-restaurant-facade.webp",
+    "poster": "",
+    "alt": "واجهة مطعم السعودي بألواح كلادينج رمادية وأحرف بارزة بالعربية والإنجليزية"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "واجهة جناح المركز الوطني للزراعة المستدامة",
+    "meta": "كاونتر استقبال وشاشة تفاعلية",
+    "type": "image",
+    "src": "assets/images/portfolio/ncrdsa-booth-front.webp",
+    "poster": "",
+    "alt": "مدخل جناح المركز الوطني للزراعة المستدامة مع شاشة تفاعلية ونباتات"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "أشرطة سنفرة لقواطع زجاجية",
+    "meta": "استيكر سنفرة للخصوصية على قواطع المكاتب",
+    "type": "image",
+    "src": "assets/images/portfolio/frosted-glass-office-bands.webp",
+    "poster": "",
+    "alt": "أشرطة استيكر سنفرة أفقية على قواطع زجاج مكتب"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "جدار منحوت بنقشة أوراق",
+    "meta": "نحت جبس بارز وإضاءة خلفية",
+    "type": "image",
+    "src": "assets/images/portfolio/leaf-relief-wall.webp",
+    "poster": "",
+    "alt": "جدار بمنحوتة أوراق بارزة بإضاءة خلفية وأرضية رخام"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "سواتر مخرّمة لبلكونات فلل",
+    "meta": "سواتر معدنية بنقشة مخرّمة على البلكونات",
+    "type": "image",
+    "src": "assets/images/portfolio/villas-perforated-screens.webp",
+    "poster": "",
+    "alt": "صف فلل بسواتر معدنية مخرّمة على البلكونات وواجهات بلون الخشب"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "سور موقع بشعار أرامكو",
+    "meta": "ألواح بيضاء وشعار بارز وكشافات ليلية",
+    "type": "image",
+    "src": "assets/images/portfolio/aramco-hoarding.webp",
+    "poster": "",
+    "alt": "سور أبيض بشعار أرامكو البارز وكشافات إضاءة علوية ليلاً"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تشطيب فيلا سكنية",
+    "meta": "أسقف جبس ودهانات وأرضيات رخام · فيديو",
+    "type": "video",
+    "src": "assets/videos/villa-finishing-stairs.mp4",
+    "poster": "assets/images/portfolio/villa-finishing-stairs-poster.webp",
+    "alt": "فيديو جولة داخل فيلا بعد التشطيب: درج بدرابزين خشبي وأرضيات رخام وأسقف جبس"
+  },
+  {
+    "category": "safety",
+    "tag": "أمن وسلامة",
+    "title": "تركيب كاميرا مراقبة خارجية",
+    "meta": "كاميرا وصندوق توصيل مقاوم للماء",
+    "type": "image",
+    "src": "assets/images/portfolio/dahua-cctv-camera.webp",
+    "poster": "",
+    "alt": "كاميرا مراقبة خارجية مثبتة على جدار مع صندوق توصيل وأنبوب كابلات"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "شعار مطعم مراحب",
+    "meta": "أحرف عربية وإنجليزية بإضاءة خلفية",
+    "type": "image",
+    "src": "assets/images/portfolio/maraheb-halo-letters.webp",
+    "poster": "",
+    "alt": "شعار وأحرف مطعم مراحب بإضاءة خلفية على جدار المدخل"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "جناح نمو أعمال",
+    "meta": "جناح مفتوح بجلسة استقبال وإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/nemow-amaal-booth.webp",
+    "poster": "",
+    "alt": "جناح نمو أعمال بلون أخضر وجلسة بيضاء وإضاءة مخفية في معرض"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "تغليف شاحنات Beez",
+    "meta": "تغليف صندوق الشاحنة بهوية الشركة",
+    "type": "image",
+    "src": "assets/images/portfolio/beez-truck-wrap.webp",
+    "poster": "",
+    "alt": "شاحنة بصندوق مغلّف باللون البرتقالي وشعار Beez داخل مستودع"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "وحدة جدار تلفزيون",
+    "meta": "تجاليد ورفوف وإضاءة LED مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/tv-wall-unit.webp",
+    "poster": "",
+    "alt": "جدار تلفزيون بوحدات بيضاء ورفوف زجاجية بإضاءة مخفية"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "مظلة سيارة لفيلا",
+    "meta": "قماش PVC مشدود على أقواس حديد",
+    "type": "image",
+    "src": "assets/images/portfolio/villa-carport-tensile.webp",
+    "poster": "",
+    "alt": "مظلة سيارة مشدودة بقماش أبيض وأقواس حديد سوداء أمام فيلا"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "سور مطبوع بهوية الدرعية",
+    "meta": "طباعة على ألواح فوق حواجز خرسانية",
+    "type": "image",
+    "src": "assets/images/portfolio/diriyah-hoarding.webp",
+    "poster": "",
+    "alt": "سور مطبوع بهوية الدرعية على حواجز خرسانية"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهة كلادينج بزخارف ذهبية",
+    "meta": "ألواح ACP ولوحات زخرفية مضاءة · فيديو",
+    "type": "video",
+    "src": "assets/videos/gold-pattern-facade.mp4",
+    "poster": "assets/images/portfolio/gold-pattern-facade-poster.webp",
+    "alt": "فيديو لواجهة مبنى تجاري مكسوّة بالكلادينج مع ألواح زخرفية ذهبية وإضاءة سبوت"
+  },
+  {
+    "category": "safety",
+    "tag": "أمن وسلامة",
+    "title": "نظام رشاشات لمساحة تجارية",
+    "meta": "رشاشات حريق وطفايات وصناديق إطفاء",
+    "type": "image",
+    "src": "assets/images/portfolio/fitout-sprinklers-extinguisher.webp",
+    "poster": "",
+    "alt": "مساحة تجارية بسقف مكشوف عليه رشاشات حريق حمراء وطفاية حريق بجانب الباب"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة مستشفى ماجستي",
+    "meta": "شعار بارز وألواح مخرّمة ذهبية على الواجهة",
+    "type": "image",
+    "src": "assets/images/portfolio/majesty-hospital-facade.webp",
+    "poster": "",
+    "alt": "واجهة مستشفى ماجستي ليلاً بشعار بارز أعلى المدخل وألواح ذهبية مخرّمة على الجانبين"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "جناح نيوفارم وتيفوني",
+    "meta": "جناح مشترك بكاونترين ولوحة مضيئة",
+    "type": "image",
+    "src": "assets/images/portfolio/newpharm-tifone-booth.webp",
+    "poster": "",
+    "alt": "جناح مشترك لنيوفارم وتيفوني بلونين أزرق وأحمر وكاونترات استقبال"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "رسومات جدارية لمطعم لذاذة",
+    "meta": "استيكر جداري مطبوع بهوية المطعم",
+    "type": "image",
+    "src": "assets/images/portfolio/lathatha-wall-mural.webp",
+    "poster": "",
+    "alt": "رسومات جدارية بأسلوب الرسم اليدوي لبرغر ومشروبات على جدران مطعم لذاذة"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "تشطيب غرفة نوم",
+    "meta": "تجاليد جدارية وإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/bedroom-headboard-wall.webp",
+    "poster": "",
+    "alt": "غرفة نوم بجدار خلفي مكسو بألواح وإضاءة مخفية وإنارة معلّقة"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "مظلة مواقف سيارات",
+    "meta": "قماش مشدود على هيكل حديد",
+    "type": "image",
+    "src": "assets/images/portfolio/parking-tensile-shade.webp",
+    "poster": "",
+    "alt": "مظلة مواقف مشدودة بلون بيج على أعمدة حديد في موقف مفتوح"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "تسوير مشروع كالما",
+    "meta": "طباعة هوية المشروع على كامل السور",
+    "type": "image",
+    "src": "assets/images/portfolio/calma-hoarding.webp",
+    "poster": "",
+    "alt": "سور مشروع كالما بخلفية سوداء وشعار كبير وصور للمشروع"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تكسية واجهة صيدلية أوشن",
+    "meta": "كلادينج أبيض وشريط لوحة أزرق · فيديو",
+    "type": "video",
+    "src": "assets/videos/pharmacy-ocean-cladding.mp4",
+    "poster": "assets/images/portfolio/pharmacy-ocean-cladding-poster.webp",
+    "alt": "فيديو لمبنى صيدلية أوشن بواجهة كلادينج بيضاء وشريط لوحة أزرق"
+  },
+  {
+    "category": "safety",
+    "tag": "أمن وسلامة",
+    "title": "تمديد وتوصيل كاميرات المراقبة",
+    "meta": "كاميرا خارجية وصندوق توصيل",
+    "type": "image",
+    "src": "assets/images/portfolio/cctv-junction-box.webp",
+    "poster": "",
+    "alt": "كاميرا مراقبة مثبتة على جدار مع صندوق توصيل مفتوح للكابلات"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة معرض بلاك اديشن للسيارات",
+    "meta": "أحرف بارزة مضيئة وكشافات على واجهة كلادينج سوداء",
+    "type": "image",
+    "src": "assets/images/portfolio/black-edition-showroom.webp",
+    "poster": "",
+    "alt": "واجهة معرض بلاك اديشن للسيارات بأحرف بارزة مضيئة وكشافات فوق مدخل الهنجر"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "قوس مدخل لسايكو",
+    "meta": "قوس بهوية الشركة عند مدخل المبنى",
+    "type": "image",
+    "src": "assets/images/portfolio/saico-entrance-arch.webp",
+    "poster": "",
+    "alt": "قوس مدخل أزرق لسايكو بعبارة «بداية جديدة ترحب بكم» أمام مبنى"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "تغليف منطقة الطلبات في مطعم لذاذة",
+    "meta": "استيكر جداري يغطي الجدران والأبواب",
+    "type": "image",
+    "src": "assets/images/portfolio/lathatha-counter-mural.webp",
+    "poster": "",
+    "alt": "منطقة الطلبات في مطعم لذاذة مغطاة برسومات جدارية حول نافذة الاستلام"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "تشطيب مدخل فيلا",
+    "meta": "شرائح جدارية ومرايا بإضاءة خلفية",
+    "type": "image",
+    "src": "assets/images/portfolio/entrance-backlit-mirrors.webp",
+    "poster": "",
+    "alt": "مدخل فيلا بجدار شرائح ومرايا بإضاءة خلفية وإطار جداري مضيء"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة حديقة بشرائح خشبية",
+    "meta": "هيكل حديد وشرائح بديل خشب",
+    "type": "image",
+    "src": "assets/images/portfolio/garden-pergola-wood.webp",
+    "poster": "",
+    "alt": "برجولة حديد سوداء بشرائح بلون الخشب فوق جلسة في حديقة"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "سور بطباعة منظور المشروع",
+    "meta": "طباعة عالية الدقة لمنظور المشروع",
+    "type": "image",
+    "src": "assets/images/portfolio/render-printed-hoarding.webp",
+    "poster": "",
+    "alt": "سور موقع إنشائي مطبوع عليه منظور المشروع التجاري"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تكسية واجهة فيلا",
+    "meta": "ألواح بنقشة الخشب وكرانيش كلادينج رمادية",
+    "type": "image",
+    "src": "assets/images/portfolio/villa-wood-cladding.webp",
+    "poster": "",
+    "alt": "واجهة فيلا مكسوّة بألواح بنقشة الخشب وإطار كلادينج رمادي"
+  },
+  {
+    "category": "safety",
+    "tag": "أمن وسلامة",
+    "title": "شبكة رشاشات لصالة مكتبية",
+    "meta": "رشاشات حريق وصمام تحكم",
+    "type": "image",
+    "src": "assets/images/portfolio/hall-sprinkler-network.webp",
+    "poster": "",
+    "alt": "صالة واسعة بسقف أسود مكشوف عليه شبكة رشاشات حريق حمراء"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "أحرف مضيئة لعيادات الفارابي",
+    "meta": "أحرف بارزة بإضاءة LED · لوحة ليلية",
+    "type": "image",
+    "src": "assets/images/portfolio/farabi-clinics-sign.webp",
+    "poster": "",
+    "alt": "لوحة الفارابي بأحرف مضيئة ليلاً فوق واجهة عيادات أسنان"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "بوابة اليوم الوطني لعبد اللطيف جميل",
+    "meta": "بوابة مطبوعة بهوية اليوم الوطني 96",
+    "type": "image",
+    "src": "assets/images/portfolio/abdullatif-jameel-national-day-arch.webp",
+    "poster": "",
+    "alt": "بوابة اليوم الوطني 96 لعبد اللطيف جميل للسيارات داخل معرض سيارات"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "جدار إعلاني لمطعم وجبات صحية",
+    "meta": "استيكر جداري مطبوع داخل مجمّع تجاري",
+    "type": "image",
+    "src": "assets/images/portfolio/healthy-meals-wall-graphic.webp",
+    "poster": "",
+    "alt": "جدار إعلاني لمطعم وجبات صحية بصورة طبق سلطة وخضار ورمز QR"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "تشطيب مجلس كلاسيكي",
+    "meta": "أسقف جبس وإضاءة مخفية وأرضيات رخام",
+    "type": "image",
+    "src": "assets/images/portfolio/majlis-classic.webp",
+    "poster": "",
+    "alt": "مجلس واسع بسقف جبس ونجفة كريستال وأرضية رخام وكنب كلاسيكي"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة جلسة خارجية",
+    "meta": "هيكل حديد وشرائح بديل خشب وإضاءة",
+    "type": "image",
+    "src": "assets/images/portfolio/courtyard-pergola-seating.webp",
+    "poster": "",
+    "alt": "برجولة سوداء بشرائح خشبية فوق جلسة خارجية في فناء منزل"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "سور افتتاح لوكيشن كوفي",
+    "meta": "تسوير محل قبل الافتتاح بطباعة إعلانية",
+    "type": "image",
+    "src": "assets/images/portfolio/location-coffee-hoarding.webp",
+    "poster": "",
+    "alt": "سور أسود لمقهى لوكيشن كوفي بعبارة «جيناكم يا أهل الرياض» قبل الافتتاح"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تكسية واجهات مبنى متعدد الطوابق",
+    "meta": "ألواح كلادينج ACP بتقسيمات رأسية",
+    "type": "image",
+    "src": "assets/images/portfolio/multistorey-building-cladding.webp",
+    "poster": "",
+    "alt": "مبنى كبير متعدد الطوابق مكسوّ بألواح كلادينج رمادية وفضية بتقسيمات رأسية"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة تعريفية لمشروع مكين 30",
+    "meta": "ألواح ACP سوداء بشعار وأرقام بارزة",
+    "type": "image",
+    "src": "assets/images/portfolio/makeen-project-sign.webp",
+    "poster": "",
+    "alt": "لوحة مشروع مكين 30 بألواح سوداء وشعار وأرقام بيضاء بجانب الطريق"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "تصميم منصة لوزارة البيئة والمياه والزراعة",
+    "meta": "تصميم ثلاثي الأبعاد (3D)",
+    "type": "image",
+    "src": "assets/images/portfolio/moe-stage-design.webp",
+    "poster": "",
+    "alt": "تصميم ثلاثي الأبعاد لمنصة وزارة البيئة والمياه والزراعة بقوس أخضر وخلفية صحراء"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "بنر الجمعة البيضاء لساكو",
+    "meta": "طباعة كبيرة وتركيب على واجهة زجاجية",
+    "type": "image",
+    "src": "assets/images/portfolio/saco-white-friday-facade.webp",
+    "poster": "",
+    "alt": "بنر عروض الجمعة البيضاء لساكو بخصم 70% على واجهة زجاجية"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "تشطيب صالة معيشة",
+    "meta": "جدار تلفزيون خشبي وأسقف جبس وباركيه",
+    "type": "image",
+    "src": "assets/images/portfolio/living-room-tv-wall.webp",
+    "poster": "",
+    "alt": "صالة معيشة بجدار تلفزيون خشبي وحجر ذهبي وسقف بإضاءة مخفية"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "مظلة بنقشة إسلامية مخرّمة",
+    "meta": "ألواح حديد مقصوصة بالليزر",
+    "type": "image",
+    "src": "assets/images/portfolio/perforated-pattern-pergola.webp",
+    "poster": "",
+    "alt": "مظلة حديد بألواح مخرّمة بنقشة إسلامية فوق مدخل منزل"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "تركيب هيكل سور على حواجز خرسانية",
+    "meta": "هياكل حديد فوق حواجز نيوجيرسي · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/hoarding-installation.webp",
+    "poster": "",
+    "alt": "فنيون يركّبون هياكل حديد السور فوق حواجز خرسانية في موقع مشروع"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "هنجر بهيكل حديدي",
+    "meta": "هيكل حديد وتكسية ألواح معدنية وواجهة كلادينج",
+    "type": "image",
+    "src": "assets/images/portfolio/steel-hangar.webp",
+    "poster": "",
+    "alt": "هنجر بهيكل حديدي مفتوح الواجهة ومضاء ليلاً بتكسية ألواح معدنية بيضاء"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة ركنية لمحلات صدى الزعيم",
+    "meta": "أحرف ملوّنة مضيئة على كلادينج أحمر وإضاءة سبوت",
+    "type": "image",
+    "src": "assets/images/portfolio/sada-alzaeem-corner-signs.webp",
+    "poster": "",
+    "alt": "واجهة ركنية لمحلات صدى الزعيم للألعاب بأحرف ملوّنة مضيئة على كلادينج أحمر ليلاً"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "تصميم جناح بأقواس منحنية",
+    "meta": "تصميم ثلاثي الأبعاد (3D)",
+    "type": "image",
+    "src": "assets/images/portfolio/curved-booth-design.webp",
+    "poster": "",
+    "alt": "تصميم ثلاثي الأبعاد لجناح معرض بأقواس زرقاء منحنية وجلسات وشاشات"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "تغليف واجهة مبنى لليوم الوطني",
+    "meta": "استيكر مطبوع بهوية «عزنا بطبعنا»",
+    "type": "image",
+    "src": "assets/images/portfolio/national-day-column-wrap.webp",
+    "poster": "",
+    "alt": "تغليف عمود واجهة مبنى بتصميم اليوم الوطني «عزنا بطبعنا» مع إضاءة خضراء ليلاً"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "تجاليد خشبية لمدخل",
+    "meta": "بديل خشب ومرآة طولية وإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/entrance-wood-cladding.webp",
+    "poster": "",
+    "alt": "مدخل بتجاليد خشبية داكنة ومرآة طولية وأرضية رخام لامعة"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة بجلسة وأرجوحة",
+    "meta": "شرائح بديل خشب وسواتر مخرّمة",
+    "type": "image",
+    "src": "assets/images/portfolio/pergola-swing-deck.webp",
+    "poster": "",
+    "alt": "برجولة بشرائح خشبية وثريات وأرجوحة فوق أرضية ديك خشبي"
+  },
+  {
+    "category": "hoarding",
+    "tag": "تسوير المشاريع",
+    "title": "سور ألواح على حواجز خرسانية",
+    "meta": "ألواح معدنية جاهزة للطباعة",
+    "type": "image",
+    "src": "assets/images/portfolio/hoarding-panels-barriers.webp",
+    "poster": "",
+    "alt": "سور ألواح بيضاء مثبتة فوق حواجز خرسانية حول أرض مشروع"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهة عمارة سكنية",
+    "meta": "إطارات كلادينج رمادية وألواح بنقشة الخشب",
+    "type": "image",
+    "src": "assets/images/portfolio/residential-building-facade.webp",
+    "poster": "",
+    "alt": "عمارة سكنية بإطارات كلادينج رمادية وألواح بلون الخشب"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة مدخل أمازونيا العمارية",
+    "meta": "أحرف بارزة مضيئة على جدار شرائح",
+    "type": "image",
+    "src": "assets/images/portfolio/amazonia-alammariah-sign.webp",
+    "poster": "",
+    "alt": "أحرف أمازونيا العمارية المضيئة ليلاً على جدار شرائح معدنية"
+  },
+  {
+    "category": "exhibitions",
+    "tag": "معارض وفعاليات",
+    "title": "تصميم بوابة فعالية مضيئة",
+    "meta": "تصميم ثلاثي الأبعاد (3D)",
+    "type": "image",
+    "src": "assets/images/portfolio/neon-arch-design.webp",
+    "poster": "",
+    "alt": "تصميم ثلاثي الأبعاد لبوابة فعالية بإطارات مضيئة باللون الأزرق"
+  },
+  {
+    "category": "stickers",
+    "tag": "استيكرات وتغليف",
+    "title": "واجهة عجلان وإخوانه في اليوم الوطني",
+    "meta": "بنر مطبوع على الواجهة الزجاجية",
+    "type": "image",
+    "src": "assets/images/portfolio/ajlan-national-day-facade.webp",
+    "poster": "",
+    "alt": "واجهة مبنى عجلان وإخوانه بلوحة اليوم الوطني وإضاءة خضراء ليلاً"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "ممر بجدار حجري وأرضية باركيه",
+    "meta": "أرضيات باركيه وجدار حجر بإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/hallway-stone-wall.webp",
+    "poster": "",
+    "alt": "ممر بأرضية باركيه وجدار حجري بإضاءة مخفية وأبواب خشبية"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة بشرائح بيضاء",
+    "meta": "شرائح وإطار حديد",
+    "type": "image",
+    "src": "assets/images/portfolio/white-louver-pergola.webp",
+    "poster": "",
+    "alt": "برجولة بشرائح بيضاء وإطار أسود فوق جلسة خارجية مع إضاءة جدارية"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تكسية واجهات فيلا خاصة",
+    "meta": "ألواح ACP للكرانيش والأطراف · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/private-villa-cladding.webp",
+    "poster": "",
+    "alt": "فيلا خاصة قيد التنفيذ بكرانيش من ألواح الكلادينج وسقالات حول الواجهات"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "أحرف بإضاءة خلفية لمتجر أونادو",
+    "meta": "أحرف بإضاءة خلفية (Halo) ولوحة داخلية",
+    "type": "image",
+    "src": "assets/images/portfolio/onado-halo-letters.webp",
+    "poster": "",
+    "alt": "أحرف ONADO السوداء بإضاءة خلفية فوق واجهة متجر زجاجية"
+  },
+  {
+    "category": "interiors",
+    "tag": "ديكور وتشطيب داخلي",
+    "title": "جدار تلفزيون برفوف خشبية",
+    "meta": "تجاليد ورفوف خشبية وإضاءة سقف",
+    "type": "image",
+    "src": "assets/images/portfolio/living-tv-wall-shelves.webp",
+    "poster": "",
+    "alt": "صالة بجدار تلفزيون ورفوف خشبية وأرضية رخام فاتحة"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة فناء بأرضية ديك",
+    "meta": "هيكل حديد وأرضية ديك وإضاءة مخفية",
+    "type": "image",
+    "src": "assets/images/portfolio/courtyard-pergola-deck.webp",
+    "poster": "",
+    "alt": "برجولة سوداء فوق أرضية ديك خشبي بإضاءة مخفية في فناء منزل"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تجديد واجهة مجمّع تجاري",
+    "meta": "ألواح كلادينج ACP على كامل الواجهة · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/commercial-complex-cladding.webp",
+    "poster": "",
+    "alt": "واجهة مجمّع تجاري من طابقين مكسوّة بألواح كلادينج ما زال عليها الغلاف الواقي"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة مركز داستر لخدمة السيارات",
+    "meta": "أحرف بارزة مضيئة بإضاءة LED",
+    "type": "image",
+    "src": "assets/images/portfolio/duster-motor-works-sign.webp",
+    "poster": "",
+    "alt": "لوحة داستر موتور ووركس بأحرف خضراء مضيئة فوق واجهة مركز سيارات"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "مظلة هرمية لمدخل منزل",
+    "meta": "قماش PVC على هيكل حديد",
+    "type": "image",
+    "src": "assets/images/portfolio/pyramid-wall-shade.webp",
+    "poster": "",
+    "alt": "مظلة هرمية صفراء مثبتة على سور منزل"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "تحديث واجهة مبنى قائم",
+    "meta": "تكسية بألواح ACP فوق الواجهة القديمة · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/mixed-use-building-cladding.webp",
+    "poster": "",
+    "alt": "مبنى قائم من عدة طوابق تحيط به السقالات أثناء تركيب ألواح الكلادينج على واجهته"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة محلات تجارية بكلادينج بنفسجي",
+    "meta": "ألواح ACP ملوّنة وإضاءة سبوت مدمجة",
+    "type": "image",
+    "src": "assets/images/portfolio/purple-storefront-cladding.webp",
+    "poster": "",
+    "alt": "واجهة ركنية لمحلات تجارية مكسوّة بألواح كلادينج بنفسجية مع إضاءة سبوت"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "ساتر شرائح فوق السور",
+    "meta": "شرائح حديد لزيادة الخصوصية",
+    "type": "image",
+    "src": "assets/images/portfolio/wall-louver-screen.webp",
+    "poster": "",
+    "alt": "ساتر شرائح حديد سوداء أعلى سور جانبي لمنزل"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهات زجاج لمحلين تجاريين",
+    "meta": "زجاج سيكوريت بإطار حجري",
+    "type": "image",
+    "src": "assets/images/portfolio/twin-glass-storefronts.webp",
+    "poster": "",
+    "alt": "واجهتا محلين زجاجيتان داخل إطار حجري مع درج أمامي"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة مدخل على صخرة طبيعية",
+    "meta": "أحرف بارزة بإضاءة خلفية · MLLE العمارية",
+    "type": "image",
+    "src": "assets/images/portfolio/mlle-alammariah-rock-sign.webp",
+    "poster": "",
+    "alt": "أحرف MLLE العمارية بإضاءة خلفية مثبتة على صخرة طبيعية ليلاً"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "برجولة قماش متموّج",
+    "meta": "قماش مشدود على عوارض حديد",
+    "type": "image",
+    "src": "assets/images/portfolio/fabric-pergola.webp",
+    "poster": "",
+    "alt": "برجولة بقماش أبيض متموّج على عوارض سوداء فوق فناء منزل"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "غرفة زجاجية على السطح",
+    "meta": "إطار حديد وزجاج سيكوريت · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/rooftop-glass-room.webp",
+    "poster": "",
+    "alt": "غرفة زجاجية على سطح مبنى بإطار معدني أسود أثناء التركيب"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحات ركنية لمتجر حكاية المحترف",
+    "meta": "أحرف بارزة مضيئة بالعربية والإنجليزية على واجهتين",
+    "type": "image",
+    "src": "assets/images/portfolio/almuhtarif-story-corner.webp",
+    "poster": "",
+    "alt": "لوحات متجر حكاية المحترف للإسبورات على واجهتين بأحرف عربية وإنجليزية مضيئة ليلاً"
+  },
+  {
+    "category": "shades",
+    "tag": "مظلات وسواتر",
+    "title": "تركيب برجولة حديد",
+    "meta": "هيكل حديد وسقف شرائح · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/black-pergola-install.webp",
+    "poster": "",
+    "alt": "برجولة حديد سوداء بأعمدة شرائح طولية أثناء التركيب"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "قاطع زجاجي بنقشة سنفرة",
+    "meta": "زجاج سيكوريت واستيكر سنفرة مقصوص",
+    "type": "image",
+    "src": "assets/images/portfolio/frosted-pattern-partition.webp",
+    "poster": "",
+    "alt": "قاطع زجاجي لمكتب عليه استيكر سنفرة بنقشة خطوط هندسية"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "أحرف بإضاءة خلفية لمقهى عنوان القهوة",
+    "meta": "أحرف بارزة بإضاءة خلفية (Halo)",
+    "type": "image",
+    "src": "assets/images/portfolio/unwan-alqahwa-halo-letters.webp",
+    "poster": "",
+    "alt": "أحرف عنوان القهوة البارزة بإضاءة خلفية على جدار داخلي"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "قواطع زجاجية لممر مكاتب",
+    "meta": "زجاج سيكوريت وأشرطة سنفرة",
+    "type": "image",
+    "src": "assets/images/portfolio/glass-partitions-corridor.webp",
+    "poster": "",
+    "alt": "ممر مكاتب بقواطع زجاجية عليها أشرطة سنفرة وأرضية رخام"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة مركز مكة التجاري",
+    "meta": "أحرف بارزة مضيئة وإطار LED أزرق",
+    "type": "image",
+    "src": "assets/images/portfolio/makkah-mall-neon-sign.webp",
+    "poster": "",
+    "alt": "لوحة مركز مكة التجاري بأحرف بيضاء بارزة وإطار LED أزرق ليلاً"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهة زجاجية بارتفاع كامل",
+    "meta": "ألواح زجاج سيكوريت كبيرة · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/large-glass-storefront.webp",
+    "poster": "",
+    "alt": "واجهة زجاجية كبيرة بارتفاع المبنى لمحل تجاري جديد"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة كشك فارم ماركت",
+    "meta": "أحرف بإضاءة خلفية على لوحة خشبية",
+    "type": "image",
+    "src": "assets/images/portfolio/farm-market-kiosk-sign.webp",
+    "poster": "",
+    "alt": "لوحة فارم ماركت بأحرف مضيئة فوق كشك خشبي"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "قواطع زجاجية لمكاتب",
+    "meta": "زجاج سيكوريت بإطارات سوداء",
+    "type": "image",
+    "src": "assets/images/portfolio/office-glass-rooms.webp",
+    "poster": "",
+    "alt": "مكاتب بقواطع زجاجية وأبواب بإطارات سوداء وأرضية باركيه"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "شعار بإضاءة خلفية على جدار شرائح",
+    "meta": "شعار مقصوص بإضاءة خلفية دافئة",
+    "type": "image",
+    "src": "assets/images/portfolio/cnc-backlit-logo.webp",
+    "poster": "",
+    "alt": "شعار CNC على شكل منزل بإضاءة خلفية على جدار شرائح"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهة وأبواب زجاج لمحل",
+    "meta": "زجاج سيكوريت بأبواب مزدوجة · أثناء التنفيذ",
+    "type": "image",
+    "src": "assets/images/portfolio/glass-storefront-doors.webp",
+    "poster": "",
+    "alt": "واجهة محل زجاجية بأبواب زجاج سيكوريت ومقابض سوداء أثناء التركيب"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة مضيئة لمؤسسة هنا الزعيم للاتصالات",
+    "meta": "لوحة بأحرف وشعار مضيء مع كشافات علوية",
+    "type": "image",
+    "src": "assets/images/portfolio/hena-alzaeem-sign.webp",
+    "poster": "",
+    "alt": "لوحة هنا الزعيم للاتصالات مضيئة ليلاً بأحرف بيضاء وشعار أزرق"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "قواطع ومكاتب زجاجية",
+    "meta": "زجاج سيكوريت بأبواب مفصلية",
+    "type": "image",
+    "src": "assets/images/portfolio/glass-office-partitions.webp",
+    "poster": "",
+    "alt": "قواطع زجاجية بأبواب ومقابض طويلة سوداء في مساحة مكتبية"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة روائع فيو للمناسبات",
+    "meta": "أحرف ملوّنة مضيئة مع كشافات علوية",
+    "type": "image",
+    "src": "assets/images/portfolio/rawae-view-events-sign.webp",
+    "poster": "",
+    "alt": "لوحة روائع فيو للمناسبات بأحرف ملوّنة مضيئة وقائمة خدمات وكشافات علوية"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "واجهة زجاج بتثبيت عنكبوتي",
+    "meta": "زجاج سيكوريت وقطع تثبيت ستانلس",
+    "type": "image",
+    "src": "assets/images/portfolio/spider-glass-facade.webp",
+    "poster": "",
+    "alt": "واجهة زجاجية بتثبيت عنكبوتي على هيكل معدني بجانب عمود مكسو بالألمنيوم"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "واجهة مركز ترفيهي",
+    "meta": "كلادينج ACP أزرق بخطوط أفقية حول واجهة زجاجية",
+    "type": "image",
+    "src": "assets/images/portfolio/entertainment-center-storefront.webp",
+    "poster": "",
+    "alt": "واجهة مركز ترفيهي بألواح كلادينج زرقاء حول واجهة زجاجية أثناء التنفيذ"
+  },
+  {
+    "category": "contracting",
+    "tag": "تشطيبات ومقاولات",
+    "title": "غرفة اجتماعات زجاجية مصنفرة",
+    "meta": "زجاج سيكوريت بسنفرة كاملة",
+    "type": "image",
+    "src": "assets/images/portfolio/frosted-glass-room.webp",
+    "poster": "",
+    "alt": "غرفة مكتب بجدران زجاجية مصنفرة وإطار أسود"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحات محلات نوود",
+    "meta": "أحرف بارزة وشعار على واجهة محل تجاري",
+    "type": "image",
+    "src": "assets/images/portfolio/nood-storefront-signs.webp",
+    "poster": "",
+    "alt": "لوحات محلات تجارية متجاورة منها لوحة نوود بأحرف بارزة عربية وإنجليزية"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "لوحة بوفية سماء المكلا",
+    "meta": "أحرف بارزة مضيئة وكشافات علوية",
+    "type": "image",
+    "src": "assets/images/portfolio/sama-almakala-buffet-sign.webp",
+    "poster": "",
+    "alt": "لوحة بوفية سماء المكلا بأحرف بارزة مضيئة وكشافات علوية على واجهة سوداء ليلاً"
+  },
+  {
+    "category": "signage",
+    "tag": "أحرف بارزة ولوحات",
+    "title": "تركيب واجهة مبنى تجاري على ارتفاع",
+    "meta": "ألواح ACP مضلّعة · تركيب برافعة وسلة عمل",
+    "type": "image",
+    "src": "assets/images/portfolio/showroom-cladding-installation.webp",
+    "poster": "",
+    "alt": "فنيون على سلة رافعة يركّبون ألواح كلادينج زرقاء على واجهة مبنى تجاري"
+  }
+]

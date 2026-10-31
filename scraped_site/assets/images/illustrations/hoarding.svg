@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="سور موقع مشروع مطبوع بهوية المشروع على حواجز خرسانية مع رافعة خلفه">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071628"/>
+      <stop offset="1" stop-color="#11345C"/>
+    </linearGradient>
+    <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity=".4"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="barrier" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#E6EAF1"/>
+      <stop offset="1" stop-color="#8D96AB"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-60%" width="140%" height="220%">
+      <feGaussianBlur stdDeviation="4" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <!-- حاجز خرساني (نيوجيرسي) -->
+    <path id="jersey" d="M0 70l10-26 14-14V0h72v30l14 14 10 26z"/>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#sky)"/>
+
+  <!-- الرافعة والمبنى قيد الإنشاء خلف السور -->
+  <g fill="none" stroke="#2E6496" stroke-width="4">
+    <path d="M560 70v200M580 70v200M560 90l20 20M580 110l-20 20M560 130l20 20M580 150l-20 20M560 170l20 20M580 190l-20 20M560 210l20 20"/>
+    <path d="M360 70h420M360 86h420M560 70l20-30 20 30"/>
+    <path d="M420 86v74" stroke-width="2"/>
+  </g>
+  <rect x="410" y="160" width="20" height="14" rx="2" fill="#2E6496"/>
+  <g fill="#11345C" stroke="#1B4A7A" stroke-width="3">
+    <rect x="300" y="150" width="200" height="120"/>
+  </g>
+  <path d="M300 190h200M300 230h200M350 150v120M400 150v120M450 150v120" stroke="#1B4A7A" stroke-width="3"/>
+
+  <!-- ألواح السور المطبوعة -->
+  <rect x="40" y="250" width="720" height="180" fill="#208EC1"/>
+  <path d="M60 430l70-60 60 34 90-70 90 50 70-40 100 56 80-30 80 30 40-14v44z" fill="#2E6496"/>
+  <path d="M160 250v180M280 250v180M400 250v180M520 250v180M640 250v180" stroke="#176E99" stroke-width="4"/>
+  <rect x="40" y="410" width="720" height="10" fill="#FFFFFF"/>
+
+  <!-- هوية المشروع -->
+  <g fill="#FFFFFF" filter="url(#glow)">
+    <rect x="300" y="322" width="200" height="12" rx="3"/>
+    <rect x="304" y="276" width="14" height="58" rx="3"/>
+    <rect x="336" y="300" width="26" height="34" rx="5"/>
+    <rect x="382" y="288" width="14" height="46" rx="3"/>
+    <rect x="416" y="300" width="26" height="34" rx="5"/>
+    <rect x="482" y="276" width="14" height="58" rx="3"/>
+    <circle cx="349" cy="286" r="6"/>
+    <circle cx="429" cy="286" r="6"/>
+  </g>
+
+  <!-- كشافات الإضاءة الليلية -->
+  <path d="M130 238l-50 150h100zM400 238l-50 150h100zM670 238l-50 150h100z" fill="url(#beam)"/>
+  <g stroke="#8D96AB" stroke-width="4" fill="none">
+    <path d="M130 250v-22h-10M400 250v-22h-10M670 250v-22h-10"/>
+  </g>
+  <g fill="#FFFFFF" filter="url(#glow)">
+    <rect x="114" y="230" width="22" height="8" rx="3"/>
+    <rect x="384" y="230" width="22" height="8" rx="3"/>
+    <rect x="654" y="230" width="22" height="8" rx="3"/>
+  </g>
+
+  <!-- الحواجز الخرسانية -->
+  <g fill="url(#barrier)">
+    <use href="#jersey" x="40" y="430"/>
+    <use href="#jersey" x="160" y="430"/>
+    <use href="#jersey" x="280" y="430"/>
+    <use href="#jersey" x="400" y="430"/>
+    <use href="#jersey" x="520" y="430"/>
+    <use href="#jersey" x="640" y="430"/>
+  </g>
+
+  <!-- الأرضية -->
+  <rect y="500" width="800" height="100" fill="#071628"/>
+  <rect y="500" width="800" height="4" fill="#1B4A7A"/>
+</svg>

@@ -1,6 +1,9 @@
-node_modules
-.next
-out
-scraped_site
-.firebase
-.env*.local
+node_modules/
+.next/
+dist/
+build/
+out/
+.firebase/
+scraped_site/
+.env*
+.DS_Store

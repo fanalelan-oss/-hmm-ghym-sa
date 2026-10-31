@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="مظلات مواقف سيارات مشدودة">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#DCEEF7"/>
+      <stop offset="1" stop-color="#F6F8FC"/>
+    </linearGradient>
+    <linearGradient id="sailA" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#DDE3EE"/>
+    </linearGradient>
+    <linearGradient id="sailB" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3AA3D3"/>
+      <stop offset="1" stop-color="#1A77A3"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#sky)"/>
+  <circle cx="660" cy="100" r="44" fill="#FFB21A"/>
+
+  <!-- الأرض ومواقف السيارات -->
+  <rect y="450" width="800" height="150" fill="#E3E7EE"/>
+  <path d="M0 450h800" stroke="#C9CFDA" stroke-width="3"/>
+  <path d="M90 468l-24 132M400 468v132M710 468l24 132" stroke="#FFFFFF" stroke-width="7"/>
+  <path d="M60 462h680l-24 46H84z" fill="#071628" opacity=".08"/>
+
+  <!-- الأعمدة -->
+  <g fill="#4E5870">
+    <rect x="54" y="226" width="12" height="238"/>
+    <rect x="394" y="186" width="12" height="278"/>
+    <rect x="734" y="226" width="12" height="238"/>
+  </g>
+  <g fill="#3A4255">
+    <rect x="46" y="458" width="28" height="8" rx="2"/>
+    <rect x="386" y="458" width="28" height="8" rx="2"/>
+    <rect x="726" y="458" width="28" height="8" rx="2"/>
+  </g>
+
+  <!-- الأقمشة المشدودة -->
+  <path d="M60 230 Q235 252 400 184 Q384 250 400 300 Q235 286 60 304 Q76 268 60 230Z" fill="url(#sailA)" stroke="#C9CFDA" stroke-width="2"/>
+  <path d="M400 184 Q565 252 740 230 Q724 268 740 304 Q565 286 400 300 Q416 250 400 184Z" fill="url(#sailB)"/>
+  <path d="M60 230L400 184M400 184L740 230" stroke="#0F1523" stroke-width="2" opacity=".25"/>
+
+  <!-- السيارات -->
+  <g transform="translate(110 372)">
+    <path d="M0 58c0-14 8-22 22-24l40-6c16-18 36-26 62-26h52c24 0 40 10 56 26l20 6c12 2 18 10 18 24v20H0z" fill="#0F1523"/>
+    <path d="M76 28c12-12 28-18 48-18h44c18 0 30 8 42 18z" fill="#8D96AB"/>
+    <circle cx="62" cy="80" r="17" fill="#3A4255"/><circle cx="62" cy="80" r="7" fill="#C9CFDA"/>
+    <circle cx="210" cy="80" r="17" fill="#3A4255"/><circle cx="210" cy="80" r="7" fill="#C9CFDA"/>
+  </g>
+  <g transform="translate(440 372)">
+    <path d="M0 58c0-14 8-22 22-24l40-6c16-18 36-26 62-26h52c24 0 40 10 56 26l20 6c12 2 18 10 18 24v20H0z" fill="#C9CFDA"/>
+    <path d="M76 28c12-12 28-18 48-18h44c18 0 30 8 42 18z" fill="#4E5870"/>
+    <circle cx="62" cy="80" r="17" fill="#3A4255"/><circle cx="62" cy="80" r="7" fill="#E3E7EE"/>
+    <circle cx="210" cy="80" r="17" fill="#3A4255"/><circle cx="210" cy="80" r="7" fill="#E3E7EE"/>
+  </g>
+</svg>
