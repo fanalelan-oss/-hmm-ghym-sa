@@ -15,27 +15,40 @@
 }
 
 /* ==========================================================================
-   1. Global Best-Practice Modern Typography (Apple / Stripe Clean Depth)
-   Zero clunky iron extrusion — razor-sharp Arabic letterforms with subtle
-   vertical light gradient and ultra-soft ambient floating elevation.
+   1. Global Best-Practice Modern 3D Sculptural Typography
+   Realistic monochromatic depth: stepped shades of the exact same hue
+   (Deep Navy #0F2544 and Sky-Cyan #208EC1) without heavy black iron shadows.
+   Preserves razor-sharp Arabic letter counters and loops.
    ========================================================================== */
 
 .heading-3d-hero {
   color: #0f2544;
-  text-shadow: 0 2px 10px rgba(15, 37, 68, 0.07);
+  text-shadow:
+    0 1px 0 #0d203a,
+    0 2px 0 #0a182c,
+    0 3px 0 #07111f,
+    0 6px 18px rgba(15, 37, 68, 0.22);
   transition: transform 0.3s ease;
 }
 
 .dark .heading-3d-hero {
   color: #ffffff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  text-shadow:
+    0 1px 0 #e2e8f0,
+    0 2px 0 #cbd5e1,
+    0 3px 0 #94a3b8,
+    0 8px 24px rgba(0, 0, 0, 0.55);
 }
 
 .heading-3d-cyan {
   color: #208ec1;
   display: inline-block;
   position: relative;
-  text-shadow: 0 2px 12px rgba(32, 142, 193, 0.14);
+  text-shadow:
+    0 1px 0 #1c7ba7,
+    0 2px 0 #17668c,
+    0 3px 0 #125170,
+    0 6px 20px rgba(32, 142, 193, 0.32);
 }
 
 /* Subtle modern architectural accent bar under the highlighted phrase */
@@ -52,22 +65,35 @@
 
 .dark .heading-3d-cyan {
   color: #38bdf8;
-  text-shadow: 0 2px 14px rgba(56, 189, 248, 0.20);
+  text-shadow:
+    0 1px 0 #0284c7,
+    0 2px 0 #0369a1,
+    0 3px 0 #075985,
+    0 8px 22px rgba(56, 189, 248, 0.38);
 }
 
 .heading-3d-section {
   color: #0f2544;
-  text-shadow: 0 1px 8px rgba(15, 37, 68, 0.06);
+  text-shadow:
+    0 1px 0 #0d203a,
+    0 2px 0 #0a182c,
+    0 4px 14px rgba(15, 37, 68, 0.14);
 }
 
 .dark .heading-3d-section {
   color: #ffffff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  text-shadow:
+    0 1px 0 #cbd5e1,
+    0 2px 0 #94a3b8,
+    0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
 .heading-3d-light {
   color: #ffffff;
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+  text-shadow:
+    0 1px 0 #e2e8f0,
+    0 2px 0 #cbd5e1,
+    0 4px 16px rgba(0, 0, 0, 0.35);
 }
 
 /* ==========================================================================

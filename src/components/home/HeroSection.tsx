@@ -283,7 +283,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[90px] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[116px] sm:pt-[122px] lg:pt-[96px] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -359,22 +359,22 @@ export default function HeroSection() {
             {/* 2 Primary Pill Buttons */}
             <div
               style={{ animationDelay: '210ms' }}
-              className="animate-card-cascade flex flex-wrap items-center gap-2.5 pt-0.5"
+              className="animate-card-cascade flex items-center gap-2 sm:gap-2.5 pt-1"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-6 py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#208EC1]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
                 <span>{dict.hero.ctaPrimary}</span>
-                <ArrowIcon className="w-3.5 h-3.5" />
+                <ArrowIcon className="w-3.5 h-3.5 shrink-0" />
               </Link>
 
               <Link
                 href="/calculator"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-3.5 sm:px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
               >
-                <Calculator className="w-3.5 h-3.5 text-[#208EC1]" />
+                <Calculator className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
                 <span>{dict.nav.calculator}</span>
               </Link>
             </div>
