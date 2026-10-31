@@ -248,6 +248,36 @@ export default function HeroSection() {
 
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
 
+  function getSmartWarrantyBadge(project: any, currentLang: string): string {
+    const cat = (project?.category || '').toLowerCase();
+    const slug = (project?.slug || '').toLowerCase();
+    const title = (project?.title?.ar || '').toLowerCase();
+
+    if (cat === 'exhibitions' || slug.includes('booth') || title.includes('معارض') || title.includes('جناح')) {
+      return currentLang === 'ar' ? 'ضمان سنة معتمد' : currentLang === 'ur' ? '1 سال کی وارنٹی' : '1-Year Warranty';
+    }
+    if (cat === 'stickers' || slug.includes('sticker') || slug.includes('frosted') || title.includes('سنفرة') || title.includes('استيكر')) {
+      return currentLang === 'ar' ? 'ضمان سنتين معتمد' : currentLang === 'ur' ? '2 سال کی وارنٹی' : '2-Year Warranty';
+    }
+    if (cat === 'interiors' || slug.includes('interior') || slug.includes('decor') || title.includes('ديكور') || title.includes('جدار')) {
+      return currentLang === 'ar' ? 'ضمان 3 سنوات' : currentLang === 'ur' ? '3 سال کی وارنٹی' : '3-Year Warranty';
+    }
+    if (slug.includes('cladding') || title.includes('كلادينج') || title.includes('واجهة')) {
+      return currentLang === 'ar' ? 'ضمان 15 سنة' : currentLang === 'ur' ? '15 سال کی وارنٹی' : '15-Year Warranty';
+    }
+    if (cat === 'shades' || slug.includes('shade') || slug.includes('pergola') || slug.includes('screens') || title.includes('سواتر') || title.includes('مظلات')) {
+      return currentLang === 'ar' ? 'ضمان 10 سنوات' : currentLang === 'ur' ? '10 سال کی وارنٹی' : '10-Year Warranty';
+    }
+    if (cat === 'hoarding' || slug.includes('hoarding') || slug.includes('fence') || title.includes('تسوير') || title.includes('سياج')) {
+      return currentLang === 'ar' ? 'ضمان مدة المشروع' : currentLang === 'ur' ? 'پروجیکٹ کی وارنٹی' : 'Project Warranty';
+    }
+    if (cat === 'signage' || slug.includes('sign') || slug.includes('stamp') || title.includes('أحرف') || title.includes('لوحة')) {
+      return currentLang === 'ar' ? 'ضمان 5 سنوات' : currentLang === 'ur' ? '5 سال کی وارنٹی' : '5-Year Warranty';
+    }
+
+    return currentLang === 'ar' ? 'ضمان جودة معتمد' : currentLang === 'ur' ? 'مصدق وارنٹی' : 'Certified Warranty';
+  }
+
   const servicesRow1 = [
     {
       label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
@@ -332,6 +362,12 @@ export default function HeroSection() {
     },
   ];
 
+  const statsPartnersValue =
+    db.settings?.stats?.partnersCount ||
+    (db.partners && db.partners.length > 0 ? `+${db.partners.length}` : '+45');
+
+  const statsWarrantyValue = db.settings?.stats?.warrantyYears || '10';
+
   const statsItems = [
     {
       num: `+${db.settings.stats.projectsCount.replace('+', '')}`,
@@ -350,7 +386,9 @@ export default function HeroSection() {
           : 'Direct in-house fabrication & installation',
     },
     {
-      num: `+${db.settings.stats.partnersCount.replace('+', '')}`,
+      num: statsPartnersValue.startsWith('+')
+        ? statsPartnersValue
+        : `+${statsPartnersValue.replace('+', '')}`,
       title: dict.hero.statsPartners,
       sub:
         lang === 'ar'
@@ -358,7 +396,7 @@ export default function HeroSection() {
           : 'Trusted by ministries, hospitals & brands',
     },
     {
-      num: '+10',
+      num: `+${statsWarrantyValue.replace('+', '')}`,
       title: dict.hero.statsWarranty,
       sub:
         lang === 'ar'
@@ -370,7 +408,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[76px] sm:pt-[82px] lg:pt-[96px] pb-6 lg:pb-0 lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[52px] sm:-mt-[58px] lg:-mt-[90px] pt-[66px] sm:pt-[74px] lg:pt-[96px] pb-1.5 sm:pb-2.5 lg:pb-0 h-[100dvh] max-h-[100dvh] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -399,10 +437,10 @@ export default function HeroSection() {
       </div>
 
       {/* Main Center Hero Content */}
-      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1480px] mx-auto px-3.5 sm:px-8 lg:px-12 py-0.5 sm:py-1 lg:py-1.5">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4 lg:gap-8 xl:gap-10 items-center">
+      <div className="relative z-10 flex-1 flex flex-col justify-between w-full max-w-[1480px] mx-auto px-3.5 sm:px-8 lg:px-12 py-0.5 sm:py-1 lg:py-1.5 min-h-0">
+        <div className="w-full flex-1 flex flex-col justify-between lg:grid lg:grid-cols-12 lg:gap-8 xl:gap-10 lg:items-center min-h-0">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
-          <div className="lg:col-span-7 space-y-2 sm:space-y-3.5 text-start max-w-2xl">
+          <div className="lg:col-span-7 flex flex-col justify-between lg:block space-y-1 sm:space-y-2 lg:space-y-3.5 text-start max-w-2xl min-h-0">
             {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
             <div
               style={{ animationDelay: '0ms' }}
@@ -620,14 +658,14 @@ export default function HeroSection() {
           {/* Left Column (RTL End): Animated Floating 3D Project Showcase with Smooth Crossfade */}
           <div
             style={{ animationDelay: '180ms' }}
-            className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end"
+            className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end shrink-0 pt-0.5 pb-0.5"
           >
-            <div className="relative w-full max-w-[435px] animate-float-3d">
-              <div className="rounded-[22px] sm:rounded-[32px] p-1.5 sm:p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_20px_46px_-14px_rgba(15,37,68,0.14),0_6px_16px_-4px_rgba(15,37,68,0.06)]">
-                <div className="rounded-[18px] sm:rounded-[25px] p-1.5 sm:p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
+            <div className="relative w-full max-w-[390px] sm:max-w-[435px] animate-float-3d">
+              <div className="rounded-[20px] sm:rounded-[32px] p-1.5 sm:p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_20px_46px_-14px_rgba(15,37,68,0.14),0_6px_16px_-4px_rgba(15,37,68,0.06)]">
+                <div className="rounded-[16px] sm:rounded-[25px] p-1 sm:p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
                   <Link
                     href={`/portfolio/${currentProject.slug}`}
-                    className="group relative block rounded-[14px] sm:rounded-[18px] overflow-hidden aspect-[16/9] sm:aspect-[16/10] lg:aspect-[16/11] bg-slate-900"
+                    className="group relative block rounded-[13px] sm:rounded-[18px] overflow-hidden aspect-[16/8.2] sm:aspect-[16/10] lg:aspect-[16/11] bg-slate-900"
                   >
                     <img
                       key={currentProject.id}
@@ -660,14 +698,14 @@ export default function HeroSection() {
                       </div>
 
                       <span className="whitespace-nowrap px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/95 text-[#0f2544] text-[9px] sm:text-[10px] font-extrabold shadow-sm">
-                        {lang === 'ar' ? 'ضمان 10 سنوات' : '10-Yr Warranty'}
+                        {getSmartWarrantyBadge(currentProject, lang)}
                       </span>
                     </div>
                   </Link>
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-2">
+              <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-1.5">
                 {showcaseProjects.map((p, idx) => (
                   <button
                     key={p.id}

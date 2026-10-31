@@ -17,12 +17,15 @@ import {
   Sparkles,
   Phone,
   Mail,
+  Handshake,
+  BarChart3,
 } from "lucide-react";
 
 type AdminTab =
   | "settings"
   | "services"
   | "portfolio"
+  | "partners"
   | "ai"
   | "reviews"
   | "leads";
@@ -43,6 +46,26 @@ export default function AdminDashboardPage() {
   );
   const [email, setEmail] = useState(db.settings.email);
   const [addressAr, setAddressAr] = useState(db.settings.address.ar);
+
+  const [statsProjectsCount, setStatsProjectsCount] = useState(
+    db.settings.stats?.projectsCount || "100+"
+  );
+  const [statsServicesCount, setStatsServicesCount] = useState(
+    db.settings.stats?.servicesCount || "8"
+  );
+  const [statsPartnersCount, setStatsPartnersCount] = useState(
+    db.settings.stats?.partnersCount || "45+"
+  );
+  const [statsWarrantyYears, setStatsWarrantyYears] = useState(
+    db.settings.stats?.warrantyYears || "10"
+  );
+
+  const [newPartnerNameAr, setNewPartnerNameAr] = useState("");
+  const [newPartnerNameEn, setNewPartnerNameEn] = useState("");
+  const [newPartnerSector, setNewPartnerSector] = useState("government");
+  const [newPartnerLogo, setNewPartnerLogo] = useState(
+    "/assets/images/partners/partner-sustainable-agriculture-center-himam-ghaim-saudi-client.webp"
+  );
 
   const [newProjTitleAr, setNewProjTitleAr] = useState("");
   const [newProjCityAr, setNewProjCityAr] = useState("الرياض");
@@ -75,6 +98,10 @@ export default function AdminDashboardPage() {
       setWhatsappNumber(db.settings.whatsappNumber);
       setEmail(db.settings.email);
       setAddressAr(db.settings.address.ar);
+      setStatsProjectsCount(db.settings.stats?.projectsCount || "100+");
+      setStatsServicesCount(db.settings.stats?.servicesCount || "8");
+      setStatsPartnersCount(db.settings.stats?.partnersCount || "45+");
+      setStatsWarrantyYears(db.settings.stats?.warrantyYears || "10");
     } else {
       setPinError(true);
     }
@@ -99,9 +126,73 @@ export default function AdminDashboardPage() {
           ...db.settings.address,
           ar: addressAr,
         },
+        stats: {
+          ...db.settings.stats,
+          projectsCount: statsProjectsCount.trim(),
+          servicesCount: statsServicesCount.trim(),
+          partnersCount: statsPartnersCount.trim(),
+          warrantyYears: statsWarrantyYears.trim(),
+        },
       },
     };
     await updateDb(nextDb);
+    showSavedNotification();
+  }
+
+  async function handleAddPartner(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newPartnerNameAr.trim()) return;
+
+    const newId = `partner-custom-${Date.now()}`;
+    const newPartner = {
+      id: newId,
+      slug: newId,
+      name: {
+        ar: newPartnerNameAr.trim(),
+        en: newPartnerNameEn.trim() || newPartnerNameAr.trim(),
+        ur: newPartnerNameAr.trim(),
+      },
+      sector: newPartnerSector,
+      logo:
+        newPartnerLogo.trim() ||
+        "/assets/images/brand/himam-ghaim-favicon-icon.svg",
+      featured: true,
+    };
+
+    const nextPartners = [newPartner, ...(db.partners || [])];
+    const nextDb = {
+      ...db,
+      partners: nextPartners,
+      settings: {
+        ...db.settings,
+        stats: {
+          ...db.settings.stats,
+          partnersCount: `+${nextPartners.length}`,
+        },
+      },
+    };
+    await updateDb(nextDb);
+    setNewPartnerNameAr("");
+    setNewPartnerNameEn("");
+    setStatsPartnersCount(`+${nextPartners.length}`);
+    showSavedNotification();
+  }
+
+  async function handleDeletePartner(id: string) {
+    const nextPartners = (db.partners || []).filter((p) => p.id !== id);
+    const nextDb = {
+      ...db,
+      partners: nextPartners,
+      settings: {
+        ...db.settings,
+        stats: {
+          ...db.settings.stats,
+          partnersCount: `+${nextPartners.length}`,
+        },
+      },
+    };
+    await updateDb(nextDb);
+    setStatsPartnersCount(`+${nextPartners.length}`);
     showSavedNotification();
   }
 
@@ -393,6 +484,11 @@ export default function AdminDashboardPage() {
               icon: Briefcase,
             },
             {
+              id: "partners",
+              label: `شركاء النجاح (${(db.partners || []).length})`,
+              icon: Handshake,
+            },
+            {
               id: "ai",
               label: `تدريب المهندس الذكي (${
                 (db.knowledgeBase.rules || []).length
@@ -489,12 +585,73 @@ export default function AdminDashboardPage() {
                 />
               </div>
 
+              <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
+                <h3 className="text-sm font-bold font-heading text-slate-900 dark:text-white mb-3 flex items-center gap-2">
+                  <BarChart3 className="w-4 h-4 text-[#208EC1]" />
+                  أرقام الإحصائيات وعدادات القسم الرئيسي (Hero Section)
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      المشاريع المنفذة
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      value={statsProjectsCount}
+                      onChange={(e) => setStatsProjectsCount(e.target.value)}
+                      placeholder="100+"
+                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold text-center"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      الخدمات المتكاملة
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      value={statsServicesCount}
+                      onChange={(e) => setStatsServicesCount(e.target.value)}
+                      placeholder="8"
+                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold text-center"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      الشركاء والعملاء
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      value={statsPartnersCount}
+                      onChange={(e) => setStatsPartnersCount(e.target.value)}
+                      placeholder="45+"
+                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold text-center"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      سنوات الضمان
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      value={statsWarrantyYears}
+                      onChange={(e) => setStatsWarrantyYears(e.target.value)}
+                      placeholder="10"
+                      className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold text-center"
+                    />
+                  </div>
+                </div>
+              </div>
+
               <button
                 type="submit"
                 className="px-8 py-4 rounded-2xl bg-[#11345C] hover:bg-[#208EC1] text-white font-bold text-sm flex items-center gap-2 transition-all shadow-lg"
               >
                 <Save className="w-4 h-4" />
-                حفظ وتعميم بيانات التواصل في كامل الموقع
+                حفظ وتعميم بيانات التواصل والإحصائيات في كامل الموقع
               </button>
             </form>
           </div>
@@ -712,6 +869,148 @@ export default function AdminDashboardPage() {
                   </p>
                 </div>
               ))}
+            </div>
+          </div>
+        )}
+
+        {activeTab === "partners" && (
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="lg:col-span-5">
+              <div className="clean-card rounded-3xl p-6 sm:p-8">
+                <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                  <Plus className="w-5 h-5 text-[#208EC1]" />
+                  إضافة جهة أو شريك نجاح جديد
+                </h2>
+                <form onSubmit={handleAddPartner} className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      اسم الشريك / الجهة (بالعربية) *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="مثال: وزارة النقل والخدمات اللوجستية"
+                      value={newPartnerNameAr}
+                      onChange={(e) => setNewPartnerNameAr(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      اسم الشريك (بالإنجليزية)
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      placeholder="Ministry of Transport"
+                      value={newPartnerNameEn}
+                      onChange={(e) => setNewPartnerNameEn(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      القطاع
+                    </label>
+                    <select
+                      value={newPartnerSector}
+                      onChange={(e) => setNewPartnerSector(e.target.value)}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
+                    >
+                      <option value="government">جهات وهيئات حكومية</option>
+                      <option value="commercial">شركات ومجموعات تجارية</option>
+                      <option value="healthcare">مستشفيات ومراكز طبية</option>
+                      <option value="retail">كافيهات ومطاعم وتجزئة</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      رابط شعار الشريك (Logo WebP/SVG)
+                    </label>
+                    <input
+                      type="text"
+                      dir="ltr"
+                      value={newPartnerLogo}
+                      onChange={(e) => setNewPartnerLogo(e.target.value)}
+                      placeholder="/assets/images/partners/..."
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    className="w-full py-3.5 rounded-2xl bg-[#11345C] hover:bg-[#208EC1] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all shadow-md"
+                  >
+                    <Plus className="w-4 h-4" />
+                    إضافة الشريك وتحديث العداد تلقائياً
+                  </button>
+                </form>
+              </div>
+            </div>
+
+            <div className="lg:col-span-7">
+              <div className="clean-card rounded-3xl p-6 sm:p-8">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white">
+                    قائمة شركاء النجاح ({db.partners?.length || 0})
+                  </h2>
+                  <span className="text-xs font-bold text-[#208EC1] bg-[#208EC1]/10 px-3 py-1 rounded-full">
+                    العدد الحالي في شريط الأرقام: {db.settings?.stats?.partnersCount || '45+'}
+                  </span>
+                </div>
+
+                <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
+                  {(db.partners || []).map((partner) => (
+                    <div
+                      key={partner.id}
+                      className="flex items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-white/5"
+                    >
+                      <div className="flex items-center gap-3 min-w-0">
+                        <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center p-1.5 shrink-0 overflow-hidden">
+                          {partner.logo ? (
+                            <img
+                              src={partner.logo}
+                              alt={partner.name?.ar || partner.name?.en}
+                              className="max-w-full max-h-full object-contain"
+                              onError={(e) => {
+                                (e.target as HTMLElement).style.display = 'none';
+                              }}
+                            />
+                          ) : (
+                            <Users className="w-5 h-5 text-slate-400" />
+                          )}
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white truncate">
+                            {partner.name?.ar || partner.name?.en}
+                          </p>
+                          <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate">
+                            {partner.sector === 'government'
+                              ? 'جهة حكومية'
+                              : partner.sector === 'commercial'
+                              ? 'قطاع تجاري'
+                              : partner.sector === 'healthcare'
+                              ? 'قطاع صحي'
+                              : 'تجزئة ومطاعم'}
+                          </p>
+                        </div>
+                      </div>
+
+                      <button
+                        type="button"
+                        onClick={() => handleDeletePartner(partner.id)}
+                        className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors shrink-0"
+                        title="حذف الشريك"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         )}
