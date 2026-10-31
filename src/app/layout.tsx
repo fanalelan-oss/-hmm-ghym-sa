@@ -48,10 +48,26 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ar_SA',
+    url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
     siteName: 'شركة همم غيم للدعاية والإعلان والمقاولات',
     title: 'شركة همم غيم — من الحرف البارز إلى تسليم المفتاح',
     description:
       'ثماني خدمات هندسية وإعلانية تحت إدارة واحدة في المملكة العربية السعودية: أحرف بارزة وكلادينج، استيكرات، تسوير مشاريع، معارض، مظلات وسواتر، ديكور وتشطيبات، مقاولات عامة، وأمن وسلامة.',
+    images: [
+      {
+        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og',
+        width: 1200,
+        height: 630,
+        alt: 'شركة همم غيم للدعاية والإعلان والمقاولات',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'شركة همم غيم | دعاية وإعلان ومقاولات عامة بالسعودية',
+    description:
+      'تصنيع وتركيب الأحرف البارزة والكلادينج، المعارض، المظلات، والديكور الداخلي بضمان 10 سنوات.',
+    images: ['https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og'],
   },
 };
 

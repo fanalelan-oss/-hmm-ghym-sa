@@ -234,7 +234,7 @@ export default function PortfolioItemPage() {
                     )}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full py-3.5 px-6 rounded-2xl border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-500/10 font-bold text-sm flex items-center justify-center gap-2 transition-all"
+                    className="w-full py-3.5 px-6 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-md shadow-emerald-500/20 font-bold text-sm flex items-center justify-center gap-2 transition-all"
                   >
                     <Share2 className="w-4 h-4" />
                     {dict.nav.whatsapp}
