@@ -57,16 +57,18 @@ export default function SiteHeader() {
   return (
     <header
       className={`sticky z-50 px-3 sm:px-6 lg:px-10 transition-all duration-300 ${
-        isScrolled ? 'top-2' : 'top-3.5'
+        isScrolled ? 'top-1.5 sm:top-2' : 'top-2 sm:top-3.5'
       }`}
     >
       <div className="w-full max-w-[1520px] mx-auto">
         {/* Outer Soft Architectural Bezel for Natural Physical Depth */}
-        <div className="rounded-full p-[3px] bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl border border-white/90 dark:border-white/10 shadow-[0_20px_44px_-12px_rgba(15,37,68,0.15),0_6px_16px_-4px_rgba(15,37,68,0.07)]">
+        <div className="rounded-full p-[2px] sm:p-[3px] bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl border border-white/90 dark:border-white/10 shadow-[0_16px_36px_-12px_rgba(15,37,68,0.12),0_4px_12px_-4px_rgba(15,37,68,0.06)]">
           {/* Inner Pure Porcelain Bar with Top Specular Highlight & Bottom Depth Lip */}
           <div
-            className={`relative rounded-full bg-white/95 dark:bg-[#0b192e]/95 border border-slate-200/85 dark:border-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(15,37,68,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 px-4 sm:px-6 flex items-center justify-between gap-3 ${
-              isScrolled ? 'h-[58px]' : 'h-[66px]'
+            className={`relative rounded-full bg-white/95 dark:bg-[#0b192e]/95 border border-slate-200/85 dark:border-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(15,37,68,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-3 ${
+              isScrolled
+                ? 'h-[48px] sm:h-[54px] lg:h-[58px]'
+                : 'h-[52px] sm:h-[60px] lg:h-[66px]'
             }`}
           >
             {/* ZONE 1 (RTL Start): Brand Logo */}
@@ -86,7 +88,9 @@ export default function SiteHeader() {
                   width={108}
                   height={54}
                   className={`w-auto object-contain transition-all duration-300 group-hover:scale-105 ${
-                    isScrolled ? 'h-9 sm:h-9' : 'h-10 sm:h-11'
+                    isScrolled
+                      ? 'h-6 sm:h-8 lg:h-9'
+                      : 'h-7 sm:h-9 lg:h-11'
                   }`}
                 />
               </Link>
@@ -193,15 +197,15 @@ export default function SiteHeader() {
             </nav>
 
             {/* ZONE 3 (RTL End): Quick Actions + Primary CTA with Natural Depth */}
-            <div className="flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
               {/* Language Switcher */}
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 text-xs font-extrabold text-[#0f2544] dark:text-slate-200 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-colors"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 text-[11px] sm:text-xs font-black text-[#0f2544] dark:text-slate-200 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-colors"
                 >
-                  <Globe className="w-3.5 h-3.5 text-[#208EC1]" />
+                  <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#208EC1]" />
                   <span className="uppercase">
                     {lang === 'ar' ? 'EN' : lang === 'en' ? 'عربي' : 'اردو'}
                   </span>
@@ -238,14 +242,14 @@ export default function SiteHeader() {
               <button
                 type="button"
                 onClick={toggleTheme}
-                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 flex items-center justify-center text-[#0f2544] dark:text-sky-300 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-all"
+                className="w-7 h-7 sm:w-8 sm:h-8 lg:w-9 lg:h-9 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 dark:hover:bg-white/20 flex items-center justify-center text-[#0f2544] dark:text-sky-300 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-all"
                 title={theme === 'light' ? 'الوضع الليلي' : 'الوضع النهاري'}
                 aria-label="تبديل الوضع النهاري والليلي"
               >
                 {theme === 'light' ? (
-                  <Moon className="w-4 h-4" />
+                  <Moon className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 ) : (
-                  <Sun className="w-4 h-4" />
+                  <Sun className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                 )}
               </button>
 
@@ -259,12 +263,12 @@ export default function SiteHeader() {
                 <Phone className="w-3.5 h-3.5" />
               </a>
 
-              {/* Primary Dark Navy Pill CTA Button with Elevated Depth */}
+              {/* Primary Dark Navy Pill CTA Button with Elevated Depth (Slimmed on mobile) */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] dark:bg-[#208EC1] dark:hover:bg-sky-400 text-white text-xs font-extrabold shadow-[0_10px_22px_-6px_rgba(15,37,68,0.38),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-1 sm:px-4 sm:py-2 rounded-full bg-[#0f2544] hover:bg-[#208EC1] dark:bg-[#208EC1] dark:hover:bg-sky-400 text-white text-[11px] sm:text-xs font-black shadow-[0_8px_18px_-4px_rgba(15,37,68,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all hover:-translate-y-0.5"
               >
-                <FileText className="w-3.5 h-3.5 text-[#208EC1] dark:text-white shrink-0" />
+                <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#208EC1] dark:text-white shrink-0" />
                 <span>{dict.nav.requestQuote}</span>
               </Link>
 
@@ -272,13 +276,13 @@ export default function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-9 h-9 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#0f2544] dark:text-slate-200"
+                className="lg:hidden w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#0f2544] dark:text-slate-200"
                 aria-label="القائمة"
               >
                 {mobileMenuOpen ? (
-                  <X className="w-5 h-5" />
+                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
                 ) : (
-                  <Menu className="w-5 h-5" />
+                  <Menu className="w-4 h-4 sm:w-5 sm:h-5" />
                 )}
               </button>
             </div>

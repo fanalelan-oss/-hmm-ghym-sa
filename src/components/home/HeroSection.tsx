@@ -136,8 +136,36 @@ export default function HeroSection() {
     return () => clearInterval(spotTimer);
   }, []);
 
-  // Full-Viewport One-Scroll Section Transition
+  // Full-Viewport One-Scroll Section Transition (Desktop wheel & Mobile single-swipe)
   useEffect(() => {
+    let touchStartY = 0;
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      const heroEl = heroRef.current;
+      if (!heroEl || isSnappingRef.current) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY;
+      const scrollY = window.scrollY;
+      const heroHeight = heroEl.offsetHeight;
+      const nextTargetY = Math.max(0, heroHeight - 64);
+
+      // Single swipe UP when at top of Hero section -> glides cleanly to next section
+      if (deltaY > 45 && scrollY < 25) {
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: nextTargetY,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 650);
+      }
+    };
+
     const handleWheel = (e: WheelEvent) => {
       if (window.innerWidth < 1024) return;
       const heroEl = heroRef.current;
@@ -206,9 +234,13 @@ export default function HeroSection() {
       }
     };
 
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -233,7 +265,7 @@ export default function HeroSection() {
       href: '/services/general-contracting-and-glass',
     },
     {
-      label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
+      label: lang === 'ar' ? 'ديكور وتشطيبات' : 'Interior Fit-Out',
       href: '/services/interior-design-and-fitout',
     },
     {
@@ -252,7 +284,7 @@ export default function HeroSection() {
       href: '/services/exhibition-booths-and-events',
     },
     {
-      label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
+      label: lang === 'ar' ? 'تواصل مباشر' : 'Direct Contact',
       href: '/contact',
     },
   ];
@@ -338,7 +370,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[116px] sm:pt-[122px] lg:pt-[96px] pb-8 lg:pb-0 lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[76px] sm:pt-[82px] lg:pt-[96px] pb-6 lg:pb-0 lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -367,10 +399,10 @@ export default function HeroSection() {
       </div>
 
       {/* Main Center Hero Content */}
-      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1480px] mx-auto px-4 sm:px-8 lg:px-12 py-1.5">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-7 xl:gap-10 items-center">
+      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1480px] mx-auto px-3.5 sm:px-8 lg:px-12 py-0.5 sm:py-1 lg:py-1.5">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-2 sm:gap-4 lg:gap-8 xl:gap-10 items-center">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
-          <div className="lg:col-span-7 space-y-3.5 text-start max-w-2xl">
+          <div className="lg:col-span-7 space-y-2 sm:space-y-3.5 text-start max-w-2xl">
             {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
             <div
               style={{ animationDelay: '0ms' }}
@@ -402,12 +434,17 @@ export default function HeroSection() {
               <span className="block mt-1.5">{dict.hero.titleLine2}</span>
             </h1>
 
-            {/* Natural, Easy-to-Read Subtitle */}
+            {/* Natural, Easy-to-Read Subtitle (Concise on mobile to give room) */}
             <p
               style={{ animationDelay: '150ms' }}
-              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium max-w-xl"
+              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-[11px] sm:text-xs lg:text-sm leading-snug sm:leading-relaxed font-medium max-w-xl"
             >
-              {dict.hero.subtitle}
+              <span className="lg:hidden">
+                {lang === 'ar'
+                  ? 'تنفيذ واجهات الكلادينج، الأحرف البارزة والمقاولات من التصميم حتى التركيب بدقة وإتقان.'
+                  : dict.hero.subtitle}
+              </span>
+              <span className="hidden lg:inline">{dict.hero.subtitle}</span>
             </p>
 
             {/* 2 Primary Pill Buttons */}
@@ -417,7 +454,7 @@ export default function HeroSection() {
             >
               <Link
                 href="/contact"
-                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-6 py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
                 <span>{dict.hero.ctaPrimary}</span>
@@ -426,7 +463,7 @@ export default function HeroSection() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
               >
                 <Phone className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
                 <span>{lang === 'ar' ? 'تواصل معنا' : lang === 'ur' ? 'ہم سے رابطہ کریں' : 'Contact Us'}</span>
@@ -436,24 +473,20 @@ export default function HeroSection() {
             {/* ========================================================
                 MOBILE ONLY: Condensed 3 Rows (2 - 3 - 3) + In-Column Stats Bar
                 ======================================================== */}
-            <div className="block lg:hidden space-y-2 pt-1">
-              {/* Condensed 3 Quick-Service Rows: 2 items, then 3 items, then 3 items */}
-              <div className="space-y-1.5">
+            <div className="block lg:hidden space-y-1 pt-0.5">
+              {/* Condensed 3 Quick-Service Rows */}
+              <div className="space-y-1">
                 {/* Row 1: بندين (2 items) */}
                 <div
                   style={{ animationDelay: '260ms' }}
                   onMouseEnter={() => setActiveSpotlight(0)}
-                  className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3 sm:px-3.5 py-1.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
-                    activeSpotlight === 0
-                      ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
-                      : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
-                  }`}
+                  className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-3 py-1 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
                 >
                   {servicesRow1.map((item, idx) => (
                     <Link
                       key={idx}
                       href={item.href}
-                      className={`flex items-center gap-1.5 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      className={`flex items-center gap-1.5 text-[11px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
                         idx > 0 ? 'ps-2' : ''
                       }`}
                     >
@@ -467,21 +500,17 @@ export default function HeroSection() {
                 <div
                   style={{ animationDelay: '315ms' }}
                   onMouseEnter={() => setActiveSpotlight(1)}
-                  className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-2.5 sm:px-3.5 py-1.5 grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
-                    activeSpotlight === 1
-                      ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
-                      : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
-                  }`}
+                  className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-2 py-1 grid grid-cols-3 gap-1 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
                 >
                   {servicesRow2.map((item, idx) => (
                     <Link
                       key={idx}
                       href={item.href}
-                      className={`flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
-                        idx > 0 ? 'ps-1 sm:ps-2' : ''
+                      className={`flex items-center gap-1 text-[10.5px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                        idx > 0 ? 'ps-1' : ''
                       }`}
                     >
-                      <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-[#208EC1]" />
+                      <CheckCircle2 className="w-3 h-3 shrink-0 text-[#208EC1]" />
                       <span className="truncate">{item.label}</span>
                     </Link>
                   ))}
@@ -491,21 +520,17 @@ export default function HeroSection() {
                 <div
                   style={{ animationDelay: '370ms' }}
                   onMouseEnter={() => setActiveSpotlight(2)}
-                  className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-2.5 sm:px-3.5 py-1.5 grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
-                    activeSpotlight === 2
-                      ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
-                      : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
-                  }`}
+                  className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-2 py-1 grid grid-cols-3 gap-1 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
                 >
                   {servicesRow3.map((item, idx) => (
                     <Link
                       key={idx}
                       href={item.href}
-                      className={`flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
-                        idx > 0 ? 'ps-1 sm:ps-2' : ''
+                      className={`flex items-center gap-1 text-[10.5px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                        idx > 0 ? 'ps-1' : ''
                       }`}
                     >
-                      <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-[#208EC1]" />
+                      <CheckCircle2 className="w-3 h-3 shrink-0 text-[#208EC1]" />
                       <span className="truncate">{item.label}</span>
                     </Link>
                   ))}
@@ -515,25 +540,25 @@ export default function HeroSection() {
               {/* Mobile Stats Pods */}
               <div
                 style={{ animationDelay: '425ms' }}
-                className="animate-card-cascade pt-1"
+                className="animate-card-cascade pt-0.5"
               >
-                <div className="rounded-2xl bg-white/90 dark:bg-[#0c1d34]/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 p-1.5 shadow-[0_10px_26px_-8px_rgba(15,37,68,0.09)]">
+                <div className="rounded-2xl bg-white/90 dark:bg-[#0c1d34]/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 p-1 shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)]">
                   <div className="grid grid-cols-4 gap-1">
                     {statsItems.map((st, i) => (
                       <div
                         key={i}
-                        className="rounded-xl bg-slate-50/80 dark:bg-white/[0.03] px-1 py-1.5 text-center"
+                        className="rounded-xl bg-slate-50/80 dark:bg-white/[0.03] px-1 py-1 text-center"
                       >
                         <p
                           dir="ltr"
-                          className="font-display font-black text-sm leading-none text-[#208EC1]"
+                          className="font-display font-black text-xs sm:text-sm leading-none text-[#208EC1]"
                         >
                           <AnimatedCounter
                             valueStr={st.num}
                             duration={1500 + i * 200}
                           />
                         </p>
-                        <p className="font-display font-extrabold text-[10px] text-[#0f2544] dark:text-white mt-1 truncate">
+                        <p className="font-display font-extrabold text-[9.5px] text-[#0f2544] dark:text-white mt-0.5 truncate">
                           {st.title}
                         </p>
                       </div>
@@ -598,11 +623,11 @@ export default function HeroSection() {
             className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end"
           >
             <div className="relative w-full max-w-[435px] animate-float-3d">
-              <div className="rounded-[32px] p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_24px_54px_-14px_rgba(15,37,68,0.16),0_6px_18px_-4px_rgba(15,37,68,0.06)]">
-                <div className="rounded-[25px] p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
+              <div className="rounded-[22px] sm:rounded-[32px] p-1.5 sm:p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_20px_46px_-14px_rgba(15,37,68,0.14),0_6px_16px_-4px_rgba(15,37,68,0.06)]">
+                <div className="rounded-[18px] sm:rounded-[25px] p-1.5 sm:p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
                   <Link
                     href={`/portfolio/${currentProject.slug}`}
-                    className="group relative block rounded-[18px] overflow-hidden aspect-[16/11] bg-slate-900"
+                    className="group relative block rounded-[14px] sm:rounded-[18px] overflow-hidden aspect-[16/9] sm:aspect-[16/10] lg:aspect-[16/11] bg-slate-900"
                   >
                     <img
                       key={currentProject.id}
@@ -618,23 +643,23 @@ export default function HeroSection() {
 
                     <div
                       key={`caption-${currentProject.id}`}
-                      className="animate-tab-switch absolute bottom-3 inset-x-3.5 flex items-end justify-between gap-2.5"
+                      className="animate-tab-switch absolute bottom-2 inset-x-2.5 sm:bottom-3 sm:inset-x-3.5 flex items-end justify-between gap-2"
                     >
                       <div className="text-start">
-                        <p className="text-[11px] font-bold text-sky-300 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#208EC1] shrink-0" />
+                        <p className="text-[10px] sm:text-[11px] font-bold text-sky-300 flex items-center gap-1">
+                          <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#208EC1] shrink-0" />
                           <span>
                             {lang === 'ar'
                               ? `من أعمالنا · ${tText(currentProject.city, lang)}`
                               : `Delivered · ${tText(currentProject.city, lang)}`}
                           </span>
                         </p>
-                        <h2 className="text-xs sm:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
+                        <h2 className="text-[11px] sm:text-xs lg:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
                           {tText(currentProject.title, lang)}
                         </h2>
                       </div>
 
-                      <span className="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/95 text-[#0f2544] text-[10px] font-extrabold shadow-sm">
+                      <span className="whitespace-nowrap px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/95 text-[#0f2544] text-[9px] sm:text-[10px] font-extrabold shadow-sm">
                         {lang === 'ar' ? 'ضمان 10 سنوات' : '10-Yr Warranty'}
                       </span>
                     </div>
@@ -642,7 +667,7 @@ export default function HeroSection() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-1.5 mt-2">
+              <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-2">
                 {showcaseProjects.map((p, idx) => (
                   <button
                     key={p.id}
