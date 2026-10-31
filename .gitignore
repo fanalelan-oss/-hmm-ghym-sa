@@ -3,5 +3,4 @@ node_modules
 out
 scraped_site
 .firebase
-public/assets/videos
 .env*.local

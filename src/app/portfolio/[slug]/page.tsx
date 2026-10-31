@@ -67,12 +67,15 @@ export default function PortfolioItemPage() {
               <div className="clean-card rounded-3xl overflow-hidden bg-slate-950 shadow-xl">
                 {project.type === "video" ? (
                   <video
-                    src={project.src}
-                    poster={project.poster}
                     controls
                     playsInline
+                    preload="metadata"
+                    poster={project.poster}
                     className="w-full max-h-[560px] object-contain bg-black"
-                  />
+                  >
+                    <source src={project.src} type="video/mp4" />
+                    متصفحك لا يدعم تشغيل الفيديو مباشرة.
+                  </video>
                 ) : (
                   <img
                     src={project.src}
