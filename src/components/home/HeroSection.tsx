@@ -83,30 +83,30 @@ export default function HeroSection() {
     {
       text:
         lang === 'ar'
-          ? 'لوحات إعلانية، واجهات ومقاولات في كل مناطق المملكة'
+          ? 'لوحات إعلانية وواجهات في كافة مدن المملكة'
           : lang === 'ur'
-          ? 'سعودی عرب کے تمام شہروں میں سائن بورڈز، واجهات اور کنٹریکٹنگ'
-          : 'Signage, Facades & Contracting Across Saudi Arabia',
+          ? 'سعودی عرب کے تمام شہروں میں سائن بورڈز'
+          : 'Signage & Facades Across All Saudi Cities',
       colorClass: 'text-[#208EC1] dark:text-sky-400',
       borderClass: 'border-[#208EC1]/30 dark:border-sky-400/25',
     },
     {
       text:
         lang === 'ar'
-          ? 'تصنيع وتنفيذ مباشر بأيدي فنيين متخصصين وبأعلى معايير الجودة'
+          ? 'تصنيع وتنفيذ مباشر بأعلى معايير الجودة المعتمدة'
           : lang === 'ur'
-          ? 'ماہر کاریگروں کے ذریعے اعلیٰ ترین معیار کے مطابق براہ راست تیاری'
-          : 'Direct In-House Execution by Specialists to Highest Standards',
+          ? 'اعلیٰ ترین معیارات کے مطابق براہ راست تیاری'
+          : 'Direct In-House Fabrication to Highest Quality Standards',
       colorClass: 'text-emerald-600 dark:text-emerald-400',
       borderClass: 'border-emerald-500/30 dark:border-emerald-400/25',
     },
     {
       text:
         lang === 'ar'
-          ? 'معاينة مجانية لموقعك وتصميم 3D قبل البدء بالتنفيذ'
+          ? 'معاينة موقعك وتصميم 3D مجاناً قبل التنفيذ'
           : lang === 'ur'
-          ? 'مفت سائٹ وزٹ اور کام شروع کرنے سے پہلے تھری ڈی ڈیزائن'
-          : 'Free Site Survey & 3D Preview Before Execution',
+          ? 'مفت سائٹ وزٹ اور تھری ڈی ڈیزائن'
+          : 'Free Site Survey & 3D Design Preview',
       colorClass: 'text-amber-600 dark:text-amber-400',
       borderClass: 'border-amber-500/30 dark:border-amber-400/25',
     },
@@ -331,7 +331,7 @@ export default function HeroSection() {
             {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
             <div
               style={{ animationDelay: '0ms' }}
-              className={`animate-card-cascade inline-flex items-center px-4 py-1.5 rounded-full bg-white dark:bg-[#0c1d34] border ${badgeItems[badgeIdx].borderClass} text-[11px] sm:text-xs font-black shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden transition-colors duration-500`}
+              className={`animate-card-cascade inline-flex items-center px-3.5 py-1 sm:px-4 sm:py-1 rounded-full bg-white dark:bg-[#0c1d34] border ${badgeItems[badgeIdx].borderClass} text-[11px] sm:text-xs font-black shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden transition-colors duration-500`}
             >
               <span
                 key={badgeIdx}
