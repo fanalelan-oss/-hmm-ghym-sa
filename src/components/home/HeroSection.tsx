@@ -8,7 +8,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Sparkles,
-  Calculator,
+  Phone,
   CheckCircle2,
   MapPin,
 } from 'lucide-react';
@@ -114,7 +114,7 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, [showcaseProjects.length]);
 
-  // Auto-spotlight cycle across the 4 quick-service rows & 4 stats pods
+  // Auto-spotlight cycle across the 3 quick-service rows & 4 stats pods
   useEffect(() => {
     const spotTimer = setInterval(() => {
       setActiveSpotlight((prev) => (prev + 1) % 4);
@@ -202,46 +202,44 @@ export default function HeroSection() {
 
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
 
-  const serviceRows = [
+  const servicesRow1 = [
     {
-      left: {
-        label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
-        href: '/services/3d-signage-and-cladding-facades',
-      },
-      right: {
-        label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
-        href: '/services/3d-signage-and-cladding-facades',
-      },
+      label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
+      href: '/services/3d-signage-and-cladding-facades',
     },
     {
-      left: {
-        label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
-        href: '/services/general-contracting-and-glass',
-      },
-      right: {
-        label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
-        href: '/services/interior-design-and-fitout',
-      },
+      label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
+      href: '/services/3d-signage-and-cladding-facades',
+    },
+  ];
+
+  const servicesRow2 = [
+    {
+      label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
+      href: '/services/general-contracting-and-glass',
     },
     {
-      left: {
-        label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
-        href: '/services/car-shades-and-pergolas',
-      },
-      right: {
-        label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
-        href: '/services/project-hoarding-and-fencing',
-      },
+      label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
+      href: '/services/interior-design-and-fitout',
     },
     {
-      left: {
-        label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
-        href: '/services/exhibition-booths-and-events',
-      },
-      right: {
-        label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
-        href: '/contact',
-      },
+      label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
+      href: '/services/car-shades-and-pergolas',
+    },
+  ];
+
+  const servicesRow3 = [
+    {
+      label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
+      href: '/services/project-hoarding-and-fencing',
+    },
+    {
+      label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
+      href: '/services/exhibition-booths-and-events',
+    },
+    {
+      label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
+      href: '/contact',
     },
   ];
 
@@ -283,7 +281,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[116px] sm:pt-[122px] lg:pt-[96px] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[116px] sm:pt-[122px] lg:pt-[96px] pb-8 lg:pb-0 lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-center"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -359,7 +357,7 @@ export default function HeroSection() {
             {/* 2 Primary Pill Buttons */}
             <div
               style={{ animationDelay: '210ms' }}
-              className="animate-card-cascade flex items-center gap-2 sm:gap-2.5 pt-1"
+              className="animate-card-cascade flex items-center gap-2 sm:gap-2.5 pt-0.5"
             >
               <Link
                 href="/contact"
@@ -371,58 +369,117 @@ export default function HeroSection() {
               </Link>
 
               <Link
-                href="/calculator"
-                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-3.5 sm:px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-5 py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
               >
-                <Calculator className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
-                <span>{dict.nav.calculator}</span>
+                <Phone className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
+                <span>{lang === 'ar' ? 'تواصل معنا' : lang === 'ur' ? 'ہم سے رابطہ کریں' : 'Contact Us'}</span>
               </Link>
             </div>
 
-            {/* Auto-Presenting 2x2 Floating Porcelain Quick-Service Cards */}
-            <div className="pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {serviceRows.map((pair, idx) => {
-                const isSpotlit = activeSpotlight === idx;
-                return (
-                  <div
+            {/* Condensed 3 Quick-Service Rows: 2 items, then 3 items, then 3 items */}
+            <div className="pt-1 space-y-1.5">
+              {/* Row 1: بندين (2 items) */}
+              <div
+                style={{ animationDelay: '260ms' }}
+                onMouseEnter={() => setActiveSpotlight(0)}
+                className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3 sm:px-3.5 py-1.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                  activeSpotlight === 0
+                    ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
+                    : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
+                }`}
+              >
+                {servicesRow1.map((item, idx) => (
+                  <Link
                     key={idx}
-                    style={{ animationDelay: `${260 + idx * 55}ms` }}
-                    onMouseEnter={() => setActiveSpotlight(idx)}
-                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3.5 py-2 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
-                      isSpotlit
-                        ? 'border-[#208EC1]/65 shadow-[0_14px_30px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
-                        : 'border-slate-200/95 dark:border-white/10 shadow-[0_10px_24px_-8px_rgba(15,37,68,0.09)] hover:border-[#208EC1]/50 hover:-translate-y-0.5'
+                    href={item.href}
+                    className={`flex items-center gap-1.5 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-2' : ''
                     }`}
                   >
-                    <Link
-                      href={pair.left.href}
-                      className="flex items-center gap-1.5 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate"
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Row 2: ثلاثة بنود (3 items) */}
+              <div
+                style={{ animationDelay: '315ms' }}
+                onMouseEnter={() => setActiveSpotlight(1)}
+                className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-2.5 sm:px-3.5 py-1.5 grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                  activeSpotlight === 1
+                    ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
+                    : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
+                }`}
+              >
+                {servicesRow2.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-1 sm:ps-2' : ''
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Row 3: ثلاثة بنود (3 items) */}
+              <div
+                style={{ animationDelay: '370ms' }}
+                onMouseEnter={() => setActiveSpotlight(2)}
+                className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-2.5 sm:px-3.5 py-1.5 grid grid-cols-3 gap-1 sm:gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                  activeSpotlight === 2
+                    ? 'border-[#208EC1]/65 shadow-[0_12px_28px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
+                    : 'border-slate-200/95 dark:border-white/10 shadow-[0_8px_20px_-8px_rgba(15,37,68,0.08)] hover:border-[#208EC1]/50'
+                }`}
+              >
+                {servicesRow3.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`flex items-center gap-1 text-[11px] sm:text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-1 sm:ps-2' : ''
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* Numbers Bar (شريط الأرقام) Brought Right into the Newly Created Room */}
+            <div
+              style={{ animationDelay: '425ms' }}
+              className="animate-card-cascade pt-1 sm:pt-1.5"
+            >
+              <div className="rounded-2xl bg-white/90 dark:bg-[#0c1d34]/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 p-1.5 sm:p-2 shadow-[0_10px_26px_-8px_rgba(15,37,68,0.09)]">
+                <div className="grid grid-cols-4 gap-1.5">
+                  {statsItems.map((st, i) => (
+                    <div
+                      key={i}
+                      className="rounded-xl bg-slate-50/80 dark:bg-white/[0.03] px-1 py-1.5 sm:py-2 text-center"
                     >
-                      <CheckCircle2
-                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 ${
-                          isSpotlit
-                            ? 'text-[#208EC1] scale-110'
-                            : 'text-[#208EC1]'
-                        }`}
-                      />
-                      <span className="truncate">{pair.left.label}</span>
-                    </Link>
-                    <Link
-                      href={pair.right.href}
-                      className="flex items-center gap-1.5 ps-2 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate"
-                    >
-                      <CheckCircle2
-                        className={`w-3.5 h-3.5 shrink-0 transition-transform duration-300 ${
-                          isSpotlit
-                            ? 'text-[#208EC1] scale-110'
-                            : 'text-[#208EC1]'
-                        }`}
-                      />
-                      <span className="truncate">{pair.right.label}</span>
-                    </Link>
-                  </div>
-                );
-              })}
+                      <p
+                        dir="ltr"
+                        className="font-display font-black text-sm sm:text-base lg:text-lg leading-none text-[#208EC1]"
+                      >
+                        <AnimatedCounter
+                          valueStr={st.num}
+                          duration={1500 + i * 200}
+                        />
+                      </p>
+                      <p className="font-display font-extrabold text-[10px] sm:text-[11px] text-[#0f2544] dark:text-white mt-1 truncate">
+                        {st.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
 
@@ -492,54 +549,6 @@ export default function HeroSection() {
                 ))}
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Bottom Double-Framed 4-Pod Floating Stats Bar Inside the Same 100dvh Screen */}
-      <div className="relative z-10 w-full max-w-[1460px] mx-auto px-4 sm:px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
-        <div className="rounded-[26px] bg-white/65 dark:bg-[#0b1b32]/80 backdrop-blur-xl border border-white dark:border-white/10 p-2 shadow-[0_18px_44px_-12px_rgba(15,37,68,0.11)]">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
-            {statsItems.map((st, i) => {
-              const isSpotlit = activeSpotlight === i;
-              return (
-                <div
-                  key={i}
-                  onMouseEnter={() => setActiveSpotlight(i)}
-                  className={`group relative rounded-[18px] bg-white dark:bg-[#0c1d34] border px-3.5 py-2.5 sm:px-4 sm:py-3 text-center transition-all duration-500 ${
-                    isSpotlit
-                      ? 'border-[#208EC1]/70 shadow-[0_12px_26px_-6px_rgba(32,142,193,0.16)] -translate-y-0.5'
-                      : 'border-slate-200/85 dark:border-white/10 shadow-[0_6px_18px_-6px_rgba(15,37,68,0.06)] hover:-translate-y-0.5 hover:border-[#208EC1]/60'
-                  }`}
-                >
-                  <span
-                    className={`block h-[2.5px] rounded-full transition-all duration-500 mx-auto mb-1 ${
-                      isSpotlit
-                        ? 'w-10 bg-[#208EC1]'
-                        : 'w-5 bg-[#208EC1]/35 group-hover:w-9 group-hover:bg-[#208EC1]'
-                    }`}
-                  />
-
-                  <p
-                    dir="ltr"
-                    className="font-display font-black text-xl sm:text-2xl xl:text-[26px] leading-none text-[#208EC1]"
-                  >
-                    <AnimatedCounter
-                      valueStr={st.num}
-                      duration={1600 + i * 220}
-                    />
-                  </p>
-
-                  <p className="font-display font-extrabold text-xs sm:text-[13px] text-[#0f2544] dark:text-white mt-1">
-                    {st.title}
-                  </p>
-
-                  <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5 line-clamp-1 hidden sm:block">
-                    {st.sub}
-                  </p>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
