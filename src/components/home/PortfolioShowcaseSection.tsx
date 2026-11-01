@@ -92,7 +92,11 @@ export default function PortfolioShowcaseSection() {
               <div>
                 <div className="relative aspect-[4/3] rounded-xl bg-slate-900 overflow-hidden block shadow-inner mb-1.5">
                   <img
-                    src={item.type === 'video' ? item.poster || item.src : item.src}
+                    src={
+                      (item.type === 'video' ? item.poster || item.src : item.src)?.startsWith('/')
+                        ? item.type === 'video' ? item.poster || item.src : item.src
+                        : `/${item.type === 'video' ? item.poster || item.src : item.src}`
+                    }
                     alt={tText(item.alt, lang)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
@@ -141,7 +145,9 @@ export default function PortfolioShowcaseSection() {
                 >
                   <img
                     src={
-                      item.type === 'video' ? item.poster || item.src : item.src
+                      (item.type === 'video' ? item.poster || item.src : item.src)?.startsWith('/')
+                        ? item.type === 'video' ? item.poster || item.src : item.src
+                        : `/${item.type === 'video' ? item.poster || item.src : item.src}`
                     }
                     alt={tText(item.alt, lang)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"

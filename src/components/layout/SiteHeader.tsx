@@ -80,9 +80,9 @@ export default function SiteHeader() {
               >
                 <img
                   src={
-                    theme === 'dark'
-                      ? db.settings.logoLight
-                      : db.settings.logoDark
+                    (theme === 'dark' ? db.settings.logoLight : db.settings.logoDark)?.startsWith('/')
+                      ? (theme === 'dark' ? db.settings.logoLight : db.settings.logoDark)
+                      : `/${theme === 'dark' ? db.settings.logoLight : db.settings.logoDark}`
                   }
                   alt={tText(db.settings.fullLegalName, lang)}
                   width={108}

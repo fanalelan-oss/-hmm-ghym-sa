@@ -725,9 +725,13 @@ export default function HeroSection() {
                     <img
                       key={currentProject.id}
                       src={
-                        currentProject.type === 'video'
+                        (currentProject.type === 'video'
                           ? currentProject.poster || currentProject.src
-                          : currentProject.src
+                          : currentProject.src)?.startsWith('/')
+                          ? currentProject.type === 'video'
+                            ? currentProject.poster || currentProject.src
+                            : currentProject.src
+                          : `/${currentProject.type === 'video' ? currentProject.poster || currentProject.src : currentProject.src}`
                       }
                       alt={tText(currentProject.alt, lang)}
                       className="w-full h-full object-cover animate-hero-showcase transition-transform duration-700 group-hover:scale-105"

@@ -49,7 +49,7 @@ export default function ServicesGridSection() {
               <div>
                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 mb-1.5 shadow-inner">
                   <img
-                    src={service.coverImage}
+                    src={service.coverImage?.startsWith('/') ? service.coverImage : `/${service.coverImage}`}
                     alt={tText(service.name, lang)}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
@@ -86,7 +86,7 @@ export default function ServicesGridSection() {
                   className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-slate-900 block"
                 >
                   <img
-                    src={service.coverImage}
+                    src={service.coverImage?.startsWith('/') ? service.coverImage : `/${service.coverImage}`}
                     alt={tText(service.name, lang)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"

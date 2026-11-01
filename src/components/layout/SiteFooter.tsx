@@ -21,7 +21,7 @@ export default function SiteFooter() {
           <div className="space-y-5">
             <Link href="/" className="inline-block">
               <img
-                src={db.settings.logoLight}
+                src={db.settings.logoLight?.startsWith('/') ? db.settings.logoLight : '/' + db.settings.logoLight}
                 alt={tText(db.settings.fullLegalName, lang)}
                 width={150}
                 height={90}

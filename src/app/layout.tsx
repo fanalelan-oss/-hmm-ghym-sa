@@ -24,7 +24,7 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://himam-ghaim.sa'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://hamamghaym.com'
   ),
   title: {
     default:
