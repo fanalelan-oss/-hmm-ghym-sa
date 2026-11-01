@@ -62,7 +62,9 @@ export default function AdminDashboardPage() {
 
   const [newPartnerNameAr, setNewPartnerNameAr] = useState("");
   const [newPartnerNameEn, setNewPartnerNameEn] = useState("");
-  const [newPartnerSector, setNewPartnerSector] = useState("government");
+  const [newPartnerSector, setNewPartnerSector] = useState<
+    "government" | "commercial" | "healthcare"
+  >("government");
   const [newPartnerLogo, setNewPartnerLogo] = useState(
     "/assets/images/partners/partner-sustainable-agriculture-center-himam-ghaim-saudi-client.webp"
   );
@@ -916,13 +918,16 @@ export default function AdminDashboardPage() {
                     </label>
                     <select
                       value={newPartnerSector}
-                      onChange={(e) => setNewPartnerSector(e.target.value)}
+                      onChange={(e) =>
+                        setNewPartnerSector(
+                          e.target.value as "government" | "commercial" | "healthcare"
+                        )
+                      }
                       className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
                     >
                       <option value="government">جهات وهيئات حكومية</option>
                       <option value="commercial">شركات ومجموعات تجارية</option>
                       <option value="healthcare">مستشفيات ومراكز طبية</option>
-                      <option value="retail">كافيهات ومطاعم وتجزئة</option>
                     </select>
                   </div>
 

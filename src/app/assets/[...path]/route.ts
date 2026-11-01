@@ -19,9 +19,9 @@ const MIME_TYPES: Record<string, string> = {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { path: string[] } }
+  { params }: { params: Promise<{ path: string[] }> }
 ) {
-  const pathSegments = params.path;
+  const { path: pathSegments } = await params;
   if (!pathSegments || pathSegments.length === 0) {
     return new NextResponse('Not Found', { status: 404 });
   }
