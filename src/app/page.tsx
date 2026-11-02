@@ -1,5 +1,6 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import { getDb } from '@/lib/db';
 import HeroSection from '@/components/home/HeroSection';
 import WhyUsSection from '@/components/home/WhyUsSection';
 import ServicesGridSection from '@/components/home/ServicesGridSection';
@@ -12,65 +13,102 @@ import SeoHashtagsCtaSection from '@/components/home/SeoHashtagsCtaSection';
 
 const ROTATING_METADATA = [
   {
-    title: 'شركة همم غيم | أحرف بارزة وواجهات كلادينج فاخرة — ضمان 10 سنوات ومعاينة مجانية',
+    title: 'شركة همم غيم للدعاية والإعلان والمقاولات العامة | من الحرف البارز إلى تسليم المفتاح',
     description:
-      'نصمم وننفذ واجهات الكلادينج والأحرف البارزة المضيئة والمقاولات العامة في السعودية. إشراف هندسي وضمان 10 سنوات ومعاينة 3D مجانية. اتصل: 0565467928',
-    service: 'كلادينج وأحرف بارزة',
+      'ثماني خدمات إعلانية وهندسية متكاملة تحت إدارة واحدة بالسعودية: تصنيع وتركيب الأحرف البارزة المضيئة، واجهات الكلادينج ACP، الاستيكرات، تسوير المشاريع، المعارض، المظلات والسواتر، والديكور والمقاولات. ضمان موثق 10 سنوات، مطابقة لاشتراطات بلدي، ومعاينة وتصميم 3D مجاناً. جوال: 0565467928',
+    service: 'دعاية وإعلان ومقاولات عامة',
   },
   {
-    title: 'شركة همم غيم | تصنيع وتركيب مظلات وسواتر عصرية وبرجولات حدائق ليزر',
+    title: 'شركة همم غيم للدعاية والإعلان | تصنيع وتركيب الأحرف البارزة وواجهات الكلادينج الفاخرة',
     description:
-      'توريد وتركيب المظلات والسواتر الحديثة للفلل والمشاريع السكنية والتجارية بهياكل معالجة ضد الصدأ وأقمشة كورية وألمانية عالية المتانة. هاتف: 0565467928',
-    service: 'مظلات وسواتر',
+      'نصمم وننفذ واجهات المحلات والشركات بالأحرف البارزة المضيئة (زنكور، إكريليك، استيل، نيون)، وكلادينج معتمد مقاوم للحريق بضمان 10 سنوات ومطابقة لاشتراطات منصة بلدي والكود السعودي. معاينة وتصميم 3D مجاناً. اتصال: 0565467928',
+    service: 'لوحات وأحرف بارزة وكلادينج',
   },
   {
-    title: 'شركة همم غيم | تسوير المشاريع الإنشائية وتجهيز المعارض والمؤتمرات الكبرى',
+    title: 'شركة همم غيم للدعاية والإعلان والمقاولات | مظلات وسواتر عصرية وبرجولات حدائق وقص ليزر',
     description:
-      'حلول متكاملة لتسوير المواقع الإنشائية بالشنكو وطباعة البوسترات العملاقة وتجهيز بوثات المعارض والفعاليات في الرياض وكافة مناطق المملكة.',
-    service: 'تسوير مشاريع ومعارض',
+      'توريد وتركيب المظلات والسواتر الحديثة للفلل والمشاريع السكنية والتجارية، سواتر قص ليزر، وبرجولات حدائق مودرن بهياكل معالجة ضد الصدأ وأقمشة كورية وألمانية عالية المتانة بضمان شامل. هاتف: 0565467928',
+    service: 'مظلات وسواتر وبرجولات',
   },
   {
-    title: 'شركة همم غيم | مقاولات عامة وتشطيبات وديكورات داخلية وزجاج سيكوريت',
+    title: 'شركة همم غيم للدعاية والإعلان والمقاولات | تسوير المشاريع الإنشائية وتجهيز المعارض والمؤتمرات',
     description:
-      'تصميم وتنفيذ الديكورات المعمارية وتشطيبات الصالات والمكاتب، قواطع زجاج سيكوريت، وشبكات الأمن والسلامة المعتمدة. استشارة فورية: 0565467928',
+      'حلول متكاملة للمطورين العقاريين: تسوير المواقع الإنشائية بحواجز شنكو أمنية معتمدة، طباعة بوسترات دعائية عملاقة UV، وتصميم وتنفيذ بوثات المعارض والفعاليات في الرياض وكافة مناطق المملكة. جوال: 0565467928',
+    service: 'تسوير مشاريع وبوثات معارض',
+  },
+  {
+    title: 'شركة همم غيم للدعاية والإعلان والمقاولات | مقاولات عامة وتشطيبات وديكورات داخلية وتسليم مفتاح',
+    description:
+      'تنفيذ هندسي متكامل للمقاولات العامة والتشطيبات الفاخرة، واجهات زجاج سيكوريت، قواطع مكاتب، ديكورات بديل رخام وخشب، وشبكات أمن وسلامة معتمدة من الدفاع المدني بجانب أعمال اللوحات والواجهات. اتصال: 0565467928',
     service: 'مقاولات عامة وتشطيبات',
   },
   {
-    title: 'شركة همم غيم | استيكرات وتغليف أساطيل السيارات والطباعة الرقمية المتقدمة',
+    title: 'شركة همم غيم للدعاية والإعلان | استيكرات وتغليف أساطيل السيارات والطباعة الرقمية المتقدمة',
     description:
-      'تغليف احترافي لسيارات وشاحنات الشركات بفينيل ألماني 3M و Orafol المقاوم للشمس والغسيل، وطباعة رقمية رولاند يابانية بأعلى دقة.',
-    service: 'تغليف سيارات واستيكرات',
+      'تغليف احترافي لمركبات وشاحنات الشركات بفينيل ألماني معتمد 3M و Orafol المقاوم للشمس والحرارة والغسيل المستمر، وطباعة رقمية رولاند يابانية بأعلى دقة وضوح مع ضمان ثبات الألوان. هاتف: 0565467928',
+    service: 'استيكرات وتغليف سيارات',
   },
 ];
 
 export async function generateMetadata(): Promise<Metadata> {
-  const slotIndex =
-    Math.floor(Date.now() / (1000 * 60 * 60 * 6)) % ROTATING_METADATA.length;
-  const current = ROTATING_METADATA[slotIndex];
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL ||
+    'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app';
+
+  const db = getDb();
+  const ogSettings = db?.ogSettings;
+
+  let activeTitle: string;
+  let activeDescription: string;
+  let ogImageUrl: string;
+
+  const isCustomActive =
+    ogSettings &&
+    ((ogSettings.mode === 'custom' && ogSettings.customTitle) ||
+      (ogSettings.mode === 'temporary_24h' &&
+        ogSettings.customTitle &&
+        ogSettings.pinnedUntil &&
+        new Date(ogSettings.pinnedUntil).getTime() > Date.now()));
+
+  if (isCustomActive && ogSettings) {
+    activeTitle = ogSettings.customTitle || ROTATING_METADATA[0].title;
+    activeDescription =
+      ogSettings.customDescription || ROTATING_METADATA[0].description;
+    ogImageUrl = `${siteUrl}/api/og?v=${Date.now()}`;
+  } else {
+    const slotIndex =
+      Math.floor(Date.now() / (1000 * 60 * 60 * 6)) % ROTATING_METADATA.length;
+    const current = ROTATING_METADATA[slotIndex];
+    activeTitle = current.title;
+    activeDescription = current.description;
+    ogImageUrl = `${siteUrl}/api/og?slot=${slotIndex}`;
+  }
 
   return {
-    title: current.title,
-    description: current.description,
+    title: activeTitle,
+    description: activeDescription,
     openGraph: {
-      title: current.title,
-      description: current.description,
+      title: activeTitle,
+      description: activeDescription,
       type: 'website',
       locale: 'ar_SA',
-      siteName: 'شركة همم غيم للدعاية والإعلان والمقاولات',
+      url: siteUrl,
+      siteName: 'شركة همم غيم للدعاية والإعلان والمقاولات العامة',
       images: [
         {
-          url: `/api/og?slot=${slotIndex}`,
+          url: ogImageUrl,
           width: 1200,
           height: 630,
-          alt: current.title,
+          type: 'image/jpeg',
+          alt: activeTitle,
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: current.title,
-      description: current.description,
-      images: [`/api/og?slot=${slotIndex}`],
+      title: activeTitle,
+      description: activeDescription,
+      images: [ogImageUrl],
     },
   };
 }

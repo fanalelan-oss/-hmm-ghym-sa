@@ -42,12 +42,12 @@ const DEFAULT_SHOWCASES: OgShowcase[] = [
     city: 'الرياض والشرقية · تسوير أرامكو',
   },
   {
-    category: 'مقاولات عامة وتشطيبات وديكورات',
-    title: 'مقاولات عامة متكاملة وتشطيبات فاخرة وتسليم مفتاح',
-    subtitle: 'واجهات زجاج سيكوريت، قواطع مكاتب، ديكورات بديل رخام، وشبكات أمن وسلامة',
-    imageFile: 'commercial-complex-cladding.webp',
-    warranty: 'تنفيذ شامل وتسليم مفتاح',
-    city: 'الرياض · مجمعات تجارية كبرى',
+    category: 'دعاية وإعلان ومقاولات عامة متكاملة',
+    title: 'أحرف بارزة وكلادينج ومقاولات عامة وتسليم مفتاح',
+    subtitle: 'ثماني خدمات متكاملة تحت إدارة واحدة: واجهات ولوحات إعلانية وديكور بضمان 10 سنوات',
+    imageFile: 'black-stamp-cafe-sign.webp',
+    warranty: 'ضمان 10 سنوات معتمد',
+    city: 'الرياض · كافة مناطق المملكة',
   },
   {
     category: 'تغليف أساطيل السيارات واستيكرات الفينيل',
@@ -184,6 +184,8 @@ export async function GET(request: NextRequest) {
     if (fs.existsSync(imagePath)) {
       basePhotoBuffer = await sharp(imagePath)
         .resize(width, height, { fit: 'cover', position: 'center' })
+        .modulate({ brightness: 1.05, saturation: 1.15 })
+        .sharpen({ sigma: 1.2 })
         .toBuffer();
     } else {
       basePhotoBuffer = await sharp({
