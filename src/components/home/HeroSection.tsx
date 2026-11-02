@@ -8,7 +8,7 @@ import {
   ArrowLeft,
   ArrowRight,
   Sparkles,
-  Calculator,
+  Phone,
   CheckCircle2,
   MapPin,
 } from 'lucide-react';
@@ -79,32 +79,46 @@ export default function HeroSection() {
   const [activeSpotlight, setActiveSpotlight] = useState(0);
   const [badgeIdx, setBadgeIdx] = useState(0);
 
-  const badgeMessages =
-    lang === 'ar'
-      ? [
-          'لوحات إعلانية، واجهات ومقاولات في كل مناطق المملكة',
-          'تصنيع وتنفيذ مباشر من مصانعنا بضمان يصل إلى 10 سنوات',
-          'معاينة مجانية لموقعك وتصميم 3D قبل البدء بالتنفيذ',
-        ]
-      : lang === 'ur'
-      ? [
-          'سعودی عرب کے تمام شہروں میں سائن بورڈز، واجهات اور کنٹریکٹنگ',
-          'ہماری اپنی فیکٹری سے براہ راست تیاری اور 10 سال تک کی وارنٹی',
-          'مفت سائٹ وزٹ اور کام شروع کرنے سے پہلے تھری ڈی ڈیزائن',
-        ]
-      : [
-          'Signage, Facades & Contracting Across Saudi Arabia',
-          'Direct In-House Manufacturing With Up to 10-Year Warranty',
-          'Free Site Survey & 3D Preview Before Execution',
-        ];
+  const badgeItems = [
+    {
+      text:
+        lang === 'ar'
+          ? 'لوحات إعلانية وواجهات في كافة مدن المملكة'
+          : lang === 'ur'
+          ? 'سعودی عرب کے تمام شہروں میں سائن بورڈز'
+          : 'Signage & Facades Across All Saudi Cities',
+      colorClass: 'text-[#208EC1] dark:text-sky-400',
+      borderClass: 'border-[#208EC1]/30 dark:border-sky-400/25',
+    },
+    {
+      text:
+        lang === 'ar'
+          ? 'تصنيع وتنفيذ مباشر بأعلى معايير الجودة المعتمدة'
+          : lang === 'ur'
+          ? 'اعلیٰ ترین معیارات کے مطابق براہ راست تیاری'
+          : 'Direct In-House Fabrication to Highest Quality Standards',
+      colorClass: 'text-emerald-600 dark:text-emerald-400',
+      borderClass: 'border-emerald-500/30 dark:border-emerald-400/25',
+    },
+    {
+      text:
+        lang === 'ar'
+          ? 'معاينة موقعك وتصميم 3D مجاناً قبل التنفيذ'
+          : lang === 'ur'
+          ? 'مفت سائٹ وزٹ اور تھری ڈی ڈیزائن'
+          : 'Free Site Survey & 3D Design Preview',
+      colorClass: 'text-amber-600 dark:text-amber-400',
+      borderClass: 'border-amber-500/30 dark:border-amber-400/25',
+    },
+  ];
 
   // Seamless 3-message rotation inside the top badge (no dots or indicators)
   useEffect(() => {
     const badgeTimer = setInterval(() => {
-      setBadgeIdx((prev) => (prev + 1) % 3);
+      setBadgeIdx((prev) => (prev + 1) % badgeItems.length);
     }, 3600);
     return () => clearInterval(badgeTimer);
-  }, []);
+  }, [badgeItems.length]);
 
   // Auto-advance project showcase
   useEffect(() => {
@@ -114,7 +128,7 @@ export default function HeroSection() {
     return () => clearInterval(timer);
   }, [showcaseProjects.length]);
 
-  // Auto-spotlight cycle across the 4 quick-service rows & 4 stats pods
+  // Auto-spotlight cycle across the 3 quick-service rows & 4 stats pods
   useEffect(() => {
     const spotTimer = setInterval(() => {
       setActiveSpotlight((prev) => (prev + 1) % 4);
@@ -122,10 +136,94 @@ export default function HeroSection() {
     return () => clearInterval(spotTimer);
   }, []);
 
-  // Full-Viewport One-Scroll Section Transition
+  // Full-Viewport One-Scroll Section Transition (Touch swipe & Mouse wheel)
   useEffect(() => {
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let hasSnappedThisTouch = false;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      hasSnappedThisTouch = false;
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (hasSnappedThisTouch || isSnappingRef.current) return;
+      const heroEl = heroRef.current;
+      if (!heroEl) return;
+
+      const currentY = e.touches[0].clientY;
+      const currentX = e.touches[0].clientX;
+      const deltaY = touchStartY - currentY;
+      const deltaX = Math.abs(touchStartX - currentX);
+
+      // Only trigger if primarily a vertical swipe
+      if (Math.abs(deltaY) < deltaX * 1.2) return;
+
+      const scrollY = window.scrollY;
+      const heroHeight = heroEl.offsetHeight;
+      const nextTargetY = Math.max(0, heroHeight - 52);
+
+      // Swipe UP when in hero -> dismiss entire hero immediately to next section
+      if (deltaY > 25 && scrollY < 45) {
+        hasSnappedThisTouch = true;
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: nextTargetY,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 650);
+      }
+      // Swipe DOWN when at top of next section -> snap back to hero top
+      else if (deltaY < -25 && scrollY > 20 && scrollY <= nextTargetY + 45) {
+        hasSnappedThisTouch = true;
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 650);
+      }
+    };
+
+    const handleTouchEnd = (e: TouchEvent) => {
+      if (hasSnappedThisTouch || isSnappingRef.current) return;
+      const heroEl = heroRef.current;
+      if (!heroEl) return;
+
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaY = touchStartY - touchEndY;
+      const scrollY = window.scrollY;
+      const heroHeight = heroEl.offsetHeight;
+      const nextTargetY = Math.max(0, heroHeight - 52);
+
+      if (deltaY > 25 && scrollY < heroHeight * 0.4) {
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: nextTargetY,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 650);
+      } else if (deltaY < -25 && scrollY > 20 && scrollY <= nextTargetY + 45) {
+        isSnappingRef.current = true;
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+        setTimeout(() => {
+          isSnappingRef.current = false;
+        }, 650);
+      }
+    };
+
     const handleWheel = (e: WheelEvent) => {
-      if (window.innerWidth < 1024) return;
       const heroEl = heroRef.current;
       if (!heroEl) return;
 
@@ -136,9 +234,9 @@ export default function HeroSection() {
 
       const heroHeight = heroEl.offsetHeight;
       const scrollY = window.scrollY;
-      const nextTargetY = Math.max(0, heroHeight - 86);
+      const nextTargetY = Math.max(0, heroHeight - 52);
 
-      if (e.deltaY > 12 && scrollY < nextTargetY - 24) {
+      if (e.deltaY > 8 && scrollY < nextTargetY - 30) {
         e.preventDefault();
         isSnappingRef.current = true;
         window.scrollTo({
@@ -147,9 +245,9 @@ export default function HeroSection() {
         });
         setTimeout(() => {
           isSnappingRef.current = false;
-        }, 720);
+        }, 650);
       } else if (
-        e.deltaY < -12 &&
+        e.deltaY < -8 &&
         scrollY > 10 &&
         scrollY <= nextTargetY + 45
       ) {
@@ -161,12 +259,11 @@ export default function HeroSection() {
         });
         setTimeout(() => {
           isSnappingRef.current = false;
-        }, 720);
+        }, 650);
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (window.innerWidth < 1024) return;
       const tag = (e.target as HTMLElement)?.tagName;
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
@@ -174,7 +271,7 @@ export default function HeroSection() {
       if (!heroEl) return;
       const heroHeight = heroEl.offsetHeight;
       const scrollY = window.scrollY;
-      const nextTargetY = Math.max(0, heroHeight - 86);
+      const nextTargetY = Math.max(0, heroHeight - 52);
 
       if (
         (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') &&
@@ -192,9 +289,15 @@ export default function HeroSection() {
       }
     };
 
+    window.addEventListener('touchstart', handleTouchStart, { passive: true });
+    window.addEventListener('touchmove', handleTouchMove, { passive: true });
+    window.addEventListener('touchend', handleTouchEnd, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: false });
     window.addEventListener('keydown', handleKeyDown);
     return () => {
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
       window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keydown', handleKeyDown);
     };
@@ -202,7 +305,78 @@ export default function HeroSection() {
 
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
 
-  const serviceRows = [
+  function getSmartWarrantyBadge(project: any, currentLang: string): string {
+    const cat = (project?.category || '').toLowerCase();
+    const slug = (project?.slug || '').toLowerCase();
+    const title = (project?.title?.ar || '').toLowerCase();
+
+    if (cat === 'exhibitions' || slug.includes('booth') || title.includes('معارض') || title.includes('جناح')) {
+      return currentLang === 'ar' ? 'ضمان سنة معتمد' : currentLang === 'ur' ? '1 سال کی وارنٹی' : '1-Year Warranty';
+    }
+    if (cat === 'stickers' || slug.includes('sticker') || slug.includes('frosted') || title.includes('سنفرة') || title.includes('استيكر')) {
+      return currentLang === 'ar' ? 'ضمان سنتين معتمد' : currentLang === 'ur' ? '2 سال کی وارنٹی' : '2-Year Warranty';
+    }
+    if (cat === 'interiors' || slug.includes('interior') || slug.includes('decor') || title.includes('ديكور') || title.includes('جدار')) {
+      return currentLang === 'ar' ? 'ضمان 3 سنوات' : currentLang === 'ur' ? '3 سال کی وارنٹی' : '3-Year Warranty';
+    }
+    if (slug.includes('cladding') || title.includes('كلادينج') || title.includes('واجهة')) {
+      return currentLang === 'ar' ? 'ضمان 15 سنة' : currentLang === 'ur' ? '15 سال کی وارنٹی' : '15-Year Warranty';
+    }
+    if (cat === 'shades' || slug.includes('shade') || slug.includes('pergola') || slug.includes('screens') || title.includes('سواتر') || title.includes('مظلات')) {
+      return currentLang === 'ar' ? 'ضمان 10 سنوات' : currentLang === 'ur' ? '10 سال کی وارنٹی' : '10-Year Warranty';
+    }
+    if (cat === 'hoarding' || slug.includes('hoarding') || slug.includes('fence') || title.includes('تسوير') || title.includes('سياج')) {
+      return currentLang === 'ar' ? 'ضمان مدة المشروع' : currentLang === 'ur' ? 'پروجیکٹ کی وارنٹی' : 'Project Warranty';
+    }
+    if (cat === 'signage' || slug.includes('sign') || slug.includes('stamp') || title.includes('أحرف') || title.includes('لوحة')) {
+      return currentLang === 'ar' ? 'ضمان 5 سنوات' : currentLang === 'ur' ? '5 سال کی وارنٹی' : '5-Year Warranty';
+    }
+
+    return currentLang === 'ar' ? 'ضمان جودة معتمد' : currentLang === 'ur' ? 'مصدق وارنٹی' : 'Certified Warranty';
+  }
+
+  const servicesRow1 = [
+    {
+      label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
+      href: '/services/3d-signage-and-cladding-facades',
+    },
+    {
+      label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
+      href: '/services/3d-signage-and-cladding-facades',
+    },
+  ];
+
+  const servicesRow2 = [
+    {
+      label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
+      href: '/services/general-contracting-and-glass',
+    },
+    {
+      label: lang === 'ar' ? 'ديكور وتشطيبات' : 'Interior Fit-Out',
+      href: '/services/interior-design-and-fitout',
+    },
+    {
+      label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
+      href: '/services/car-shades-and-pergolas',
+    },
+  ];
+
+  const servicesRow3 = [
+    {
+      label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
+      href: '/services/project-hoarding-and-fencing',
+    },
+    {
+      label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
+      href: '/services/exhibition-booths-and-events',
+    },
+    {
+      label: lang === 'ar' ? 'تواصل مباشر' : 'Direct Contact',
+      href: '/contact',
+    },
+  ];
+
+  const serviceCardsDesktop = [
     {
       left: {
         label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
@@ -245,6 +419,17 @@ export default function HeroSection() {
     },
   ];
 
+  const rawPartners = db.settings?.stats?.partnersCount || '';
+  const parsedPartnersNum = parseInt(rawPartners.replace(/\D/g, ''), 10) || 0;
+  const statsPartnersValue =
+    parsedPartnersNum > 13
+      ? `+${parsedPartnersNum}`
+      : db.partners && db.partners.length > 13
+      ? `+${db.partners.length}`
+      : '+45';
+
+  const statsWarrantyValue = db.settings?.stats?.warrantyYears || '10';
+
   const statsItems = [
     {
       num: `+${db.settings.stats.projectsCount.replace('+', '')}`,
@@ -263,7 +448,9 @@ export default function HeroSection() {
           : 'Direct in-house fabrication & installation',
     },
     {
-      num: `+${db.settings.stats.partnersCount.replace('+', '')}`,
+      num: statsPartnersValue.startsWith('+')
+        ? statsPartnersValue
+        : `+${statsPartnersValue.replace('+', '')}`,
       title: dict.hero.statsPartners,
       sub:
         lang === 'ar'
@@ -271,7 +458,7 @@ export default function HeroSection() {
           : 'Trusted by ministries, hospitals & brands',
     },
     {
-      num: '+10',
+      num: `+${statsWarrantyValue.replace('+', '')}`,
       title: dict.hero.statsWarranty,
       sub:
         lang === 'ar'
@@ -283,7 +470,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[90px] pt-[90px] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[52px] sm:-mt-[58px] lg:-mt-[90px] pt-[66px] sm:pt-[74px] lg:pt-[96px] pb-1.5 sm:pb-2.5 lg:pb-0 h-[100dvh] max-h-[100dvh] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -312,28 +499,27 @@ export default function HeroSection() {
       </div>
 
       {/* Main Center Hero Content */}
-      <div className="relative z-10 flex-1 flex items-center w-full max-w-[1620px] mx-auto px-4 sm:px-8 lg:px-12 py-1.5">
-        <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-7 xl:gap-10 items-center">
+      <div className="relative z-10 flex-1 flex flex-col justify-between w-full max-w-[1480px] mx-auto px-3.5 sm:px-8 lg:px-12 py-0.5 sm:py-1 lg:py-1.5 min-h-0">
+        <div className="w-full flex-1 flex flex-col justify-between lg:grid lg:grid-cols-12 lg:gap-8 xl:gap-10 lg:items-center min-h-0">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
-          <div className="lg:col-span-7 space-y-3.5 text-start max-w-3xl">
-            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Zero Dots/Indicators) */}
+          <div className="lg:col-span-7 flex-1 flex flex-col justify-evenly lg:justify-start lg:block space-y-2 sm:space-y-3 lg:space-y-3.5 text-start max-w-2xl min-h-0 py-1">
+            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
             <div
               style={{ animationDelay: '0ms' }}
-              className="animate-card-cascade inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#0f2544] dark:text-slate-100 text-[11px] sm:text-xs font-extrabold shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden"
+              className={`animate-card-cascade inline-flex items-center px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white dark:bg-[#0c1d34] border ${badgeItems[badgeIdx].borderClass} text-[11px] sm:text-xs font-black shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden transition-colors duration-500`}
             >
-              <span className="relative flex h-2 w-2 shrink-0">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#208EC1] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#208EC1]" />
-              </span>
-              <span key={badgeIdx} className="animate-badge-text inline-block">
-                {badgeMessages[badgeIdx]}
+              <span
+                key={badgeIdx}
+                className={`animate-badge-text inline-block ${badgeItems[badgeIdx].colorClass}`}
+              >
+                {badgeItems[badgeIdx].text}
               </span>
             </div>
 
             {/* Clean Monochromatic 3D Extruded Headline */}
             <h1
               style={{ animationDelay: '80ms' }}
-              className="animate-card-cascade heading-3d-hero font-display font-extrabold text-2xl sm:text-4xl lg:text-[35px] xl:text-[38px] leading-[1.4] tracking-tight"
+              className="animate-card-cascade heading-3d-hero font-display font-extrabold text-[22px] sm:text-3xl lg:text-[31px] xl:text-[34px] leading-[1.38] tracking-tight"
             >
               <span className="block">
                 {lang === 'ar' ? (
@@ -345,50 +531,120 @@ export default function HeroSection() {
                   <span className="heading-3d-cyan">{dict.hero.titleLine1}</span>
                 )}
               </span>
-              <span className="block mt-1.5">{dict.hero.titleLine2}</span>
+              <span className="block mt-1 sm:mt-1.5">{dict.hero.titleLine2}</span>
             </h1>
 
             {/* Natural, Easy-to-Read Subtitle */}
             <p
               style={{ animationDelay: '150ms' }}
-              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-[15px] leading-relaxed font-medium max-w-2xl"
+              className="animate-card-cascade text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed font-medium max-w-xl"
             >
-              {dict.hero.subtitle}
+              <span className="lg:hidden">
+                {lang === 'ar'
+                  ? 'تنفيذ واجهات الكلادينج، الأحرف البارزة والمقاولات من التصميم حتى التركيب بدقة وإتقان.'
+                  : dict.hero.subtitle}
+              </span>
+              <span className="hidden lg:inline">{dict.hero.subtitle}</span>
             </p>
 
             {/* 2 Primary Pill Buttons */}
             <div
               style={{ animationDelay: '210ms' }}
-              className="animate-card-cascade flex flex-wrap items-center gap-2.5 pt-0.5"
+              className="animate-card-cascade flex items-center gap-2 sm:gap-2.5 pt-0.5"
             >
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-7 py-3 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-6 py-2 sm:py-2.5 rounded-full bg-[#0f2544] hover:bg-[#208EC1] text-white font-extrabold text-xs sm:text-sm shadow-[0_12px_28px_-8px_rgba(15,37,68,0.3)] transition-all duration-300 hover:-translate-y-0.5"
               >
-                <Sparkles className="w-3.5 h-3.5 text-[#208EC1]" />
+                <Sparkles className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
                 <span>{dict.hero.ctaPrimary}</span>
-                <ArrowIcon className="w-3.5 h-3.5" />
+                <ArrowIcon className="w-3.5 h-3.5 shrink-0" />
               </Link>
 
               <Link
-                href="/calculator"
-                className="inline-flex items-center gap-2 whitespace-nowrap px-6 py-3 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5"
+                href="/contact"
+                className="inline-flex items-center justify-center gap-2 whitespace-nowrap px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white dark:bg-[#0c1d34] hover:border-[#208EC1] text-[#0f2544] dark:text-white border border-slate-200/95 dark:border-white/15 font-extrabold text-xs sm:text-sm shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)] transition-all duration-300 hover:-translate-y-0.5 shrink-0"
               >
-                <Calculator className="w-3.5 h-3.5 text-[#208EC1]" />
-                <span>{dict.nav.calculator}</span>
+                <Phone className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
+                <span>{lang === 'ar' ? 'تواصل معنا' : lang === 'ur' ? 'ہم سے رابطہ کریں' : 'Contact Us'}</span>
               </Link>
             </div>
 
-            {/* Auto-Presenting 2x2 Floating Porcelain Quick-Service Cards */}
-            <div className="pt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {serviceRows.map((pair, idx) => {
+            {/* Condensed 3 Quick-Service Rows */}
+            <div className="block lg:hidden space-y-1.5 sm:space-y-2 pt-0.5">
+              {/* Row 1: بندين (2 items) */}
+              <div
+                style={{ animationDelay: '260ms' }}
+                onMouseEnter={() => setActiveSpotlight(0)}
+                className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-3 py-1.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
+              >
+                {servicesRow1.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`flex items-center gap-1.5 text-xs font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-2' : ''
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3.5 h-3.5 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Row 2: ثلاثة بنود (3 items) */}
+              <div
+                style={{ animationDelay: '315ms' }}
+                onMouseEnter={() => setActiveSpotlight(1)}
+                className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-2 py-1.5 grid grid-cols-3 gap-1 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
+              >
+                {servicesRow2.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`flex items-center gap-1 text-[11px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-1' : ''
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3 h-3 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+
+              {/* Row 3: ثلاثة بنود (3 items) */}
+              <div
+                style={{ animationDelay: '370ms' }}
+                onMouseEnter={() => setActiveSpotlight(2)}
+                className="animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 px-2 py-1.5 grid grid-cols-3 gap-1 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 shadow-[0_6px_16px_-6px_rgba(15,37,68,0.06)]"
+              >
+                {servicesRow3.map((item, idx) => (
+                  <Link
+                    key={idx}
+                    href={item.href}
+                    className={`flex items-center gap-1 text-[11px] font-bold text-[#0f2544] dark:text-slate-100 hover:text-[#208EC1] transition-colors truncate ${
+                      idx > 0 ? 'ps-1' : ''
+                    }`}
+                  >
+                    <CheckCircle2 className="w-3 h-3 shrink-0 text-[#208EC1]" />
+                    <span className="truncate">{item.label}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {/* ========================================================
+                DESKTOP ONLY: Original 2x2 Floating Porcelain Cards
+                ======================================================== */}
+            <div className="hidden lg:grid pt-1 grid-cols-2 gap-2.5">
+              {serviceCardsDesktop.map((pair, idx) => {
                 const isSpotlit = activeSpotlight === idx;
                 return (
                   <div
                     key={idx}
                     style={{ animationDelay: `${260 + idx * 55}ms` }}
                     onMouseEnter={() => setActiveSpotlight(idx)}
-                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-4 py-2.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
+                    className={`animate-card-cascade rounded-2xl bg-white dark:bg-[#0c1d34] border px-3.5 py-2.5 grid grid-cols-2 gap-2 divide-x divide-x-reverse divide-slate-100 dark:divide-white/10 transition-all duration-500 ${
                       isSpotlit
                         ? 'border-[#208EC1]/65 shadow-[0_14px_30px_-8px_rgba(32,142,193,0.16)] -translate-y-0.5'
                         : 'border-slate-200/95 dark:border-white/10 shadow-[0_10px_24px_-8px_rgba(15,37,68,0.09)] hover:border-[#208EC1]/50 hover:-translate-y-0.5'
@@ -426,24 +682,56 @@ export default function HeroSection() {
             </div>
           </div>
 
-          {/* Left Column (RTL End): Animated Floating 3D Project Showcase with Smooth Crossfade */}
+          {/* Left Column (RTL End): Mobile Stats Bar + Animated Floating 3D Project Showcase */}
           <div
             style={{ animationDelay: '180ms' }}
-            className="animate-card-cascade lg:col-span-5 flex justify-center lg:justify-end"
+            className="animate-card-cascade lg:col-span-5 flex flex-col justify-end shrink-0 pt-0.5 pb-0.5 w-full max-w-[420px] mx-auto lg:mx-0"
           >
-            <div className="relative w-full max-w-[480px] animate-float-3d">
-              <div className="rounded-[32px] p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_24px_54px_-14px_rgba(15,37,68,0.16),0_6px_18px_-4px_rgba(15,37,68,0.06)]">
-                <div className="rounded-[25px] p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
+            {/* Mobile Stats Bar (شريط الأرقام - فوق الصورة مباشرة بفارق بسيط) */}
+            <div className="block lg:hidden mb-2 sm:mb-2.5">
+              <div className="rounded-2xl bg-white/90 dark:bg-[#0c1d34]/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 p-1.5 shadow-[0_8px_20px_-6px_rgba(15,37,68,0.08)]">
+                <div className="grid grid-cols-4 gap-1 sm:gap-1.5">
+                  {statsItems.map((st, i) => (
+                    <div
+                      key={i}
+                      className="rounded-xl bg-slate-50/80 dark:bg-white/[0.03] px-1 py-1.5 text-center"
+                    >
+                      <p
+                        dir="ltr"
+                        className="font-display font-black text-xs sm:text-sm leading-none text-[#208EC1]"
+                      >
+                        <AnimatedCounter
+                          valueStr={st.num}
+                          duration={1500 + i * 200}
+                        />
+                      </p>
+                      <p className="font-display font-extrabold text-[9px] sm:text-[10px] text-[#0f2544] dark:text-white mt-1 truncate">
+                        {st.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Showcase Card */}
+            <div className="relative w-full animate-float-3d">
+              <div className="rounded-[20px] sm:rounded-[32px] p-1.5 sm:p-2 bg-white/60 dark:bg-white/[0.04] backdrop-blur-md border border-white/90 dark:border-white/10 shadow-[0_20px_46px_-14px_rgba(15,37,68,0.14),0_6px_16px_-4px_rgba(15,37,68,0.06)]">
+                <div className="rounded-[16px] sm:rounded-[25px] p-1 sm:p-2 bg-white dark:bg-[#0c1d34] border border-slate-200/70 dark:border-white/10">
                   <Link
                     href={`/portfolio/${currentProject.slug}`}
-                    className="group relative block rounded-[18px] overflow-hidden aspect-[16/11] bg-slate-900"
+                    className="group relative block rounded-[13px] sm:rounded-[18px] overflow-hidden aspect-[16/8.2] sm:aspect-[16/10] lg:aspect-[16/11] bg-slate-900"
                   >
                     <img
                       key={currentProject.id}
                       src={
-                        currentProject.type === 'video'
+                        (currentProject.type === 'video'
                           ? currentProject.poster || currentProject.src
-                          : currentProject.src
+                          : currentProject.src)?.startsWith('/')
+                          ? currentProject.type === 'video'
+                            ? currentProject.poster || currentProject.src
+                            : currentProject.src
+                          : `/${currentProject.type === 'video' ? currentProject.poster || currentProject.src : currentProject.src}`
                       }
                       alt={tText(currentProject.alt, lang)}
                       className="w-full h-full object-cover animate-hero-showcase transition-transform duration-700 group-hover:scale-105"
@@ -452,31 +740,31 @@ export default function HeroSection() {
 
                     <div
                       key={`caption-${currentProject.id}`}
-                      className="animate-tab-switch absolute bottom-3 inset-x-3.5 flex items-end justify-between gap-2.5"
+                      className="animate-tab-switch absolute bottom-2 inset-x-2.5 sm:bottom-3 sm:inset-x-3.5 flex items-end justify-between gap-2"
                     >
                       <div className="text-start">
-                        <p className="text-[11px] font-bold text-sky-300 flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-[#208EC1] shrink-0" />
+                        <p className="text-[10px] sm:text-[11px] font-bold text-sky-300 flex items-center gap-1">
+                          <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#208EC1] shrink-0" />
                           <span>
                             {lang === 'ar'
                               ? `من أعمالنا · ${tText(currentProject.city, lang)}`
                               : `Delivered · ${tText(currentProject.city, lang)}`}
                           </span>
                         </p>
-                        <h2 className="text-xs sm:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
+                        <h2 className="text-[11px] sm:text-xs lg:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
                           {tText(currentProject.title, lang)}
                         </h2>
                       </div>
 
-                      <span className="whitespace-nowrap px-2.5 py-1 rounded-full bg-white/95 text-[#0f2544] text-[10px] font-extrabold shadow-sm">
-                        {lang === 'ar' ? 'ضمان 10 سنوات' : '10-Yr Warranty'}
+                      <span className="whitespace-nowrap px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full bg-white/95 text-[#0f2544] text-[9px] sm:text-[10px] font-extrabold shadow-sm">
+                        {getSmartWarrantyBadge(currentProject, lang)}
                       </span>
                     </div>
                   </Link>
                 </div>
               </div>
 
-              <div className="flex items-center justify-center gap-1.5 mt-2">
+              <div className="flex items-center justify-center gap-1.5 mt-1 sm:mt-1.5">
                 {showcaseProjects.map((p, idx) => (
                   <button
                     key={p.id}
@@ -496,17 +784,17 @@ export default function HeroSection() {
         </div>
       </div>
 
-      {/* Bottom Double-Framed 4-Pod Floating Stats Bar Inside the Same 100dvh Screen */}
-      <div className="relative z-10 w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
+      {/* Bottom Double-Framed 4-Pod Floating Stats Bar (Desktop Only - fits in 100dvh) */}
+      <div className="hidden lg:block relative z-10 w-full max-w-[1460px] mx-auto px-8 lg:px-12 pb-3 lg:pb-4 shrink-0">
         <div className="rounded-[26px] bg-white/65 dark:bg-[#0b1b32]/80 backdrop-blur-xl border border-white dark:border-white/10 p-2 shadow-[0_18px_44px_-12px_rgba(15,37,68,0.11)]">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2">
+          <div className="grid grid-cols-4 gap-2">
             {statsItems.map((st, i) => {
               const isSpotlit = activeSpotlight === i;
               return (
                 <div
                   key={i}
                   onMouseEnter={() => setActiveSpotlight(i)}
-                  className={`group relative rounded-[18px] bg-white dark:bg-[#0c1d34] border px-3.5 py-2.5 sm:px-4 sm:py-3 text-center transition-all duration-500 ${
+                  className={`group relative rounded-[18px] bg-white dark:bg-[#0c1d34] border px-4 py-3 text-center transition-all duration-500 ${
                     isSpotlit
                       ? 'border-[#208EC1]/70 shadow-[0_12px_26px_-6px_rgba(32,142,193,0.16)] -translate-y-0.5'
                       : 'border-slate-200/85 dark:border-white/10 shadow-[0_6px_18px_-6px_rgba(15,37,68,0.06)] hover:-translate-y-0.5 hover:border-[#208EC1]/60'
@@ -522,7 +810,7 @@ export default function HeroSection() {
 
                   <p
                     dir="ltr"
-                    className="font-display font-black text-xl sm:text-2xl xl:text-[26px] leading-none text-[#208EC1]"
+                    className="font-display font-black text-2xl xl:text-[26px] leading-none text-[#208EC1]"
                   >
                     <AnimatedCounter
                       valueStr={st.num}
@@ -530,11 +818,11 @@ export default function HeroSection() {
                     />
                   </p>
 
-                  <p className="font-display font-extrabold text-xs sm:text-[13px] text-[#0f2544] dark:text-white mt-1">
+                  <p className="font-display font-extrabold text-[13px] text-[#0f2544] dark:text-white mt-1">
                     {st.title}
                   </p>
 
-                  <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5 line-clamp-1 hidden sm:block">
+                  <p className="text-[11px] text-slate-400 dark:text-slate-400 mt-0.5 line-clamp-1">
                     {st.sub}
                   </p>
                 </div>

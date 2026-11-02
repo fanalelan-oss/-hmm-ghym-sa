@@ -15,9 +15,9 @@
 }
 
 /* ==========================================================================
-   1. Global Best-Practice Modern Typography (Apple / Stripe Clean Depth)
-   Zero clunky iron extrusion — razor-sharp Arabic letterforms with subtle
-   vertical light gradient and ultra-soft ambient floating elevation.
+   1. Global Best-Practice Modern Typography (Clean, Sharp & Crisp)
+   Zero clunky extrusion or blur blobs — razor-sharp Arabic letterforms with
+   subtle clean presence.
    ========================================================================== */
 
 .heading-3d-hero {
@@ -73,6 +73,22 @@
 /* ==========================================================================
    2. Dynamic Motion, Tab Transitions, Card Cascades & Page Transitions
    ========================================================================== */
+
+/* Smooth, Gentle Ambient Pulse (Replaces harsh ping) */
+@keyframes softAuraPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.15;
+  }
+}
+
+.animate-soft-pulse {
+  animation: softAuraPulse 2.8s ease-in-out infinite;
+}
 
 @keyframes calmAuraBreath {
   0%, 100% {

@@ -66,7 +66,7 @@ export default function PartnersMarqueeSection() {
                 >
                   <div className="h-14 w-full flex items-center justify-center bg-[#f8fafc] dark:bg-white rounded-xl px-3 py-1.5 border border-slate-100">
                     <img
-                      src={partner.logo}
+                      src={partner.logo?.startsWith('/') ? partner.logo : `/${partner.logo}`}
                       alt={tText(partner.name, lang)}
                       className="max-h-11 max-w-[135px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
                       loading="lazy"

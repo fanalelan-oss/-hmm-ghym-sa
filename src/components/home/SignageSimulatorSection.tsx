@@ -421,7 +421,7 @@ export default function SignageSimulatorSection() {
   return (
     <section
       id="design-studio"
-      className="py-16 lg:py-22 bg-[#f4f7fb] dark:bg-[#061121] border-t border-slate-200/80 dark:border-white/10 transition-colors"
+      className="hidden lg:block py-16 lg:py-22 bg-[#f4f7fb] dark:bg-[#061121] border-t border-slate-200/80 dark:border-white/10 transition-colors"
     >
       <div className="smart-container space-y-8">
         {/* Section Header + 1-Click Industry Presets */}

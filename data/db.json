@@ -196,7 +196,7 @@
       "slug": "stickers-vehicle-wrapping-murals",
       "icon": "sticker",
       "illustration": "/assets/images/illustrations/saudi-vehicle-wrapping-Fleet-glass-stickers-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-stickers-wrapping-wall-mural-lathatha-wall-mural-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-stickers-wrapping-wall-mural-lathatha-wall-mural-himam-ghaim.webp",
       "name": {
         "ar": "الاستيكرات وتغليف السيارات والواجهات",
         "en": "Stickers, Wall Murals & Fleet Wrapping",
@@ -299,7 +299,7 @@
       "slug": "project-hoarding-construction-fencing",
       "icon": "fence",
       "illustration": "/assets/images/illustrations/saudi-construction-project-hoarding-fence-printing-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-project-hoarding-fence-printing-muhaidib-hoarding-night-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-project-hoarding-fence-printing-muhaidib-hoarding-night-himam-ghaim.webp",
       "name": {
         "ar": "تسوير المشاريع الإنشائية والتجارية",
         "en": "Construction Project Hoarding & Branding",
@@ -401,7 +401,7 @@
       "slug": "exhibition-booths-stands-events",
       "icon": "booth",
       "illustration": "/assets/images/illustrations/saudi-exhibition-booth-stand-design-fabrication-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-exhibition-booth-stand-events-ncrdsa-booth-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-exhibition-booth-stand-events-ncrdsa-booth-himam-ghaim.webp",
       "name": {
         "ar": "تجهيز المعارض والفعاليات والأجنحة",
         "en": "Exhibition Booths, Stands & Event Production",
@@ -503,7 +503,7 @@
       "slug": "car-shades-pergolas-screens",
       "icon": "shade",
       "illustration": "/assets/images/illustrations/saudi-car-parking-tensile-shades-pergolas-screens-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-islamic-pattern-screens-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-car-shades-pergolas-laser-screens-islamic-pattern-screens-himam-ghaim.webp",
       "name": {
         "ar": "المظلات والسواتر والبرجولات",
         "en": "Shades, Tensile Structures, Pergolas & Screens",
@@ -606,7 +606,7 @@
       "slug": "interior-design-decor-finishing",
       "icon": "roller",
       "illustration": "/assets/images/illustrations/saudi-interior-design-gypsum-wood-cladding-finishing-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-horses-relief-wall-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-interior-design-gypsum-decor-finishing-horses-relief-wall-himam-ghaim.webp",
       "name": {
         "ar": "الديكور والتشطيبات الداخلية",
         "en": "Interior Design, Decor & Fit-Out",
@@ -709,7 +709,7 @@
       "slug": "general-contracting-cladding-glass",
       "icon": "building",
       "illustration": "/assets/images/illustrations/saudi-general-contracting-building-construction-renovation-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-multistorey-building-cladding-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-general-contracting-facade-cladding-glass-multistorey-building-cladding-himam-ghaim.webp",
       "name": {
         "ar": "المقاولات العامة وتكسية الواجهات والزجاج",
         "en": "General Contracting, Cladding & Structural Glass",
@@ -812,7 +812,7 @@
       "slug": "security-cctv-fire-safety-systems",
       "icon": "helmet",
       "illustration": "/assets/images/illustrations/saudi-cctv-security-fire-fighting-sprinklers-safety-illustration.svg",
-      "coverImage": "assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-dahua-cctv-camera-himam-ghaim.webp",
+      "coverImage": "/assets/images/portfolio/saudi-security-cctv-fire-sprinklers-safety-dahua-cctv-camera-himam-ghaim.webp",
       "name": {
         "ar": "الأمن والسلامة وكاميرات المراقبة والإطفاء",
         "en": "Security CCTV, Fire Fighting & Safety Equipment",

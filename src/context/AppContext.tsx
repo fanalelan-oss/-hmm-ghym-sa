@@ -14,8 +14,8 @@ interface AppContextType {
   setLang: (l: Lang) => void;
   theme: 'light' | 'dark';
   toggleTheme: () => void;
-  dict: typeof UI_DICT['ar'];
-  t: typeof UI_DICT['ar'];
+  dict: (typeof UI_DICT)[Lang];
+  t: (typeof UI_DICT)[Lang];
   db: DatabaseSchema;
   refreshDb: () => Promise<void>;
   updateDb: (nextDb: DatabaseSchema) => Promise<void>;

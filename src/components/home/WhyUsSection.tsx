@@ -66,8 +66,75 @@ export default function WhyUsSection() {
           </div>
         </ScrollReveal>
 
+        {/* MOBILE ONLY: 3 Features Side-by-Side in 1 Row (شبكة ثلاث بطاقات متناسقة) */}
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5"
+          className="grid grid-cols-3 gap-2 sm:hidden"
+          onTouchStart={() => setPaused(true)}
+          onTouchEnd={() => setTimeout(() => setPaused(false), 4000)}
+        >
+          {cards.slice(0, 3).map((c, idx) => {
+            const Icon = c.icon;
+            const isSpotlit = activeCard === idx;
+            return (
+              <article
+                key={idx}
+                onClick={() => setActiveCard(idx)}
+                className={`clean-card group relative p-2.5 rounded-2xl flex flex-col justify-between text-center transition-all duration-500 cursor-pointer select-none active:scale-95 ${
+                  isSpotlit
+                    ? 'border-[#208EC1] -translate-y-1 shadow-[0_12px_24px_-6px_rgba(32,142,193,0.28)] bg-gradient-to-b from-[#208EC1]/[0.08] to-transparent'
+                    : 'border-slate-200/90 dark:border-white/10'
+                }`}
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="font-display font-black text-[10px] text-[#208EC1]/70">
+                      {c.num}
+                    </span>
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                        isSpotlit ? 'bg-[#208EC1] scale-125' : 'bg-slate-300 dark:bg-slate-700'
+                      }`}
+                    />
+                  </div>
+
+                  <div
+                    className={`w-8 h-8 rounded-xl flex items-center justify-center mx-auto mb-2 transition-all duration-500 ${
+                      isSpotlit
+                        ? 'bg-[#208EC1] text-white scale-110 shadow-[0_6px_14px_-2px_rgba(32,142,193,0.45)]'
+                        : 'bg-[#208EC1]/10 text-[#208EC1]'
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                  </div>
+
+                  <h3
+                    className={`font-display font-extrabold text-[11px] leading-[1.3] transition-colors duration-300 line-clamp-2 min-h-[28px] ${
+                      isSpotlit ? 'text-[#208EC1]' : 'text-[#0f2544] dark:text-white'
+                    }`}
+                  >
+                    {c.title}
+                  </h3>
+
+                  <p className="text-[9px] text-slate-500 dark:text-slate-400 leading-snug line-clamp-2 mt-1">
+                    {c.desc}
+                  </p>
+                </div>
+
+                <div className="mt-2 pt-1.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-center">
+                  <span
+                    className={`h-1 rounded-full bg-[#208EC1] transition-all duration-500 ${
+                      isSpotlit ? 'w-6 opacity-100' : 'w-2 opacity-35'
+                    }`}
+                  />
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        {/* DESKTOP ONLY: 4 Full-Width Cards */}
+        <div
+          className="hidden sm:grid sm:grid-cols-2 xl:grid-cols-4 gap-5"
           onMouseEnter={() => setPaused(true)}
           onMouseLeave={() => setPaused(false)}
         >
