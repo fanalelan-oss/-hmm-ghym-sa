@@ -101,7 +101,8 @@ export default function AdminDashboardPage() {
 
   function handleUnlock(e: React.FormEvent) {
     e.preventDefault();
-    if (pin === "2030" || pin.toLowerCase() === "admin" || pin === "1234") {
+    const cleanPin = pin.trim();
+    if (cleanPin === "2396@" || cleanPin === "@2396") {
       setIsUnlocked(true);
       setPhone(db.settings.phone);
       setWhatsappNumber(db.settings.whatsappNumber);
@@ -434,8 +435,7 @@ export default function AdminDashboardPage() {
             لوحة التحكم الشاملة — همم غيم
           </h1>
           <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6">
-            أدخل رمز الدخول الإداري لإدارة الخدمات، المشاريع، أرقام التواصل، وتدريب المهندس الذكي (الرمز الافتراضي للتجربة:{" "}
-            <code className="font-bold text-[#208EC1]">2030</code>)
+            أدخل كلمة المرور الإدارية للوصول إلى لوحة التحكم
           </p>
 
           <form onSubmit={handleUnlock} className="space-y-4">
@@ -446,12 +446,12 @@ export default function AdminDashboardPage() {
                 setPin(e.target.value);
                 setPinError(false);
               }}
-              placeholder="أدخل رمز المرور (2030)"
+              placeholder="أدخل كلمة المرور"
               className="w-full px-4 py-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800 text-center text-lg font-bold tracking-widest focus:outline-none focus:ring-2 focus:ring-[#208EC1]"
             />
             {pinError && (
               <p className="text-xs text-rose-500 font-bold">
-                رمز الدخول غير صحيح، جرب الرمز الافتراضي: 2030
+                كلمة المرور غير صحيحة، يرجى إعادة المحاولة.
               </p>
             )}
             <button

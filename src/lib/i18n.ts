@@ -144,7 +144,7 @@ export const UI_DICT = {
       quickLinks: 'روابط سريعة',
       ourServices: 'خدماتنا',
       contactTitle: 'تواصل معنا',
-      rights: 'جميع الحقوق محفوظة © شركة همم غيم للدعاية والإعلان والمقاولات.',
+      rights: 'جميع الحقوق محفوظة.',
     },
   },
   en: {
@@ -278,7 +278,7 @@ export const UI_DICT = {
       quickLinks: 'Quick Links',
       ourServices: 'Our Services',
       contactTitle: 'Contact Us',
-      rights: 'All rights reserved © Himam Ghaim Advertising & Contracting Co.',
+      rights: 'All rights reserved.',
     },
   },
   ur: {
@@ -412,7 +412,7 @@ export const UI_DICT = {
       quickLinks: 'فوری روابط',
       ourServices: 'ہماری خدمات',
       contactTitle: 'رابطہ کریں',
-      rights: 'جملہ حقوق بحق شركة همم غيم للدعاية والإعلان والمقاولات محفوظ ہیں۔',
+      rights: 'جملہ حقوق محفوظ ہیں۔',
     },
   },
 };

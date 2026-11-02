@@ -23,7 +23,7 @@ export default function SiteFooter() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
           {/* Column 1: Brand & Bio */}
           <div className="space-y-4">
-            <Link href="/" className="inline-block">
+            <Link href="/admin" className="inline-block transition-opacity hover:opacity-85" title="لوحة التحكم">
               <img
                 src={db.settings.logoLight?.startsWith('/') ? db.settings.logoLight : '/' + db.settings.logoLight}
                 alt={tText(db.settings.fullLegalName, lang)}
