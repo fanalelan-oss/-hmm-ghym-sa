@@ -6,9 +6,9 @@ import LayoutShell from '@/components/layout/LayoutShell';
 import PageTransition from '@/components/layout/PageTransition';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
-const cairo = { className: 'font-cairo', variable: '--font-cairo' };
+const cairo = { className: "font-cairo", variable: "--font-cairo" };
 
-const tajawal = { className: 'font-tajawal', variable: '--font-tajawal' };
+const tajawal = { className: "font-tajawal", variable: "--font-tajawal" };
 
 export const metadata: Metadata = {
   metadataBase: new URL(
@@ -71,6 +71,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${tajawal.variable}`}>
+  <head>
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  </head>
       <body className="min-h-screen flex flex-col bg-white dark:bg-brand-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-signal-500 selection:text-white">
         <AppProvider>
           <JsonLdSchema />
