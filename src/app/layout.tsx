@@ -1,4 +1,4 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
 // fonts disabled for offline build
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
         url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og',
         width: 1200,
         height: 630,
-        type: 'image/png',
+        type: 'image/jpeg',
         alt: 'شركة همم غيم للدعاية والإعلان والمقاولات',
       },
     ],
