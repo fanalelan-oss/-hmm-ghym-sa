@@ -34,6 +34,7 @@ import {
 import Link from "next/link";
 import SocialPreviewManager from "@/components/admin/SocialPreviewManager";
 import SecurityConfirmModal from "@/components/admin/SecurityConfirmModal";
+import SmartImageUploader from "@/components/admin/SmartImageUploader";
 
 type AdminTab =
   | "settings"
@@ -89,9 +90,7 @@ export default function AdminDashboardPage() {
   const [newProjTitleAr, setNewProjTitleAr] = useState("");
   const [newProjCityAr, setNewProjCityAr] = useState("الرياض");
   const [newProjCat, setNewProjCat] = useState<string>("signage");
-  const [newProjImage, setNewProjImage] = useState(
-    "/assets/portfolio/3d-signage-letters-luxury-storefront-riyadh-01.webp"
-  );
+  const [newProjImage, setNewProjImage] = useState("");
   const [newProjSummaryAr, setNewProjSummaryAr] = useState("");
   const [newProjTags, setNewProjTags] = useState(
     "لوحات_حروف_بارزة, دعاية_وإعلان_الرياض, شركة_همم_غيم"
@@ -258,7 +257,14 @@ export default function AdminDashboardPage() {
 
   async function handleAddPortfolioProject(e: React.FormEvent) {
     e.preventDefault();
-    if (!newProjTitleAr.trim()) return;
+    if (!newProjTitleAr.trim()) {
+      alert("يرجى إدخال اسم المشروع أولاً");
+      return;
+    }
+    if (!newProjImage.trim()) {
+      alert("يرجى اختيار صورة للمشروع من الاستوديو أولاً");
+      return;
+    }
 
     const newId = `proj-custom-${Date.now()}`;
     const newItem = {
@@ -320,6 +326,7 @@ export default function AdminDashboardPage() {
     await updateDb(nextDb);
     setNewProjTitleAr("");
     setNewProjSummaryAr("");
+    setNewProjImage("");
     showSavedNotification();
   }
 
@@ -932,18 +939,13 @@ export default function AdminDashboardPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 mb-1">
-                      مسار الصورة (أو رابط صورة المشروع)
-                    </label>
-                    <input
-                      type="text"
-                      dir="ltr"
-                      value={newProjImage}
-                      onChange={(e) => setNewProjImage(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
-                    />
-                  </div>
+                  <SmartImageUploader
+                    label="صورة المشروع (رفع مباشر من الاستوديو / الكاميرا مع ضغط ذكي)"
+                    value={newProjImage}
+                    onChange={setNewProjImage}
+                    folder="portfolio"
+                    fallbackName={newProjTitleAr || 'project'}
+                  />
 
                   <div>
                     <label className="block text-xs font-bold text-slate-500 mb-1">
@@ -1151,19 +1153,13 @@ export default function AdminDashboardPage() {
                     </select>
                   </div>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 mb-1">
-                      رابط شعار الشريك (Logo WebP/SVG)
-                    </label>
-                    <input
-                      type="text"
-                      dir="ltr"
-                      value={newPartnerLogo}
-                      onChange={(e) => setNewPartnerLogo(e.target.value)}
-                      placeholder="/assets/images/partners/..."
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
-                    />
-                  </div>
+                  <SmartImageUploader
+                    label="شعار الشريك (اختيار من الاستوديو أو رابط WebP/SVG)"
+                    value={newPartnerLogo}
+                    onChange={setNewPartnerLogo}
+                    folder="partners"
+                    fallbackName={newPartnerNameAr || 'partner'}
+                  />
 
                   <button
                     type="submit"

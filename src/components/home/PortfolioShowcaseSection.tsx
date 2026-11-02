@@ -7,6 +7,13 @@ import { tText } from '@/lib/i18n';
 import ScrollReveal from '@/components/layout/ScrollReveal';
 import { ArrowLeft, ArrowRight, Play, MapPin, Sparkles } from 'lucide-react';
 
+function resolveItemSrc(item: any): string {
+  const raw = item.type === 'video' ? item.poster || item.src : item.src;
+  if (!raw) return '/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp';
+  if (raw.startsWith('/') || raw.startsWith('http') || raw.startsWith('data:')) return raw;
+  return `/${raw}`;
+}
+
 export default function PortfolioShowcaseSection() {
   const { lang, dict, db } = useApp();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
@@ -110,11 +117,7 @@ export default function PortfolioShowcaseSection() {
               <div>
                 <div className="relative aspect-[4/3] rounded-lg bg-slate-900 overflow-hidden block shadow-inner mb-1">
                   <img
-                    src={
-                      (item.type === 'video' ? item.poster || item.src : item.src)?.startsWith('/')
-                        ? item.type === 'video' ? item.poster || item.src : item.src
-                        : `/${item.type === 'video' ? item.poster || item.src : item.src}`
-                    }
+                    src={resolveItemSrc(item)}
                     alt={tText(item.alt, lang)}
                     width={400}
                     height={300}
@@ -164,11 +167,7 @@ export default function PortfolioShowcaseSection() {
                   className="relative aspect-[4/3] rounded-[16px] bg-slate-900 overflow-hidden block shadow-inner"
                 >
                   <img
-                    src={
-                      (item.type === 'video' ? item.poster || item.src : item.src)?.startsWith('/')
-                        ? item.type === 'video' ? item.poster || item.src : item.src
-                        : `/${item.type === 'video' ? item.poster || item.src : item.src}`
-                    }
+                    src={resolveItemSrc(item)}
                     alt={tText(item.alt, lang)}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     loading="lazy"
