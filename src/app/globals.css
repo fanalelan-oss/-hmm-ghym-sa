@@ -1,3 +1,6 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700&display=swap');
+
+body { font-family: 'Cairo', 'Tajawal', sans-serif !important; }
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -16,7 +19,7 @@
 
 /* ==========================================================================
    1. Global Best-Practice Modern Typography (Clean, Sharp & Crisp)
-   Zero clunky extrusion or blur blobs — razor-sharp Arabic letterforms with
+   Zero clunky extrusion or blur blobs â€” razor-sharp Arabic letterforms with
    subtle clean presence.
    ========================================================================== */
 
@@ -253,7 +256,7 @@
     @apply w-full max-w-[1680px] mx-auto px-4 sm:px-7 lg:px-10 xl:px-14 2xl:px-16;
   }
 
-  /* Porcelain Floating Card — Pure White on Soft Slate Canvas with Dynamic Spring Hover */
+  /* Porcelain Floating Card â€” Pure White on Soft Slate Canvas with Dynamic Spring Hover */
   .clean-card {
     @apply bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 shadow-[0_14px_34px_-10px_rgba(15,37,68,0.10),0_4px_12px_-3px_rgba(15,37,68,0.05)] dark:shadow-[0_18px_40px_-12px_rgba(0,0,0,0.6)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:border-[#208EC1]/60 hover:shadow-[0_24px_48px_-12px_rgba(15,37,68,0.16),0_8px_18px_-4px_rgba(32,142,193,0.12)];
   }
@@ -263,3 +266,4 @@
     @apply bg-white dark:bg-[#0c1d34] border border-slate-200/95 dark:border-white/10 shadow-[0_16px_38px_-10px_rgba(15,37,68,0.11),0_4px_14px_-3px_rgba(15,37,68,0.06)] dark:shadow-[0_20px_44px_-12px_rgba(0,0,0,0.65)] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-2 hover:border-[#208EC1]/70 hover:shadow-[0_28px_56px_-12px_rgba(15,37,68,0.18),0_10px_22px_-4px_rgba(32,142,193,0.14)];
   }
 }
+
