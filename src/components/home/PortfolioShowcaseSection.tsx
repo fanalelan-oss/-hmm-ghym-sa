@@ -140,7 +140,7 @@ export default function PortfolioShowcaseSection() {
               </div>
 
               <div className="mt-1 pt-0.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8.5px] font-black text-[#0d6e9a] dark:text-sky-400">
-                <span>{lang === 'ar' ? 'عرض العمل' : 'Details'}</span>
+                <span>{lang === 'ar' ? 'عرض العمل' : lang === 'ur' ? 'تفصیلات دیکھیں' : 'Details'}</span>
                 <ArrowIcon className="w-2 h-2" />
               </div>
             </Link>

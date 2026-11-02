@@ -337,41 +337,81 @@ export default function HeroSection() {
 
   const servicesRow1 = [
     {
-      label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
+      label:
+        lang === 'ar'
+          ? 'الدعاية والإعلان'
+          : lang === 'ur'
+          ? 'اشتہارات اور سائن بورڈز'
+          : 'Signage & Advertising',
       href: '/services/signage-3d-letters-cladding',
     },
     {
-      label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
+      label:
+        lang === 'ar'
+          ? 'الأحرف البارزة والكلادينج'
+          : lang === 'ur'
+          ? 'تھری ڈی لیٹرز اور کلیڈنگ'
+          : '3D Letters & Cladding',
       href: '/services/signage-3d-letters-cladding',
     },
   ];
 
   const servicesRow2 = [
     {
-      label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
+      label:
+        lang === 'ar'
+          ? 'المقاولات العامة'
+          : lang === 'ur'
+          ? 'جنرل کنٹریکٹنگ'
+          : 'General Contracting',
       href: '/services/general-contracting-cladding-glass',
     },
     {
-      label: lang === 'ar' ? 'ديكور وتشطيبات' : 'Interior Fit-Out',
+      label:
+        lang === 'ar'
+          ? 'ديكور وتشطيبات'
+          : lang === 'ur'
+          ? 'انٹیریئر اور فنشنگ'
+          : 'Interior Fit-Out',
       href: '/services/interior-design-decor-finishing',
     },
     {
-      label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
+      label:
+        lang === 'ar'
+          ? 'مظلات وسواتر'
+          : lang === 'ur'
+          ? 'شیڈز اور سواتر'
+          : 'Shades & Canopies',
       href: '/services/car-shades-pergolas-screens',
     },
   ];
 
   const servicesRow3 = [
     {
-      label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
+      label:
+        lang === 'ar'
+          ? 'تسوير المشاريع'
+          : lang === 'ur'
+          ? 'پروجیکٹ ہورڈنگ'
+          : 'Project Hoarding',
       href: '/services/project-hoarding-construction-fencing',
     },
     {
-      label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
+      label:
+        lang === 'ar'
+          ? 'تجهيز المعارض'
+          : lang === 'ur'
+          ? 'نمائشی بوتھس'
+          : 'Exhibition Booths',
       href: '/services/exhibition-booths-stands-events',
     },
     {
-      label: lang === 'ar' ? 'تواصل مباشر' : 'Direct Contact',
+      label:
+        lang === 'ar'
+          ? 'تواصل مباشر'
+          : lang === 'ur'
+          ? 'براہ راست رابطہ'
+          : 'Direct Contact',
       href: '/contact',
     },
   ];
@@ -379,41 +419,81 @@ export default function HeroSection() {
   const serviceCardsDesktop = [
     {
       left: {
-        label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
+        label:
+          lang === 'ar'
+            ? 'الدعاية والإعلان'
+            : lang === 'ur'
+            ? 'اشتہارات اور سائن بورڈز'
+            : 'Signage & Advertising',
         href: '/services/signage-3d-letters-cladding',
       },
       right: {
-        label: lang === 'ar' ? 'استيكرات وتغليف أساطيل' : 'Stickers & Fleet Wrapping',
+        label:
+          lang === 'ar'
+            ? 'استيكرات وتغليف أساطيل'
+            : lang === 'ur'
+            ? 'اسٹیکرز اور گاڑیوں کی ریپنگ'
+            : 'Fleet Wrapping & Stickers',
         href: '/services/stickers-vehicle-wrapping-murals',
       },
     },
     {
       left: {
-        label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
+        label:
+          lang === 'ar'
+            ? 'المقاولات العامة'
+            : lang === 'ur'
+            ? 'جنرل کنٹریکٹنگ'
+            : 'General Contracting',
         href: '/services/general-contracting-cladding-glass',
       },
       right: {
-        label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
+        label:
+          lang === 'ar'
+            ? 'الديكور والتشطيبات'
+            : lang === 'ur'
+            ? 'انٹیریئر اور فنشنگ'
+            : 'Interior Fit-Out',
         href: '/services/interior-design-decor-finishing',
       },
     },
     {
       left: {
-        label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
+        label:
+          lang === 'ar'
+            ? 'مظلات وسواتر'
+            : lang === 'ur'
+            ? 'شیڈز اور سواتر'
+            : 'Shades & Canopies',
         href: '/services/car-shades-pergolas-screens',
       },
       right: {
-        label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
+        label:
+          lang === 'ar'
+            ? 'تسوير المشاريع'
+            : lang === 'ur'
+            ? 'پروجیکٹ ہورڈنگ'
+            : 'Project Hoarding',
         href: '/services/project-hoarding-construction-fencing',
       },
     },
     {
       left: {
-        label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
+        label:
+          lang === 'ar'
+            ? 'تجهيز المعارض'
+            : lang === 'ur'
+            ? 'نمائشی بوتھس'
+            : 'Exhibition Booths',
         href: '/services/exhibition-booths-stands-events',
       },
       right: {
-        label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
+        label:
+          lang === 'ar'
+            ? 'تواصل معنا مباشرة'
+            : lang === 'ur'
+            ? 'براہ راست رابطہ کریں'
+            : 'Contact Us Directly',
         href: '/contact',
       },
     },
@@ -437,33 +517,39 @@ export default function HeroSection() {
       sub:
         lang === 'ar'
           ? 'في الرياض وجدة والدمام ومختلف مدن المملكة'
-          : 'Delivered across Riyadh, Jeddah, Dammam & KSA',
+          : lang === 'ur'
+          ? 'ریاض، جدہ، دمام اور سعودی عرب کے تمام شہروں میں'
+          : 'Delivered across Riyadh, Jeddah, Dammam & all Saudi cities',
     },
     {
       num: db.settings.stats.servicesCount,
       title: dict.hero.statsServices,
       sub:
         lang === 'ar'
-          ? 'تصنيع وتنفيذ مباشر من مصانعنا بدون وسطاء'
-          : 'Direct in-house fabrication & installation',
+          ? 'من اللوحات والكلادينج إلى المقاولات والديكور'
+          : lang === 'ur'
+          ? 'سائن بورڈز اور کلیڈنگ سے لے کر کنٹریکٹنگ اور ڈیکور تک'
+          : 'From signage & cladding to contracting & interiors',
     },
     {
-      num: statsPartnersValue.startsWith('+')
-        ? statsPartnersValue
-        : `+${statsPartnersValue.replace('+', '')}`,
+      num: statsPartnersValue,
       title: dict.hero.statsPartners,
       sub:
         lang === 'ar'
-          ? 'جهات حكومية ومستشفيات وشركات رائدة'
-          : 'Trusted by ministries, hospitals & brands',
+          ? 'علامات تجارية وشركات كبرى تثق بجودتنا'
+          : lang === 'ur'
+          ? 'معروف برانڈز اور کمپنیاں جو ہمارے معیار پر اعتماد کرتی ہیں'
+          : 'Leading brands & corporations trusting our quality',
     },
     {
-      num: `+${statsWarrantyValue.replace('+', '')}`,
+      num: `+${statsWarrantyValue}`,
       title: dict.hero.statsWarranty,
       sub:
         lang === 'ar'
-          ? 'ضمان شامل على الخامات والتركيب والإضاءة'
-          : 'Full warranty on materials & LED systems',
+          ? 'ضمان موثق يشمل الهيكل والإضاءة والخامات'
+          : lang === 'ur'
+          ? 'مصدق تحریری وارنٹی برائے اسٹرکچر، میٹریل اور لائٹنگ'
+          : 'Certified warranty covering structure, materials & LEDs',
     },
   ];
 
@@ -543,7 +629,9 @@ export default function HeroSection() {
               <span className="lg:hidden">
                 {lang === 'ar'
                   ? 'تنفيذ واجهات الكلادينج، الأحرف البارزة والمقاولات من التصميم حتى التركيب بدقة وإتقان.'
-                  : dict.hero.subtitle}
+                  : lang === 'ur'
+                  ? 'ڈیزائن سے تنصیب تک سائن بورڈز، کلیڈنگ اور کنٹریکٹنگ کی اعلیٰ ترین تکمیل۔'
+                  : 'Turnkey execution of signs, cladding and contracting from design to install.'}
               </span>
               <span className="hidden lg:inline">{dict.hero.subtitle}</span>
             </p>
@@ -754,6 +842,8 @@ export default function HeroSection() {
                           <span>
                             {lang === 'ar'
                               ? `من أعمالنا · ${tText(currentProject.city, lang)}`
+                              : lang === 'ur'
+                              ? `ہمارے کام · ${tText(currentProject.city, lang)}`
                               : `Delivered · ${tText(currentProject.city, lang)}`}
                           </span>
                         </p>

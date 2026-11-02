@@ -71,7 +71,7 @@ export default function ServicesGridSection() {
               </div>
 
               <div className="mt-1 pt-1 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8.5px] font-extrabold text-[#208EC1]">
-                <span>{lang === 'ar' ? 'استكشف' : 'Explore'}</span>
+                <span>{lang === 'ar' ? 'استكشف' : lang === 'ur' ? 'تفصیلات دیکھیں' : 'Explore'}</span>
                 <ArrowIcon className="w-2.5 h-2.5" />
               </div>
             </Link>

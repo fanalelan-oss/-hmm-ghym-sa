@@ -51,6 +51,8 @@ export default function SeoHashtagsCtaSection() {
                 <Sparkles className="w-3.5 h-3.5" />
                 {lang === 'ar'
                   ? 'معاينة واستشارة مجانية لمشروعك'
+                  : lang === 'ur'
+                  ? 'مفت معائنہ اور تکنیکی مشاورت'
                   : 'Free Site Visit & Consultation'}
               </span>
               <h2 className="heading-3d-light font-display font-extrabold text-xl sm:text-2xl lg:text-[26px] leading-snug">
@@ -119,15 +121,19 @@ export default function SeoHashtagsCtaSection() {
               </div>
               <div>
                 <h3 className="font-display font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-100">
-                  {dict.seoSection.eyebrow} ({allHashtags.length}+ خدمة ووسم)
+                  {dict.seoSection.eyebrow} ({allHashtags.length}+ {lang === 'ar' ? 'خدمة ووسم' : lang === 'ur' ? 'ٹیگز اور خدمات' : 'tags & services'})
                 </h3>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400">
                   {tagsOpen
                     ? lang === 'ar'
                       ? 'اضغط لإغلاق القائمة'
+                      : lang === 'ur'
+                      ? 'بند کرنے کے لیے کلک کریں'
                       : 'Click to collapse'
                     : lang === 'ar'
                     ? 'اضغط لعرض الكلمات المفتاحية والخدمات السريعة'
+                    : lang === 'ur'
+                    ? 'مقبول ٹیگز اور خدمات دیکھنے کے لیے کلک کریں'
                     : 'Click to expand popular services & tags'}
                 </p>
               </div>
@@ -138,9 +144,13 @@ export default function SeoHashtagsCtaSection() {
                 {tagsOpen
                   ? lang === 'ar'
                     ? 'إخفاء'
+                    : lang === 'ur'
+                    ? 'چھپائیں'
                     : 'Hide'
                   : lang === 'ar'
                   ? 'عرض الكل'
+                  : lang === 'ur'
+                  ? 'تمام دیکھیں'
                   : 'Show All'}
               </span>
               <ChevronDown

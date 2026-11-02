@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
@@ -17,6 +17,7 @@ import {
   Phone,
   ArrowLeft,
   ArrowRight,
+  Check,
 } from 'lucide-react';
 
 export default function SiteHeader() {
@@ -28,6 +29,22 @@ export default function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [langMenuOpen, setLangMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const langMenuRef = useRef<HTMLDivElement>(null);
+
+  // Click outside listener for language menu
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (langMenuRef.current && !langMenuRef.current.contains(event.target as Node)) {
+        setLangMenuOpen(false);
+      }
+    }
+    if (langMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [langMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,6 +154,8 @@ export default function SiteHeader() {
                               <span className="text-xs font-extrabold text-[#0f2544] dark:text-white">
                                 {lang === 'ar'
                                   ? 'خدماتنا المتكاملة (8 قطاعات)'
+                                  : lang === 'ur'
+                                  ? 'ہماری جامع خدمات (8 شعبہ جات)'
                                   : 'Our Core Services (8 Sectors)'}
                               </span>
                               <Link
@@ -145,7 +164,7 @@ export default function SiteHeader() {
                                 className="inline-flex items-center gap-1 text-[11px] font-extrabold text-[#208EC1] hover:underline"
                               >
                                 <span>
-                                  {lang === 'ar' ? 'عرض الكل' : 'View All'}
+                                  {lang === 'ar' ? 'عرض الكل' : lang === 'ur' ? 'سب دیکھیں' : 'View All'}
                                 </span>
                                 <ArrowIcon className="w-3 h-3" />
                               </Link>
@@ -198,40 +217,49 @@ export default function SiteHeader() {
 
             {/* ZONE 3 (RTL End): Quick Actions + Primary CTA with Natural Depth */}
             <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
-              {/* Language Switcher */}
-              <div className="relative">
+              {/* Language Switcher with Clear Label & Active Flag */}
+              <div ref={langMenuRef} className="relative">
                 <button
                   type="button"
                   onClick={() => setLangMenuOpen(!langMenuOpen)}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 text-[11px] sm:text-xs font-black text-[#0f2544] dark:text-slate-200 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-colors"
+                  aria-expanded={langMenuOpen}
+                  aria-label="تبديل اللغة / Change Language"
+                  title="تبديل اللغة / Change Language"
+                  className="inline-flex items-center gap-1 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-[#eaf0f7] dark:bg-white/10 hover:bg-slate-200/80 text-[11px] sm:text-xs font-black text-[#0f2544] dark:text-slate-200 shadow-[inset_0_1px_2px_rgba(15,37,68,0.06)] transition-all cursor-pointer"
                 >
-                  <Globe className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#208EC1]" />
-                  <span className="uppercase">
-                    {lang === 'ar' ? 'EN' : lang === 'en' ? 'عربي' : 'اردو'}
+                  <Globe className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />
+                  <span className="inline-flex items-center gap-1">
+                    <span className="text-xs">{lang === 'ar' ? '🇸🇦' : lang === 'en' ? '🇬🇧' : '🇵🇰'}</span>
+                    <span className="font-extrabold">{lang === 'ar' ? 'العربية' : lang === 'en' ? 'English' : 'اردو'}</span>
                   </span>
+                  <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform duration-200 ${langMenuOpen ? 'rotate-180' : ''}`} />
                 </button>
 
                 {langMenuOpen && (
-                  <div className="absolute top-full end-0 mt-2 w-32 rounded-2xl bg-white dark:bg-[#0d213b] border border-slate-200 dark:border-white/10 shadow-xl p-1.5 z-50">
-                    {(['ar', 'en', 'ur'] as Lang[]).map((l) => (
+                  <div className="absolute top-full end-0 mt-2 w-36 rounded-2xl bg-white dark:bg-[#0d213b] border border-slate-200 dark:border-white/10 shadow-2xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
+                    {[
+                      { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+                      { code: 'en', label: 'English', flag: '🇬🇧' },
+                      { code: 'ur', label: 'اردو', flag: '🇵🇰' },
+                    ].map((item) => (
                       <button
-                        key={l}
+                        key={item.code}
                         type="button"
                         onClick={() => {
-                          setLang(l);
+                          setLang(item.code as Lang);
                           setLangMenuOpen(false);
                         }}
-                        className={`w-full text-start px-3 py-2 rounded-xl text-xs font-bold transition-colors ${
-                          lang === l
-                            ? 'bg-[#208EC1]/15 text-[#208EC1]'
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all ${
+                          lang === item.code
+                            ? 'bg-[#208EC1]/15 text-[#208EC1] dark:bg-sky-500/20 dark:text-sky-300 font-black'
                             : 'text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5'
                         }`}
                       >
-                        {l === 'ar'
-                          ? 'العربية'
-                          : l === 'en'
-                          ? 'English'
-                          : 'اردو'}
+                        <span className="flex items-center gap-2">
+                          <span className="text-sm">{item.flag}</span>
+                          <span>{item.label}</span>
+                        </span>
+                        {lang === item.code && <Check className="w-3.5 h-3.5 text-[#208EC1] shrink-0" />}
                       </button>
                     ))}
                   </div>
@@ -292,6 +320,38 @@ export default function SiteHeader() {
         {/* Mobile Dropdown */}
         {mobileMenuOpen && (
           <div className="lg:hidden mt-2 rounded-[26px] bg-white dark:bg-[#0b192e] border border-slate-200 dark:border-white/10 p-4 shadow-2xl space-y-3">
+            {/* Mobile Language Switch Bar */}
+            <div className="pb-3 border-b border-slate-100 dark:border-white/10 flex items-center justify-between gap-2">
+              <span className="text-xs font-extrabold text-[#0f2544] dark:text-slate-200 flex items-center gap-1.5">
+                <Globe className="w-3.5 h-3.5 text-[#208EC1]" />
+                <span>{lang === 'ar' ? 'اختر اللغة' : lang === 'ur' ? 'زبان منتخب کریں' : 'Language'}</span>
+              </span>
+              <div className="flex items-center gap-1 bg-slate-100 dark:bg-white/5 p-1 rounded-xl">
+                {[
+                  { code: 'ar', label: 'العربية', flag: '🇸🇦' },
+                  { code: 'en', label: 'EN', flag: '🇬🇧' },
+                  { code: 'ur', label: 'اردو', flag: '🇵🇰' },
+                ].map((item) => (
+                  <button
+                    key={item.code}
+                    type="button"
+                    onClick={() => {
+                      setLang(item.code as Lang);
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-black transition-all flex items-center gap-1 ${
+                      lang === item.code
+                        ? 'bg-[#208EC1] text-white shadow-sm'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-white/40 dark:hover:bg-white/10'
+                    }`}
+                  >
+                    <span>{item.flag}</span>
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
               {[
                 ...navLinks,

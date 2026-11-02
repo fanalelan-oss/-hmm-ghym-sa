@@ -202,6 +202,8 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
           data.reply ||
           (lang === 'ar'
             ? 'يا هلا بك! معك المهندس همم. يسعدني دائماً خدمتك وتلقي استفسارك عبر الواتساب على الرقم 0565467928.'
+            : lang === 'ur'
+            ? 'خوش آمدید! میں انجینئر ہمم ہوں۔ واٹس ایپ 0565467928 پر آپ کی مدد کے لیے ہمہ وقت حاضر ہوں۔'
             : 'Happy to assist! Contact our team at +966 56 546 7928.'),
         timestamp: new Date().toLocaleTimeString([], {
           hour: '2-digit',
@@ -220,6 +222,8 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
           text:
             lang === 'ar'
               ? 'أهلاً بك يا غالي! لتفاصيل هذا المشروع وحساب التكلفة بدقة هندسية عالية، يسعدنا تواصلك المباشر مع مهندس الموقع لرفع المقاسات وتقديم ريندر 3D مجاناً عبر واتساب: 0565467928.'
+              : lang === 'ur'
+              ? 'خوش آمدید! اس منصوبے کی تفصیلی قیمت، مفت پیمائش اور تھری ڈی ڈیزائن کے لیے براہ راست واٹس ایپ 0565467928 پر رابطہ کریں۔'
               : 'Welcome! For project specs and custom pricing, please contact our lead engineer directly on WhatsApp: +966 56 546 7928.',
           timestamp: new Date().toLocaleTimeString([], {
             hour: '2-digit',
@@ -304,10 +308,16 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
               <div className="flex items-center gap-2">
                 <h2 className="text-white font-bold text-sm sm:text-base font-display truncate">{botName}</h2>
                 <span className="text-[10px] bg-emerald-500/20 text-emerald-300 font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 shrink-0">
-                  كبير المهندسين
+                  {lang === 'ar' ? 'كبير المهندسين' : lang === 'ur' ? 'چیف انجینئر' : 'Lead Engineer'}
                 </span>
               </div>
-              <p className="text-xs text-slate-300/80 truncate">استشارات هندسية ومعمارية · شركة همم غيم</p>
+              <p className="text-xs text-slate-300/80 truncate">
+                {lang === 'ar'
+                  ? 'استشارات هندسية ومعمارية · شركة همم غيم'
+                  : lang === 'ur'
+                  ? 'انجینئرنگ اور آرکیٹیکچرل مشاورت · ہمم غيم کمپنی'
+                  : 'Architectural & Technical Consultations · Himam Ghaim Co.'}
+              </p>
             </div>
           </div>
 
@@ -317,7 +327,7 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <button
               onClick={handleReset}
               type="button"
-              title="بدء محادثة جديدة"
+              title={lang === 'ar' ? 'بدء محادثة جديدة' : lang === 'ur' ? 'نئی گفتگو' : 'New Chat'}
               className="p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all"
             >
               <RotateCcw className="w-4 h-4" />
@@ -327,7 +337,7 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <button
               onClick={() => setIsFullscreen(!isFullscreen)}
               type="button"
-              title={isFullscreen ? 'تصغير إلى نافذة جانبية' : 'تكبير النافذة'}
+              title={isFullscreen ? (lang === 'ar' ? 'تصغير إلى نافذة جانبية' : lang === 'ur' ? 'سائیڈ ونڈو میں چھوٹا کریں' : 'Minimize') : (lang === 'ar' ? 'تكبير النافذة' : lang === 'ur' ? 'فل اسکرین کریں' : 'Maximize')}
               className="hidden sm:inline-flex p-2 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 active:scale-95 transition-all"
             >
               {isFullscreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
@@ -337,7 +347,7 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <button
               onClick={onClose}
               type="button"
-              title="إغلاق المحادثة"
+              title={lang === 'ar' ? 'إغلاق المحادثة' : lang === 'ur' ? 'بند کریں' : 'Close'}
               className="p-2 rounded-xl text-slate-300 hover:text-white bg-white/[0.08] hover:bg-rose-500/20 hover:text-rose-300 active:scale-95 transition-all ml-1"
             >
               <X className="w-5 h-5" />
@@ -383,26 +393,33 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
                         <span>مشاريع منفذة مطابقة من سابقة أعمال همم غيم:</span>
                       </div>
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        {msg.relatedProjects.slice(0, 2).map((proj) => (
-                          <div
-                            key={proj.id}
-                            className="flex items-center gap-2.5 p-2 rounded-xl bg-black/35 border border-white/10 text-xs text-slate-200"
-                          >
-                            <img
-                              src={proj.thumbnail}
-                              alt={pickLang(proj.title, lang)}
-                              className="w-12 h-12 rounded-lg object-cover shrink-0"
-                            />
-                            <div className="min-w-0 flex-1">
-                              <p className="font-bold text-white truncate text-[11px] sm:text-xs">
-                                {pickLang(proj.title, lang)}
-                              </p>
-                              <span className="text-[10px] text-sky-400 block truncate">
-                                {proj.city ? pickLang(proj.city, lang) : 'المملكة العربية السعودية'}
-                              </span>
+                        {msg.relatedProjects.slice(0, 2).map((proj) => {
+                          const rawSrc = proj.poster || proj.src || '';
+                          const imgSrc = rawSrc.startsWith('http') || rawSrc.startsWith('/') ? rawSrc : `/${rawSrc}`;
+                          return (
+                            <div
+                              key={proj.id}
+                              className="flex items-center gap-2.5 p-2 rounded-xl bg-black/40 border border-white/10 text-xs text-slate-200"
+                            >
+                              <img
+                                src={imgSrc}
+                                alt={pickLang(proj.title, lang)}
+                                onError={(e) => {
+                                  (e.currentTarget as HTMLImageElement).src = '/assets/images/portfolio/saudi-project-hoarding-fence-printing-calma-hoarding-himam-ghaim.webp';
+                                }}
+                                className="w-12 h-12 rounded-lg object-cover shrink-0 bg-slate-800"
+                              />
+                              <div className="min-w-0 flex-1">
+                                <p className="font-bold text-white truncate text-[11px] sm:text-xs">
+                                  {pickLang(proj.title, lang)}
+                                </p>
+                                <span className="text-[10px] text-sky-400 block truncate">
+                                  {proj.city ? pickLang(proj.city, lang) : 'المملكة العربية السعودية'}
+                                </span>
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          );
+                        })}
                       </div>
                     </div>
                   )}
@@ -434,7 +451,9 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
         {/* Quick Suggestion Chips (Horizontal Scrollbar Hidden) */}
         <div className="px-4 sm:px-5 py-2 border-t border-white/10 bg-[#09182d] shrink-0">
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar [scrollbar-width:none] [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] py-1">
-            <span className="text-[10px] text-slate-400 font-bold shrink-0">مقترحات:</span>
+            <span className="text-[10px] text-slate-400 font-bold shrink-0">
+              {lang === 'ar' ? 'مقترحات:' : lang === 'ur' ? 'تجویز کردہ:' : 'Suggested:'}
+            </span>
             {quickPrompts.map((q, idx) => (
               <button
                 key={idx}
@@ -461,8 +480,14 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <div className="flex items-center gap-2.5 min-w-0">
               <img src={selectedImage} alt="المعاينة" className="w-10 h-10 rounded-lg object-cover border border-sky-400/30 shrink-0" />
               <div className="min-w-0">
-                <span className="text-xs text-white font-bold block truncate">{selectedImageName || 'صورة مرفقة'}</span>
-                <span className="text-[10px] text-sky-300">جاهزة للتحليل الهندسي واستخراج المواصفات</span>
+                <span className="text-xs text-white font-bold block truncate">{selectedImageName || (lang === 'ar' ? 'صورة مرفقة' : lang === 'ur' ? 'منسلک تصویر' : 'Attached Image')}</span>
+                <span className="text-[10px] text-sky-300">
+                  {lang === 'ar'
+                    ? 'جاهزة للتحليل الهندسي واستخراج المواصفات'
+                    : lang === 'ur'
+                    ? 'انجینئرنگ تجزیہ اور تفصیلات کے لیے تیار'
+                    : 'Ready for technical analysis & specification extraction'}
+                </span>
               </div>
             </div>
             <button
@@ -500,7 +525,7 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              title="إرفاق صورة واجهة أو مخطط للتحليل الهندسي"
+              title={lang === 'ar' ? 'إرفاق صورة واجهة أو مخطط للتحليل الهندسي' : lang === 'ur' ? 'تصویر یا سائٹ پلان منسلک کریں' : 'Attach photo or site plan'}
               disabled={isLoading}
               className="p-2.5 sm:p-3 rounded-2xl bg-white/[0.08] hover:bg-sky-500/20 text-sky-400 hover:text-white border border-white/15 transition-all shrink-0 active:scale-95"
             >
@@ -513,7 +538,19 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder={selectedImage ? 'اكتب ملاحظتك على الصورة (أو اضغط إرسال فوراً)...' : 'اكتب استفسارك الهندسي هنا...'}
+              placeholder={
+                selectedImage
+                  ? lang === 'ar'
+                    ? 'اكتب ملاحظتك على الصورة (أو اضغط إرسال فوراً)...'
+                    : lang === 'ur'
+                    ? 'تصویر کے بارے میں لکھیں (یا براہ راست ارسال کریں)...'
+                    : 'Add notes about the image (or hit send)...'
+                  : lang === 'ar'
+                  ? 'اكتب استفسارك الهندسي هنا...'
+                  : lang === 'ur'
+                  ? 'اپنا انجینئرنگ سوال یا پروجیکٹ یہاں لکھیں...'
+                  : 'Ask your engineering or pricing question here...'
+              }
               disabled={isLoading}
               className="flex-1 px-4 py-2.5 sm:py-3 rounded-2xl bg-white/[0.07] border border-white/15 focus:border-sky-400 focus:bg-white/10 text-white placeholder-slate-400 text-xs sm:text-sm outline-none transition-all"
             />
@@ -522,27 +559,45 @@ export default function AiChatModal({ isOpen, onClose }: AiChatModalProps) {
             <button
               type="submit"
               disabled={(!input.trim() && !selectedImage) || isLoading}
-              aria-label="إرسال"
+              aria-label={lang === 'ar' ? 'إرسال' : lang === 'ur' ? 'ارسال کریں' : 'Send'}
               className="px-4 py-2.5 sm:py-3 rounded-2xl bg-gradient-to-r from-[#208EC1] to-sky-600 hover:from-sky-500 hover:to-sky-600 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
             >
               <Send className="w-4 h-4 rtl:-scale-x-100" />
-              <span className="hidden sm:inline">إرسال</span>
+              <span className="hidden sm:inline">
+                {lang === 'ar' ? 'إرسال' : lang === 'ur' ? 'ارسال کریں' : 'Send'}
+              </span>
             </button>
           </form>
 
           {/* Quick Direct WhatsApp Assist */}
           <div className="mt-2.5 flex items-center justify-between text-[11px] text-slate-400">
-            <span>تفضل التحدث مع مهندس المشروع مباشرة؟</span>
+            <span>
+              {lang === 'ar'
+                ? 'تفضل التحدث مع مهندس المشروع مباشرة؟'
+                : lang === 'ur'
+                ? 'پروجیکٹ انجینئر سے براہ راست بات کرنا چاہتے ہیں؟'
+                : 'Prefer to speak directly with our project engineer?'}
+            </span>
             <a
               href={`https://wa.me/966565467928?text=${encodeURIComponent(
-                'السلام عليكم، أرغب في استشارة هندسية وعرض سعر مباشر من شركة همم غيم.'
+                lang === 'en'
+                  ? 'Hello, I would like an engineering consultation and direct quote from Himam Ghaim Company.'
+                  : lang === 'ur'
+                  ? 'السلام علیکم، مجھے ہمم غيم کمپنی سے انجینئرنگ مشاورت اور کوٹیشن درکار ہے۔'
+                  : 'السلام عليكم، أرغب في استشارة هندسية وعرض سعر مباشر من شركة همم غيم.'
               )}`}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-emerald-400 hover:underline font-bold"
             >
               <MessageCircle className="w-3.5 h-3.5" />
-              <span>واتساب فوري (0565467928)</span>
+              <span>
+                {lang === 'ar'
+                  ? 'واتساب فوري (0565467928)'
+                  : lang === 'ur'
+                  ? 'فوری واٹس ایپ (0565467928)'
+                  : 'Instant WhatsApp (+966 56 546 7928)'}
+              </span>
             </a>
           </div>
         </div>

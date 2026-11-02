@@ -9,12 +9,12 @@ import { ArrowLeft, ArrowRight, Sparkles } from 'lucide-react';
 
 function getSectorBadge(sector?: string, lang?: string) {
   if (sector === 'government') {
-    return lang === 'ar' ? 'قطاع حكومي / وطني' : 'Government';
+    return lang === 'ar' ? 'قطاع حكومي / وطني' : lang === 'ur' ? 'سرکاری / قومی شعبہ' : 'Government';
   }
   if (sector === 'healthcare') {
-    return lang === 'ar' ? 'قطاع طبي / صحي' : 'Healthcare';
+    return lang === 'ar' ? 'قطاع طبي / صحي' : lang === 'ur' ? 'طبی / ہیلتھ کیئر شعبہ' : 'Healthcare';
   }
-  return lang === 'ar' ? 'قطاع تجاري / شركات' : 'Commercial';
+  return lang === 'ar' ? 'قطاع تجاري / شركات' : lang === 'ur' ? 'تجارتی / کارپوریٹ شعبہ' : 'Commercial';
 }
 
 export default function PartnersMarqueeSection() {

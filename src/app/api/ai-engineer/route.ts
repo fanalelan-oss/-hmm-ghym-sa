@@ -55,26 +55,20 @@ export async function POST(request: Request) {
       try {
         const systemPrompt = `
 أنت "المهندس همم"، كبير المهندسين والاستشاري الفني لشركة "همم غيم للدعاية والإعلان والمقاولات العامة" في السعودية.
-بيانات الشركة الرسمية:
-- الهاتف والواتساب المعتمد: ${db.settings.phone}
-- البريد الرسمي: ${db.settings.email}
-- الضمان: 10 سنوات ضمان موثق شامل.
-- المعاينة: معاينة ورفع مقاسات وريندر 3D مجاناً بالكامل.
-- التغطية: الرياض، جدة، مكة، الدمام، الخبر، وكافة مدن المملكة.
-- أنشطة الشركة الثمانية فقط:
-  1. الأحرف البارزة والكلادينج (زنكور، أكريليك، ستانلس 304، Halo مضيئة، نيون).
-  2. الاستيكرات وتغليف أساطيل السيارات بطباعة رولاند اليابانية وفينيل 3M.
-  3. تسوير المشاريع الإنشائية والتجارية (الهوردينج) بحواجز نيوجيرسي وشنكو وبوسترات UV.
-  4. تجهيز بوثات وأجنحة المعارض والمؤتمرات الكبرى بتصاميم 3D خشبية ومعدنية.
-  5. المظلات والسواتر والبرجولات وقص الليزر CNC بأقمشة PVC كوري وألماني.
-  6. الديكور والتشطيبات الداخلية وبديل الخشب والرخام والجبس بورد.
-  7. المقاولات العامة وزجاج السيكوريت 12مم والواجهات العنكبوتية Spider Glass.
-  8. كاميرات المراقبة وشبكات الأمن والسلامة ومكافحة الحريق المعتمدة من الدفاع المدني.
+بيانات التواصل الرسمية: الهاتف والواتساب: ${db.settings.phone}، البريد: ${db.settings.email}.
+الضمان: 10 سنوات موثق، المعاينة ورفع المقاسات وريندر 3D مجاناً بالكامل لكافة مدن المملكة.
 
-تعليمات التعامل مع الصور والأسئلة:
-- إذا أرفق العميل صورة: انظر إلى الصورة بدقة حقيقية! صف ما تراه في الصورة بالضبط (هل هو سور مشروع، هوردينج، واجهة محل، مظلة، تصميم داخلي، كشك، إلخ) وقدم ملاحظات هندسية دقيقة عما هو موجود في الصورة تحديداً ولا تفترض شيئاً غير موجود فيها!
-- جاوب بنبرة مهندس استشاري سعودي واقعي ومحترف ومباشر.
-- لا تكرر إجابات ثابتة أو ديباجات محفوظة، بل ركز على ما سأل عنه العميل بدقة.
+قواعد الحديث الذكي والموجز (بشري 100%):
+1. **التحيات والردود البسيطة:**
+   - إذا كتب العميل تحية (مثل: "السلام عليكم"، "مرحبا"، "كيف الحال"، "يا هلا"، "صباح/مساء الخير"): رد فوراً بود ولطافة في جملة أو جملتين فقط! (مثال: "وعليكم السلام ورحمة الله وبركاته، يا أهلاً وسهلاً بك! آمرني يا غالي كيف أقدر أساعدك في مشروعك اليوم؟").
+   - ممنوع تماماً سرد الخدمات أو الأسعار أو كتابة ديباجات إعلانية في رسائل التحية!
+2. **الاستفسارات الهندسية والمشاريع:**
+   - لا تكتب مقالات طويلة تأخذ 20 ثانية لقراءتها! اجعل جوابك مختصراً ومركزاً في 3 إلى 5 نقاط سريعة (المواصفة، التكلفة التقريبية بالريال، والنصيحة الهندسية)، بحيث يقرأها العميل في 5 إلى 10 ثوانٍ فقط.
+3. **تحليل الصور:**
+   - إذا أرفق صورة: صِف باختصار ما تراه تحديداً في الصورة دون أي افتراضات، وأعطِ رأيك الفني والتكلفة المتوقعة في نقاط معدودة.
+4. **الأسلوب واللغة:**
+   - تحدث كمهندس استشاري محترف يتحدث في واتساب: ذكي، عملي، ومباشر.
+   - لغة الجواب: التزم التزاماً تاماً بلغة العميل (إذا أرسل بالإنجليزية English أجب بإنجليزية احترافية وموجزة، وإذا أرسل بالأردية اردو أجب بأردية سلسة ومحترمة، وإذا أرسل بالعربية أجب بالعربية). لغة طلب العميل الحالية: [${lang}].
         `;
 
         const parts: any[] = [{ text: systemPrompt }];
@@ -99,7 +93,7 @@ export async function POST(request: Request) {
               },
             });
             parts.push({
-              text: `العميل أرفق هذه الصورة وكتب: "${message || 'ما تحليلك الهندسي لهذه الصورة وما هي الخامات المقترحة والتكلفة؟'}"\nافحص الصورة المرفقة بتمعن واشرح بالتفصيل ما تحتويه هندسياً.`,
+              text: `العميل أرفق هذه الصورة وكتب: "${message || 'ما تحليلك الهندسي لهذه الصورة وما هي الخامات المقترحة والتكلفة؟'}"\nافحص الصورة المرفقة بتمعن واشرح باختصار وتركيز ما تحتويه هندسياً.`,
             });
           }
         } else {
@@ -121,8 +115,8 @@ export async function POST(request: Request) {
                 body: JSON.stringify({
                   contents: [{ parts }],
                   generationConfig: {
-                    temperature: 0.7,
-                    maxOutputTokens: 2500,
+                    temperature: 0.65,
+                    maxOutputTokens: 1200, // Balanced: complete clean finish, concise human length
                   },
                 }),
                 signal: AbortSignal.timeout(14000), // 14s max per model
@@ -170,38 +164,60 @@ export async function POST(request: Request) {
 تفضل بمراسلة مهندس المشروع مباشرة عبر الواتساب على الرقم:
 👉 **[واتساب فوري: 0565467928](https://wa.me/966565467928)**`;
       } else {
-        // Handle natural conversational inquiries honestly
+        // Handle natural conversational inquiries honestly and multilingually
         const isGreeting =
-          /^(سلام|السلام عليكم|مرحبا|مرحباً|أهلا|اهلا|يا هلا|هلا|صباح الخير|مساء الخير)[\s!.]*$/i.test(
+          /^(سلام|السلام عليكم|مرحبا|مرحباً|أهلا|اهلا|يا هلا|هلا|صباح الخير|مساء الخير|hello|hi|hey|salam|assalam|aoa)[\s!.]*$/i.test(
             message.trim()
           );
 
-        if (isGreeting) {
-          finalReply = `يا أهلاً وسهلاً بك يا غالي! معك **المهندس همم** استشاري شركة همم غيم للدعاية والإعلان والمقاولات 👷‍♂️.\n\nكيف أقدر أخدمك اليوم؟ تفضل بسؤالك عن (الأحرف البارزة، الكلادينج، المظلات، تسوير المشاريع، المعارض، أو المقاولات العامة).`;
-        } else if (/وين موقعكم|مكانكم|فروعكم/i.test(msgLower)) {
-          finalReply = `حياك الله! نحن في **شركة همم غيم** نخدم **كافة مناطق المملكة** (الرياض، جدة، الدمام، مكة، والمنطقة الشرقية) مع إرسال مهندسين للمعاينة ورفع المقاسات مجاناً في موقعك.\nللتواصل: **${db.settings.phone}**.`;
-        } else if (/رقمكم|جوالكم|واتساب|هاتف/i.test(msgLower)) {
-          finalReply = `أهلاً بك! يمكنك التواصل المباشر مع إدارة ومهندسي همم غيم عبر الهاتف أو الواتساب على الرقم: **${db.settings.phone}** أو الإيميل: **${db.settings.email}**.`;
-        } else {
-          // Check learned Q&A first
-          const learned = (db.knowledgeBase.learnedQA || []).find((qa) => {
-            const q = qa.question.toLowerCase();
-            return msgLower.includes(q) || q.includes(msgLower);
-          });
-
-          if (learned) {
-            finalReply = `${learned.answer}\n\nيسعدنا تواصلك المباشر مع المهندس المختص: **${db.settings.phone}**.`;
+        if (lang === 'en') {
+          if (isGreeting) {
+            finalReply = `Hello and welcome! I am **Eng. Himam**, technical consultant at **Himam Ghaim Advertising & Contracting** 👷‍♂️.\n\nHow can I assist you today with your project?`;
+          } else if (/where|location|branch|office/i.test(msgLower)) {
+            finalReply = `Welcome! **Himam Ghaim** operates across **all Saudi regions** (Riyadh, Jeddah, Dammam, Khobar, Makkah) with free on-site engineering surveys.\nContact: **${db.settings.phone}**.`;
+          } else if (/phone|contact|whatsapp|number/i.test(msgLower)) {
+            finalReply = `You can reach our engineering team directly via phone or WhatsApp at **${db.settings.phone}** or email: **${db.settings.email}**.`;
           } else {
-            // Check specific knowledge rules
-            const matchedRule = (db.knowledgeBase.rules || []).find((r) =>
-              r.keywords.some((k) => msgLower.includes(k.toLowerCase()))
-            );
+            finalReply = `Welcome! For accurate engineering specifications, pricing, and free 3D render preview, reach our lead engineer directly:\n\n📞 **${db.settings.phone}**\n✉️ **${db.settings.email}**\n\nWe provide free on-site surveys across the Kingdom.`;
+          }
+        } else if (lang === 'ur') {
+          if (isGreeting) {
+            finalReply = `خوش آمدید! میں **انجینئر ہمم** ہوں، ہمم غیم کمپنی کا مشیر 👷‍♂️۔\n\nآج میں آپ کے پروجیکٹ (سائن بورڈز، کلیڈنگ، شیڈز، ہورڈنگ، جنرل کنٹریکٹنگ) میں کیا مدد کر سکتا ہوں؟`;
+          } else if (/location|where|kahan|مقام|دفتر/i.test(msgLower)) {
+            finalReply = `ہمم غیم کمپنی پورے سعودی عرب (ریاض، جدہ، دمام، مکہ) میں خدمات فراہم کرتی ہے مع سائٹ کا مفت معائنہ۔\nرابطہ: **${db.settings.phone}**۔`;
+          } else if (/phone|contact|whatsapp|number|نمبر|رابطہ/i.test(msgLower)) {
+            finalReply = `ہماری ٹیم سے براہ راست واٹس ایپ یا کال پر رابطہ کریں: **${db.settings.phone}** یا ای میل: **${db.settings.email}**۔`;
+          } else {
+            finalReply = `خوش آمدید! اپنے منصوبے کی تفصیلی قیمت، میٹریل اور مفت معائنے کے لیے ہمارے پروجیکٹ انجینئر سے براہ راست رابطہ کریں:\n\n📞 **${db.settings.phone}**\n✉️ **${db.settings.email}**\n\nتمام سعودی شہروں میں مفت سائٹ وزٹ اور تھری ڈی ڈیزائن۔`;
+          }
+        } else {
+          if (isGreeting) {
+            finalReply = `يا أهلاً وسهلاً بك يا غالي! معك **المهندس همم** استشاري شركة همم غيم للدعاية والإعلان والمقاولات 👷‍♂️.\n\nكيف أقدر أخدمك اليوم؟ تفضل بسؤالك عن (الأحرف البارزة، الكلادينج، المظلات، تسوير المشاريع، المعارض، أو المقاولات العامة).`;
+          } else if (/وين موقعكم|مكانكم|فروعكم/i.test(msgLower)) {
+            finalReply = `حياك الله! نحن في **شركة همم غيم** نخدم **كافة مناطق المملكة** (الرياض، جدة، الدمام، مكة، والمنطقة الشرقية) مع إرسال مهندسين للمعاينة ورفع المقاسات مجاناً في موقعك.\nللتواصل: **${db.settings.phone}**.`;
+          } else if (/رقمكم|جوالكم|واتساب|هاتف/i.test(msgLower)) {
+            finalReply = `أهلاً بك! يمكنك التواصل المباشر مع إدارة ومهندسي همم غيم عبر الهاتف أو الواتساب على الرقم: **${db.settings.phone}** أو الإيميل: **${db.settings.email}**.`;
+          } else {
+            // Check learned Q&A first
+            const learned = (db.knowledgeBase.learnedQA || []).find((qa) => {
+              const q = qa.question.toLowerCase();
+              return msgLower.includes(q) || q.includes(msgLower);
+            });
 
-            if (matchedRule) {
-              finalReply = `${matchedRule.answer}\n\n📞 للاستفسار وطلب معاينة مجانية لمشروعك: **${db.settings.phone}**.`;
+            if (learned) {
+              finalReply = `${learned.answer}\n\nيسعدنا تواصلك المباشر مع المهندس المختص: **${db.settings.phone}**.`;
             } else {
-              // Concise, honest fallback instead of fake generic filler
-              finalReply = `أهلاً بك يا غالي! لخدمتك بأعلى دقة هندسية وتقديم الإجابة والمواصفات الفنية المعتمدة لمشروعك، يسعدنا تواصلك المباشر مع مهندس التنفيذ عبر الجوال أو الواتساب:\n\n📞 **${db.settings.phone}**\n✉️ **${db.settings.email}**\n\nنقدم معاينة ميدانية ورفع مقاسات وريندر 3D مجاناً لكافة مدن المملكة.`;
+              // Check specific knowledge rules
+              const matchedRule = (db.knowledgeBase.rules || []).find((r) =>
+                r.keywords.some((k) => msgLower.includes(k.toLowerCase()))
+              );
+
+              if (matchedRule) {
+                finalReply = `${matchedRule.answer}\n\n📞 للاستفسار وطلب معاينة مجانية لمشروعك: **${db.settings.phone}**.`;
+              } else {
+                // Concise, honest fallback instead of fake generic filler
+                finalReply = `أهلاً بك يا غالي! لخدمتك بأعلى دقة هندسية وتقديم الإجابة والمواصفات الفنية المعتمدة لمشروعك، يسعدنا تواصلك المباشر مع مهندس التنفيذ عبر الجوال أو الواتساب:\n\n📞 **${db.settings.phone}**\n✉️ **${db.settings.email}**\n\nنقدم معاينة ميدانية ورفع مقاسات وريندر 3D مجاناً لكافة مدن المملكة.`;
+              }
             }
           }
         }
@@ -242,17 +258,22 @@ export async function POST(request: Request) {
       }).catch((e) => console.error('Silent alert error:', e));
     }
 
-    // 5. Select portfolio items relevant to the text
-    const relatedProjects: PortfolioItem[] = db.portfolio
-      .filter((p) => {
-        if (/لوح|حرف|كلادينج/.test(msgLower)) return p.category === 'signage';
-        if (/مظل|ساتر|برجول/.test(msgLower)) return p.category === 'shades';
-        if (/تسوير|سور|شنكو|كالما/.test(msgLower)) return p.category === 'hoarding';
-        if (/معرض|بوث/.test(msgLower)) return p.category === 'exhibitions';
-        if (/ديكور|تشطيب/.test(msgLower)) return p.category === 'interiors';
-        return p.featured;
-      })
-      .slice(0, 2);
+    // 5. Select portfolio items relevant to the text (Only when asking about a service or sending an image)
+    const isGeneralGreeting = /^(سلام|السلام عليكم|مرحبا|مرحباً|أهلا|اهلا|يا هلا|هلا|صباح الخير|مساء الخير|كيف الحال|شخبارك|اخبارك|تمام|الحمد لله|شكرا|شكراً|تسلم)[\s!.]*$/i.test(message.trim());
+    const isServiceQuery = /لوح|حرف|أحرف|كلادينج|مظل|ساتر|برجول|تسوير|سور|شنكو|كالما|معرض|بوث|ديكور|تشطيب|استيكر|زجاج|عمارة|مشروع|بناء|سعر|تكلفة|متر/i.test(msgLower) || !!image;
+
+    const relatedProjects: PortfolioItem[] = (!isGeneralGreeting && isServiceQuery)
+      ? db.portfolio
+          .filter((p) => {
+            if (/لوح|حرف|كلادينج/.test(msgLower)) return p.category === 'signage';
+            if (/مظل|ساتر|برجول/.test(msgLower)) return p.category === 'shades';
+            if (/تسوير|سور|شنكو|كالما|عمارة/.test(msgLower)) return p.category === 'hoarding';
+            if (/معرض|بوث/.test(msgLower)) return p.category === 'exhibitions';
+            if (/ديكور|تشطيب/.test(msgLower)) return p.category === 'interiors';
+            return p.featured;
+          })
+          .slice(0, 2)
+      : [];
 
     return NextResponse.json({
       reply: finalReply,

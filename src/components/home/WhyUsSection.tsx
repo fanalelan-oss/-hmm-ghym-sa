@@ -191,6 +191,8 @@ export default function WhyUsSection() {
                     <span>
                       {lang === 'ar'
                         ? 'ضمان وجودة معتمدة'
+                        : lang === 'ur'
+                        ? 'مصدق معیار اور وارنٹی'
                         : 'Guaranteed Quality'}
                     </span>
                     <span
