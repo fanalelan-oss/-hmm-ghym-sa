@@ -176,7 +176,21 @@ export interface SiteSettings {
   };
 }
 
+export interface OgSettings {
+  mode: 'auto' | 'custom' | 'temporary_24h';
+  customTitle?: string;
+  customSubtitle?: string;
+  customDescription?: string;
+  customCategory?: string;
+  customImageFile?: string;
+  customWarranty?: string;
+  customCity?: string;
+  pinnedUntil?: string | null;
+  lastUpdated?: string;
+}
+
 export interface DatabaseSchema {
+  ogSettings?: OgSettings;
   settings: SiteSettings;
   services: ServiceItem[];
   letterTypes: LetterTypeItem[];

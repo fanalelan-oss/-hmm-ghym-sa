@@ -9339,5 +9339,17 @@
       "status": "new",
       "createdAt": "2026-10-26 14:30"
     }
-  ]
+  ],
+  "ogSettings": {
+    "mode": "auto",
+    "customTitle": "شركة همم غيم — من الحرف البارز إلى تسليم المفتاح",
+    "customSubtitle": "واجهات كلادينج، أحرف بارزة مضيئة، مظلات وسواتر، ومقاولات عامة",
+    "customDescription": "نصمم وننفذ واجهات المحلات والشركات بأعلى جودة وضمان معتمد حتى 10 سنوات مطابق لاشتراطات بلدي والدفاع المدني في كافة مدن المملكة.",
+    "customCategory": "دعاية وإعلان ومقاولات عامة",
+    "customImageFile": "saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp",
+    "customWarranty": "ضمان حتى 10 سنوات",
+    "customCity": "كافة مناطق المملكة",
+    "pinnedUntil": null,
+    "lastUpdated": "2026-11-02T15:48:43.677Z"
+  }
 }

@@ -22,8 +22,10 @@ import {
   ArrowRight,
   Home,
   LogOut,
+  Share2,
 } from "lucide-react";
 import Link from "next/link";
+import SocialPreviewManager from "@/components/admin/SocialPreviewManager";
 
 type AdminTab =
   | "settings"
@@ -32,7 +34,8 @@ type AdminTab =
   | "partners"
   | "ai"
   | "reviews"
-  | "leads";
+  | "leads"
+  | "social-og";
 
 export default function AdminDashboardPage() {
   const { db, updateDb, refreshDb } = useApp();
@@ -554,6 +557,11 @@ export default function AdminDashboardPage() {
               id: "leads",
               label: `طلبات التسعير (${db.leads.length})`,
               icon: Users,
+            },
+            {
+              id: "social-og",
+              label: "معاينات الروابط والسوشيال",
+              icon: Share2,
             },
           ].map((tab) => {
             const Icon = tab.icon;
@@ -1253,6 +1261,14 @@ export default function AdminDashboardPage() {
               </div>
             ))}
           </div>
+        )}
+
+        {activeTab === "social-og" && (
+          <SocialPreviewManager
+            db={db}
+            updateDb={updateDb}
+            showSavedNotification={showSavedNotification}
+          />
         )}
 
         {activeTab === "leads" && (
