@@ -90,9 +90,9 @@ export default function PartnersPage() {
           {filteredPartners.map((partner, idx) => (
             <ScrollReveal key={partner.id} delay={idx * 50}>
               <div className="clean-card rounded-3xl p-7 flex flex-col items-center text-center group h-full justify-between">
-                <div className="w-full h-32 rounded-2xl bg-white dark:bg-slate-800/90 p-5 flex items-center justify-center border border-slate-100 dark:border-slate-700/60 mb-5">
+                <div className="w-full h-32 rounded-2xl bg-white p-5 flex items-center justify-center border border-slate-100 shadow-sm mb-5">
                   <img
-                    src={partner.logo}
+                    src={partner.logo?.startsWith("/") ? partner.logo : "/" + partner.logo}
                     alt={pickLang(partner.name, lang)}
                     className="max-h-20 max-w-[160px] object-contain group-hover:scale-110 transition-transform duration-500"
                   />

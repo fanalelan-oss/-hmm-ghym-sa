@@ -143,11 +143,19 @@ body { font-family: 'Cairo', 'Tajawal', sans-serif !important; }
 .animate-partners-train {
   display: flex;
   width: max-content;
-  animation: partnersTrainMove 34s linear infinite;
+  animation: partnersTrainMove 65s linear infinite;
   will-change: transform;
 }
 
-.animate-partners-train:hover {
+@media (max-width: 640px) {
+  .animate-partners-train {
+    animation-duration: 52s;
+  }
+}
+
+.animate-partners-train:hover,
+.animate-partners-train:active,
+.animate-partners-train:focus-within {
   animation-play-state: paused;
 }
 
