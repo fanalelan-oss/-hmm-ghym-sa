@@ -18,7 +18,7 @@ interface AppContextType {
   t: (typeof UI_DICT)[Lang];
   db: DatabaseSchema;
   refreshDb: () => Promise<void>;
-  updateDb: (nextDb: DatabaseSchema) => Promise<void>;
+  updateDb: (nextDb: DatabaseSchema) => Promise<boolean>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -40,16 +40,17 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const updateDb = async (nextDb: DatabaseSchema) => {
+  const updateDb = async (nextDb: DatabaseSchema): Promise<boolean> => {
     setDb(nextDb);
     try {
-      await fetch('/api/db', {
+      const res = await fetch('/api/db', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(nextDb),
       });
+      return res.ok;
     } catch {
-      // ignore offline write error
+      return false;
     }
   };
 

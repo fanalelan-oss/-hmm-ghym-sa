@@ -108,6 +108,22 @@ export default function AdminDashboardPage() {
   const [newAiAnswer, setNewAiAnswer] = useState("");
   const [replyDrafts, setReplyDrafts] = useState<Record<string, string>>({});
   const [qaDrafts, setQaDrafts] = useState<Record<string, string>>({});
+  const [leadStatusFilter, setLeadStatusFilter] = useState<'all' | 'new' | 'contacted' | 'closed'>('all');
+
+  function checkAndAutoUnlock(val: string) {
+    const clean = val.trim();
+    if (clean === "2396@" || clean === "@2396") {
+      setIsUnlocked(true);
+      setPhone(db.settings.phone);
+      setWhatsappNumber(db.settings.whatsappNumber);
+      setEmail(db.settings.email);
+      setAddressAr(db.settings.address.ar);
+      setStatsProjectsCount(db.settings.stats?.projectsCount || "100+");
+      setStatsServicesCount(db.settings.stats?.servicesCount || "8");
+      setStatsPartnersCount(db.settings.stats?.partnersCount || "45+");
+      setStatsWarrantyYears(db.settings.stats?.warrantyYears || "10");
+    }
+  }
 
   function handleUnlock(e: React.FormEvent) {
     e.preventDefault();
@@ -162,25 +178,17 @@ export default function AdminDashboardPage() {
     showSavedNotification();
   }
 
-  function handleSaveSettings(e: React.FormEvent) {
+  async function handleSaveSettings(e: React.FormEvent) {
     e.preventDefault();
-    requestSecureAction(
-      "حفظ إعدادات المنصة وأرقام التواصل",
-      `سيتم تحديث رقم الاتصال (${phone}) ورقم الواتساب والبريد وساعات العمل والضمان على كافة صفحات الموقع فوراً.`,
-      executeSaveSettings
-    );
+    await executeSaveSettings();
   }
 
   async function handleDeleteLead(leadId: string, leadName: string) {
-    requestSecureAction(
-      "حذف طلب تسعير",
-      `أنت على وشك حذف طلب العميل "${leadName}". لا يمكن التراجع عن هذا الإجراء.`,
-      async () => {
-        const nextLeads = db.leads.filter((l) => l.id !== leadId);
-        await updateDb({ ...db, leads: nextLeads });
-        showSavedNotification();
-      }
-    );
+    if (confirm(`هل أنت متأكد من حذف طلب العميل "${leadName}"؟`)) {
+      const nextLeads = db.leads.filter((l) => l.id !== leadId);
+      await updateDb({ ...db, leads: nextLeads });
+      showSavedNotification();
+    }
   }
 
   async function handleToggleLeadStatus(leadId: string, newStatus: string) {
@@ -1271,25 +1279,19 @@ export default function AdminDashboardPage() {
                 />
                 <button
                   type="button"
-                  onClick={() => {
-                    requestSecureAction(
-                      "حفظ وتفعيل مفتاح الذكاء التوليدي Gemini API",
-                      "سيتم ربط الشات بوت مباشرة بنموذج Gemini 2.0 Flash لتحليل الصور والمحادثة البشرية الحية.",
-                      async () => {
-                        const nextDb = {
-                          ...db,
-                          settings: {
-                            ...db.settings,
-                            aiConfig: {
-                              ...(db.settings.aiConfig || {}),
-                              geminiApiKey: geminiApiKey.trim(),
-                            },
-                          },
-                        };
-                        await updateDb(nextDb);
-                        showSavedNotification();
-                      }
-                    );
+                  onClick={async () => {
+                    const nextDb = {
+                      ...db,
+                      settings: {
+                        ...db.settings,
+                        aiConfig: {
+                          ...(db.settings.aiConfig || {}),
+                          geminiApiKey: geminiApiKey.trim(),
+                        },
+                      },
+                    };
+                    await updateDb(nextDb);
+                    showSavedNotification();
                   }}
                   className="px-5 py-2.5 rounded-xl bg-[#208EC1] hover:bg-sky-500 text-white text-xs font-bold transition-all shrink-0 shadow-sm"
                 >

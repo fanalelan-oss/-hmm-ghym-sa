@@ -175,6 +175,14 @@ export interface SiteSettings {
     geminiApiKey: string;
     autoLearnEnabled: boolean;
   };
+  emailNotifications?: {
+    enabled?: boolean;
+    notifyEmail?: string;
+    smtpHost?: string;
+    smtpUser?: string;
+    smtpPass?: string;
+    smtpPort?: number;
+  };
 }
 
 export interface OgSettings {

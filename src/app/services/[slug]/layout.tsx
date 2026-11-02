@@ -4,10 +4,11 @@ import { getDb } from '@/lib/db';
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const db = getDb();
-  const slug = decodeURIComponent(params.slug);
+  const { slug: rawSlug } = await params;
+  const slug = decodeURIComponent(rawSlug);
   const service =
     db.services.find((s) => s.slug === slug || s.id === slug) || db.services[0];
 
