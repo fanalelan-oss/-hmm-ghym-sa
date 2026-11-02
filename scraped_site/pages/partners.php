@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -6,8 +6,8 @@
   <title>شركاء النجاح | شركة همم غيم</title>
   <meta name="description" content="شركاء النجاح لشركة همم غيم: عملاء الأعمال، والموردون، وشركاء التنفيذ الذين نعمل معهم في مشاريع الدعاية والمظلات والتشطيبات والمقاولات.">
   <meta name="theme-color" content="#11345C">
-  <link rel="canonical" href="https://hamamghaym.com/partners.php">
-  <meta property="og:url" content="https://hamamghaym.com/partners.php">
+  <link rel="canonical" href="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/partners.php">
+  <meta property="og:url" content="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/partners.php">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:site_name" content="شركة همم غيم">

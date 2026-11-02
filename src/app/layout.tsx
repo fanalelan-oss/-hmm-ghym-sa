@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import { Cairo, Tajawal } from 'next/font/google';
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
@@ -22,7 +22,7 @@ const tajawal = Tajawal({
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://hamamghaym.com'
+    process.env.NEXT_PUBLIC_SITE_URL || 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app'
   ),
   title: {
     default:

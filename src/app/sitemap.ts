@@ -1,8 +1,8 @@
-import { MetadataRoute } from "next";
+﻿import { MetadataRoute } from "next";
 import { getDb } from "@/lib/db";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://hamamghaym.com";
+  const baseUrl = "https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app";
   const db = getDb();
 
   const staticPages: MetadataRoute.Sitemap = [

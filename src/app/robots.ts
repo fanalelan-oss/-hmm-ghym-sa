@@ -1,4 +1,4 @@
-import { MetadataRoute } from "next";
+﻿import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/"],
       },
     ],
-    sitemap: "https://hamamghaym.com/sitemap.xml",
-    host: "https://hamamghaym.com",
+    sitemap: "https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/sitemap.xml",
+    host: "https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app",
   };
 }

@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -6,8 +6,8 @@
   <title>شركة همم غيم | أحرف بارزة ولوحات إعلانية، مظلات وسواتر، تشطيبات ومقاولات</title>
   <meta name="description" content="شركة همم غيم: تصنيع وتركيب الأحرف البارزة والواجهات واللوحات الإعلانية، الاستيكرات وتسوير المشاريع، تجهيز أجنحة المعارض، توريد وتركيب المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة — للأفراد والشركات في المملكة.">
   <meta name="theme-color" content="#11345C">
-  <link rel="canonical" href="https://hamamghaym.com/">
-  <meta property="og:url" content="https://hamamghaym.com/">
+  <link rel="canonical" href="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/">
+  <meta property="og:url" content="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:site_name" content="شركة همم غيم">
@@ -22,7 +22,7 @@
   <!-- إعدادات الموقع من لوحة التحكم (واتساب، Google Analytics، الخدمات، استقبال الطلبات) -->
   <script>window.SITE_CONFIG = {"companyName":"شركة همم غيم","phone":"+966546774905","whatsappNumber":"966546774905","whatsappGreeting":"السلام عليكم، أرغب في الاستفسار عن خدمات شركة همم غيم.","gaMeasurementId":"","leadEndpoint":"api\/lead.php","formMode":"whatsapp","serviceLabels":{"signage":"الدعاية والإعلان (أحرف بارزة، واجهات، لوحات)","stickers":"الاستيكرات والتغليف (زجاج، جدران، سيارات، واجهات)","hoarding":"تسوير المشاريع (أسوار مطبوعة لمواقع المشاريع)","exhibitions":"تجهيز المعارض والفعاليات (أجنحة، منصات عرض، أكشاك)","shades":"المظلات والسواتر","interiors":"الديكور والتشطيبات الداخلية","contracting":"المقاولات العامة","safety":"الأمن والسلامة (كاميرات مراقبة، أنظمة إطفاء، أدوات السلامة)","other":"خدمة أخرى"},"serviceShort":{"signage":"الدعاية والإعلان","stickers":"الاستيكرات","hoarding":"تسوير المشاريع","exhibitions":"تجهيز المعارض","shades":"المظلات والسواتر","interiors":"الديكور والتشطيبات","contracting":"المقاولات العامة","safety":"الأمن والسلامة"}};</script>
   <script src="assets/js/main.js?v=1792939846" defer></script>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"شركة همم غيم","description":"تصنيع وتركيب الأحرف البارزة والواجهات واللوحات الإعلانية، الاستيكرات والتغليف، تسوير المشاريع، تجهيز المعارض، المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة.","telephone":"+966546774905","address":{"@type":"PostalAddress","addressCountry":"SA"},"areaServed":{"@type":"Country","name":"المملكة العربية السعودية"},"knowsAbout":["الدعاية والإعلان","الاستيكرات والتغليف","تسوير المشاريع","تجهيز المعارض والفعاليات","المظلات والسواتر","الديكور والتشطيبات الداخلية","المقاولات العامة","الأمن والسلامة"],"url":"https://hamamghaym.com/"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HomeAndConstructionBusiness","name":"شركة همم غيم","description":"تصنيع وتركيب الأحرف البارزة والواجهات واللوحات الإعلانية، الاستيكرات والتغليف، تسوير المشاريع، تجهيز المعارض، المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة.","telephone":"+966546774905","address":{"@type":"PostalAddress","addressCountry":"SA"},"areaServed":{"@type":"Country","name":"المملكة العربية السعودية"},"knowsAbout":["الدعاية والإعلان","الاستيكرات والتغليف","تسوير المشاريع","تجهيز المعارض والفعاليات","المظلات والسواتر","الديكور والتشطيبات الداخلية","المقاولات العامة","الأمن والسلامة"],"url":"https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/"}</script>
 </head>
 <body>
   <a class="skip-link" href="#main">تخطَّ إلى المحتوى</a>

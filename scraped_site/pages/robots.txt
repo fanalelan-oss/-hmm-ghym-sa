@@ -1,6 +1,6 @@
-User-agent: *
+﻿User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /install/
 
-Sitemap: https://hamamghaym.com/sitemap.xml
+Sitemap: https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/sitemap.xml

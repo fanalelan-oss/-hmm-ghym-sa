@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
@@ -6,8 +6,8 @@
   <title>تواصل معنا واطلب عرض سعر | شركة همم غيم</title>
   <meta name="description" content="اطلب خدمة أو عرض سعر من شركة همم غيم للأفراد والشركات. اتصل بنا على ‎+966 54 677 4905 أو راسلنا عبر واتساب مباشرة.">
   <meta name="theme-color" content="#11345C">
-  <link rel="canonical" href="https://hamamghaym.com/contact.php">
-  <meta property="og:url" content="https://hamamghaym.com/contact.php">
+  <link rel="canonical" href="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/contact.php">
+  <meta property="og:url" content="https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/contact.php">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="ar_SA">
   <meta property="og:site_name" content="شركة همم غيم">

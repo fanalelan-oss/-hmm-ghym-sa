@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import React from 'react';
 import { useApp } from '@/context/AppContext';
@@ -19,16 +19,16 @@ export default function JsonLdSchema() {
     '@graph': [
       {
         '@type': ['HomeAndConstructionBusiness', 'LocalBusiness', 'ProfessionalService'],
-        '@id': 'https://hamamghaym.com/#organization',
+        '@id': 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/#organization',
         name: db.settings.fullLegalName.ar,
         alternateName: [db.settings.companyName.ar, db.settings.companyName.en, db.settings.companyName.ur],
         description:
           'شركة همم غيم للدعاية والإعلان والمقاولات العامة في المملكة العربية السعودية: تصنيع وتركيب الأحرف البارزة والواجهات واللوحات الإعلانية، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة.',
-        url: 'https://hamamghaym.com',
+        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
         telephone: db.settings.phoneClean,
         email: db.settings.email,
-        logo: `https://hamamghaym.com${db.settings.logoDark}`,
-        image: `https://hamamghaym.com${db.settings.logoDark}`,
+        logo: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app${db.settings.logoDark}`,
+        image: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app${db.settings.logoDark}`,
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
@@ -71,15 +71,15 @@ export default function JsonLdSchema() {
               '@type': 'Service',
               name: s.name.ar,
               description: s.description.ar,
-              url: `https://hamamghaym.com/services/${s.slug}`,
+              url: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/services/${s.slug}`,
             },
           })),
         },
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://hamamghaym.com/#website',
-        url: 'https://hamamghaym.com',
+        '@id': 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/#website',
+        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
         name: db.settings.fullLegalName.ar,
         inLanguage: ['ar-SA', 'en-US', 'ur-PK'],
       },
