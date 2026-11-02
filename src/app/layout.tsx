@@ -1,24 +1,14 @@
 ﻿import type { Metadata } from 'next';
-import { Cairo, Tajawal } from 'next/font/google';
+// fonts disabled for offline build
 import './globals.css';
 import { AppProvider } from '@/context/AppContext';
 import LayoutShell from '@/components/layout/LayoutShell';
 import PageTransition from '@/components/layout/PageTransition';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
-const cairo = Cairo({
-  subsets: ['arabic', 'latin'],
-  weight: ['600', '700', '800', '900'],
-  variable: '--font-display',
-  display: 'swap',
-});
+const cairo = { className: 'font-cairo', variable: '--font-cairo' };
 
-const tajawal = Tajawal({
-  subsets: ['arabic', 'latin'],
-  weight: ['400', '500', '700', '800'],
-  variable: '--font-tajawal',
-  display: 'swap',
-});
+const tajawal = { className: 'font-tajawal', variable: '--font-tajawal' };
 
 export const metadata: Metadata = {
   metadataBase: new URL(
