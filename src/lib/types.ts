@@ -121,6 +121,7 @@ export interface KnowledgeBaseData {
   rules: KnowledgeRule[];
   learnedQA: LearnedQA[];
   unansweredQuestions: UnansweredQuestion[];
+  chatAlerts?: any[];
 }
 
 export interface LeadItem {

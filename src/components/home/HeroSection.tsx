@@ -503,14 +503,15 @@ export default function HeroSection() {
         <div className="w-full flex-1 flex flex-col justify-between lg:grid lg:grid-cols-12 lg:gap-8 xl:gap-10 lg:items-center min-h-0">
           {/* Right Column (RTL Start): Staggered Entrance Typography + CTAs + Auto-Presenting 2x2 Cards */}
           <div className="lg:col-span-7 flex-1 flex flex-col justify-evenly lg:justify-start lg:block space-y-2 sm:space-y-3 lg:space-y-3.5 text-start max-w-2xl min-h-0 py-1">
-            {/* Minimalist Porcelain Pill Badge with Seamless 3-Message Rotation (Each with distinct color, zero dots) */}
+            {/* Proportional Rotating Pill Badge: Hugs the text cleanly without oversized mobile stretch */}
             <div
               style={{ animationDelay: '0ms' }}
-              className={`animate-card-cascade inline-flex items-center px-3.5 py-1 sm:px-4 sm:py-1.5 rounded-full bg-white dark:bg-[#0c1d34] border ${badgeItems[badgeIdx].borderClass} text-[11px] sm:text-xs font-black shadow-[0_4px_14px_-3px_rgba(15,37,68,0.07)] overflow-hidden transition-colors duration-500`}
+              className={`animate-card-cascade w-fit max-w-full self-start inline-flex items-center gap-1.5 px-3 py-1 sm:px-3.5 sm:py-1 rounded-full bg-white/95 dark:bg-[#0c1d34]/95 backdrop-blur-sm border ${badgeItems[badgeIdx].borderClass} text-[10.5px] sm:text-xs font-bold shadow-sm transition-all duration-500`}
             >
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0 animate-pulse" />
               <span
                 key={badgeIdx}
-                className={`animate-badge-text inline-block ${badgeItems[badgeIdx].colorClass}`}
+                className={`animate-badge-text inline-block truncate ${badgeItems[badgeIdx].colorClass}`}
               >
                 {badgeItems[badgeIdx].text}
               </span>

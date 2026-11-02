@@ -17,6 +17,11 @@ export default function PageTransition({
     return () => clearTimeout(t);
   }, [pathname]);
 
+  // Admin dashboard has its own fixed app header & bottom dock; skip transform wrappers completely
+  if (pathname.startsWith('/admin')) {
+    return <>{children}</>;
+  }
+
   return (
     <>
       {/* Top Route Transition Shimmer Bar */}

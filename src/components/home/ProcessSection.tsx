@@ -114,7 +114,7 @@ export default function ProcessSection() {
                 <div className="mt-2 pt-1.5 border-t border-slate-100 dark:border-white/5">
                   <div className="w-full h-1 rounded-full bg-slate-100 dark:bg-white/5 overflow-hidden">
                     <div
-                      className={`h-full rounded-full bg-[#208EC1] transition-all duration-500 ${
+                      className={`h-full rounded-full bg-[#208EC1] transition-colors duration-200 ${
                         isActive ? 'w-full' : 'w-1/4 opacity-30'
                       }`}
                     />
@@ -138,7 +138,7 @@ export default function ProcessSection() {
               <ScrollReveal key={st.num} delayMs={idx * 85} variant="zoom-3d">
                 <div
                   onMouseEnter={() => setActiveStep(idx)}
-                  className={`clean-card group relative h-full p-6 rounded-[24px] transition-all duration-500 ${
+                  className={`clean-card group relative h-full p-6 rounded-[24px] transition-colors duration-200 ${
                     isActive
                       ? 'border-[#208EC1]/75 -translate-y-1.5 shadow-[0_24px_48px_-12px_rgba(32,142,193,0.18)]'
                       : ''
@@ -155,7 +155,7 @@ export default function ProcessSection() {
 
                   <div className="flex items-center justify-between mb-4">
                     <span
-                      className={`inline-flex items-center justify-center w-11 h-11 rounded-2xl transition-all duration-500 ${
+                      className={`inline-flex items-center justify-center w-11 h-11 rounded-2xl transition-colors duration-200 ${
                         isActive
                           ? 'bg-[#0f2544] dark:bg-[#208EC1] text-white scale-105 shadow-md'
                           : 'bg-[#208EC1]/10 text-[#208EC1] group-hover:bg-[#0f2544] group-hover:text-white'

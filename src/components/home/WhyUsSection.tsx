@@ -79,7 +79,7 @@ export default function WhyUsSection() {
               <article
                 key={idx}
                 onClick={() => setActiveCard(idx)}
-                className={`clean-card group relative p-2.5 rounded-2xl flex flex-col justify-between text-center transition-all duration-500 cursor-pointer select-none active:scale-95 ${
+                className={`clean-card group relative p-2.5 rounded-2xl flex flex-col justify-between text-center transition-colors duration-200 cursor-pointer select-none active:scale-95 ${
                   isSpotlit
                     ? 'border-[#208EC1] -translate-y-1 shadow-[0_12px_24px_-6px_rgba(32,142,193,0.28)] bg-gradient-to-b from-[#208EC1]/[0.08] to-transparent'
                     : 'border-slate-200/90 dark:border-white/10'
@@ -98,7 +98,7 @@ export default function WhyUsSection() {
                   </div>
 
                   <div
-                    className={`w-8 h-8 rounded-xl flex items-center justify-center mx-auto mb-2 transition-all duration-500 ${
+                    className={`w-8 h-8 rounded-xl flex items-center justify-center mx-auto mb-2 transition-colors duration-200 ${
                       isSpotlit
                         ? 'bg-[#208EC1] text-white scale-110 shadow-[0_6px_14px_-2px_rgba(32,142,193,0.45)]'
                         : 'bg-[#208EC1]/10 text-[#208EC1]'
@@ -122,7 +122,7 @@ export default function WhyUsSection() {
 
                 <div className="mt-2 pt-1.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-center">
                   <span
-                    className={`h-1 rounded-full bg-[#208EC1] transition-all duration-500 ${
+                    className={`h-1 rounded-full bg-[#208EC1] transition-colors duration-200 ${
                       isSpotlit ? 'w-6 opacity-100' : 'w-2 opacity-35'
                     }`}
                   />
@@ -145,7 +145,7 @@ export default function WhyUsSection() {
               <ScrollReveal key={idx} delayMs={idx * 80} variant="zoom-3d">
                 <article
                   onMouseEnter={() => setActiveCard(idx)}
-                  className={`clean-card group relative h-full p-6 rounded-[24px] flex flex-col justify-between transition-all duration-500 ${
+                  className={`clean-card group relative h-full p-6 rounded-[24px] flex flex-col justify-between transition-colors duration-200 ${
                     isSpotlit
                       ? 'border-[#208EC1]/70 -translate-y-1.5 shadow-[0_24px_48px_-12px_rgba(32,142,193,0.18)]'
                       : ''
@@ -154,7 +154,7 @@ export default function WhyUsSection() {
                   <div>
                     <div className="flex items-center justify-between mb-5">
                       <div
-                        className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all duration-500 ${
+                        className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-colors duration-200 ${
                           isSpotlit
                             ? 'bg-[#208EC1] text-white scale-105 shadow-[0_8px_20px_-4px_rgba(32,142,193,0.45)]'
                             : 'bg-[#208EC1]/10 text-[#208EC1] group-hover:bg-[#208EC1] group-hover:text-white'
@@ -194,7 +194,7 @@ export default function WhyUsSection() {
                         : 'Guaranteed Quality'}
                     </span>
                     <span
-                      className={`h-2 rounded-full bg-[#208EC1] transition-all duration-500 ${
+                      className={`h-2 rounded-full bg-[#208EC1] transition-colors duration-200 ${
                         isSpotlit ? 'w-7' : 'w-2'
                       }`}
                     />

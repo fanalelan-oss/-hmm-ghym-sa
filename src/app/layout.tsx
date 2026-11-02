@@ -73,6 +73,14 @@ export default function RootLayout({
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${tajawal.variable}`}>
   <head>
+      {/* High-Priority LCP Hero Image Preload */}
+      <link
+        rel="preload"
+        as="image"
+        type="image/webp"
+        href="/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp"
+      />
+
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       <link

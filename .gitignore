@@ -7,3 +7,5 @@ out/
 scraped_site/
 .env*
 .DS_Store
+*.log
+firebase-debug.log
