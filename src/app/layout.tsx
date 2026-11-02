@@ -51,6 +51,7 @@ export const metadata: Metadata = {
         url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og',
         width: 1200,
         height: 630,
+        type: 'image/png',
         alt: 'شركة همم غيم للدعاية والإعلان والمقاولات',
       },
     ],
