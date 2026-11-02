@@ -78,6 +78,7 @@ export default function PartnersMarqueeSection() {
                     href="/partners"
                     dir={dict.dir}
                     title={partnerName}
+                    tabIndex={loopIndex === 1 ? -1 : undefined}
                     className="group relative w-[235px] sm:w-[270px] h-[166px] sm:h-[178px] rounded-[24px] p-3.5 sm:p-4 flex flex-col items-center justify-between shrink-0 bg-white/90 dark:bg-[#0c1d34]/95 backdrop-blur-md border border-slate-200/90 dark:border-white/10 shadow-[0_4px_20px_rgba(15,37,68,0.06)] hover:shadow-[0_14px_34px_rgba(32,142,193,0.24)] hover:border-[#208EC1]/70 transition-all duration-300 hover:-translate-y-1"
                   >
                     {/* Crisp Ultra-Clear Logo Box (Always clean pure white for contrast) */}
@@ -98,7 +99,7 @@ export default function PartnersMarqueeSection() {
                       <p className="text-xs sm:text-[13px] font-extrabold text-[#0f2544] dark:text-slate-100 line-clamp-1 group-hover:text-[#208EC1] transition-colors leading-tight">
                         {partnerName}
                       </p>
-                      <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/10 text-slate-500 dark:text-slate-300 group-hover:bg-[#208EC1]/10 group-hover:text-[#208EC1] transition-colors mt-1">
+                      <span className="inline-block text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-slate-200/80 dark:bg-white/10 text-slate-700 dark:text-slate-200 group-hover:bg-[#208EC1]/10 group-hover:text-[#208EC1] transition-colors mt-1">
                         {sectorLabel}
                       </span>
                     </div>

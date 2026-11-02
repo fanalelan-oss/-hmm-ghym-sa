@@ -87,7 +87,7 @@ export default function WhyUsSection() {
               >
                 <div>
                   <div className="flex items-center justify-between mb-1.5">
-                    <span className="font-display font-black text-[10px] text-[#208EC1]/70">
+                    <span className="font-display font-black text-[10px] text-[#0d6e9a] dark:text-sky-400">
                       {c.num}
                     </span>
                     <span

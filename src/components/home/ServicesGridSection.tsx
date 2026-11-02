@@ -51,6 +51,8 @@ export default function ServicesGridSection() {
                   <img
                     src={service.coverImage?.startsWith('/') ? service.coverImage : `/${service.coverImage}`}
                     alt={tText(service.name, lang)}
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />

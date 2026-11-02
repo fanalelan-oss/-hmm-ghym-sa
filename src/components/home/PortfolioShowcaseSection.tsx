@@ -116,6 +116,8 @@ export default function PortfolioShowcaseSection() {
                         : `/${item.type === 'video' ? item.poster || item.src : item.src}`
                     }
                     alt={tText(item.alt, lang)}
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
@@ -137,7 +139,7 @@ export default function PortfolioShowcaseSection() {
                 </h3>
               </div>
 
-              <div className="mt-1 pt-0.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8px] font-extrabold text-[#208EC1]">
+              <div className="mt-1 pt-0.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-center gap-0.5 text-[8.5px] font-black text-[#0d6e9a] dark:text-sky-400">
                 <span>{lang === 'ar' ? 'عرض العمل' : 'Details'}</span>
                 <ArrowIcon className="w-2 h-2" />
               </div>

@@ -338,37 +338,37 @@ export default function HeroSection() {
   const servicesRow1 = [
     {
       label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
-      href: '/services/3d-signage-and-cladding-facades',
+      href: '/services/signage-3d-letters-cladding',
     },
     {
       label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
-      href: '/services/3d-signage-and-cladding-facades',
+      href: '/services/signage-3d-letters-cladding',
     },
   ];
 
   const servicesRow2 = [
     {
       label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
-      href: '/services/general-contracting-and-glass',
+      href: '/services/general-contracting-cladding-glass',
     },
     {
       label: lang === 'ar' ? 'ديكور وتشطيبات' : 'Interior Fit-Out',
-      href: '/services/interior-design-and-fitout',
+      href: '/services/interior-design-decor-finishing',
     },
     {
       label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
-      href: '/services/car-shades-and-pergolas',
+      href: '/services/car-shades-pergolas-screens',
     },
   ];
 
   const servicesRow3 = [
     {
       label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
-      href: '/services/project-hoarding-and-fencing',
+      href: '/services/project-hoarding-construction-fencing',
     },
     {
       label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
-      href: '/services/exhibition-booths-and-events',
+      href: '/services/exhibition-booths-stands-events',
     },
     {
       label: lang === 'ar' ? 'تواصل مباشر' : 'Direct Contact',
@@ -380,37 +380,37 @@ export default function HeroSection() {
     {
       left: {
         label: lang === 'ar' ? 'الدعاية والإعلان' : 'Signage & Branding',
-        href: '/services/3d-signage-and-cladding-facades',
+        href: '/services/signage-3d-letters-cladding',
       },
       right: {
-        label: lang === 'ar' ? 'الأحرف البارزة والكلادينج' : '3D Letters & ACP',
-        href: '/services/3d-signage-and-cladding-facades',
+        label: lang === 'ar' ? 'استيكرات وتغليف أساطيل' : 'Stickers & Fleet Wrapping',
+        href: '/services/stickers-vehicle-wrapping-murals',
       },
     },
     {
       left: {
         label: lang === 'ar' ? 'المقاولات العامة' : 'General Contracting',
-        href: '/services/general-contracting-and-glass',
+        href: '/services/general-contracting-cladding-glass',
       },
       right: {
         label: lang === 'ar' ? 'الديكور والتشطيبات' : 'Interior Fit-Out',
-        href: '/services/interior-design-and-fitout',
+        href: '/services/interior-design-decor-finishing',
       },
     },
     {
       left: {
         label: lang === 'ar' ? 'مظلات وسواتر' : 'Shades & Canopies',
-        href: '/services/car-shades-and-pergolas',
+        href: '/services/car-shades-pergolas-screens',
       },
       right: {
         label: lang === 'ar' ? 'تسوير المشاريع' : 'Project Hoarding',
-        href: '/services/project-hoarding-and-fencing',
+        href: '/services/project-hoarding-construction-fencing',
       },
     },
     {
       left: {
         label: lang === 'ar' ? 'تجهيز المعارض' : 'Exhibition Booths',
-        href: '/services/exhibition-booths-and-events',
+        href: '/services/exhibition-booths-stands-events',
       },
       right: {
         label: lang === 'ar' ? 'تواصل معنا مباشرة' : 'Direct Contact',
@@ -734,6 +734,11 @@ export default function HeroSection() {
                           : `/${currentProject.type === 'video' ? currentProject.poster || currentProject.src : currentProject.src}`
                       }
                       alt={tText(currentProject.alt, lang)}
+                      width={640}
+                      height={400}
+                      loading="eager"
+                      fetchPriority="high"
+                      decoding="async"
                       className="w-full h-full object-cover animate-hero-showcase transition-transform duration-700 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-[#0f2544]/85 via-[#0f2544]/15 to-transparent" />
@@ -771,12 +776,16 @@ export default function HeroSection() {
                     type="button"
                     onClick={() => setActiveIdx(idx)}
                     aria-label={`عرض مشروع ${idx + 1}`}
-                    className={`h-1.5 rounded-full transition-all duration-500 ${
-                      activeIdx === idx
-                        ? 'w-7 bg-[#208EC1]'
-                        : 'w-1.5 bg-slate-300 dark:bg-slate-700 hover:bg-[#208EC1]/50'
-                    }`}
-                  />
+                    className="min-w-[44px] min-h-[44px] p-2 flex items-center justify-center focus:outline-none"
+                  >
+                    <span
+                      className={`h-2 rounded-full transition-all duration-500 ${
+                        activeIdx === idx
+                          ? 'w-7 bg-[#208EC1]'
+                          : 'w-2 bg-slate-300 dark:bg-slate-700 hover:bg-[#208EC1]/50'
+                      }`}
+                    />
+                  </button>
                 ))}
               </div>
             </div>

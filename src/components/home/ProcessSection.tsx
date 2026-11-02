@@ -91,7 +91,7 @@ export default function ProcessSection() {
                     >
                       <Icon className="w-3.5 h-3.5" />
                     </span>
-                    <span className="font-display font-black text-xs text-[#208EC1]/70">
+                    <span className="font-display font-black text-xs text-[#0d6e9a] dark:text-sky-400">
                       {st.num}
                     </span>
                   </div>

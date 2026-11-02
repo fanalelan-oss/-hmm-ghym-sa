@@ -128,16 +128,23 @@ export default function SignageSimulatorSection() {
     origY: 0,
   });
 
-  // Dynamically load the 22 Google Fonts once on mount
+  // Dynamically load the 22 Google Fonts deferred during idle time
   useEffect(() => {
-    const linkId = 'hg-signage-studio-fonts';
-    if (!document.getElementById(linkId)) {
-      const link = document.createElement('link');
-      link.id = linkId;
-      link.rel = 'stylesheet';
-      link.href =
-        'https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800&family=Alkalami&family=Almarai:wght@700;800&family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&family=Cairo:wght@700;900&family=Changa:wght@700;800&family=El+Messiri:wght@700&family=Gulzar&family=IBM+Plex+Sans+Arabic:wght@700&family=Katibeh&family=Kufam:wght@700;900&family=Lalezar&family=Lemonada:wght@700&family=Mada:wght@700;900&family=Marhey:wght@700&family=Qahiri&family=Rakkas&family=Readex+Pro:wght@700&family=Reem+Kufi:wght@700&family=Tajawal:wght@800;900&family=Vibes&display=swap';
-      document.head.appendChild(link);
+    const loadFonts = () => {
+      const linkId = 'hg-signage-studio-fonts';
+      if (!document.getElementById(linkId)) {
+        const link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href =
+          'https://fonts.googleapis.com/css2?family=Alexandria:wght@700;800&family=Alkalami&family=Almarai:wght@700;800&family=Amiri:wght@700&family=Aref+Ruqaa:wght@700&family=Cairo:wght@700;900&family=Changa:wght@700;800&family=El+Messiri:wght@700&family=Gulzar&family=IBM+Plex+Sans+Arabic:wght@700&family=Katibeh&family=Kufam:wght@700;900&family=Lalezar&family=Lemonada:wght@700&family=Mada:wght@700;900&family=Marhey:wght@700&family=Qahiri&family=Rakkas&family=Readex+Pro:wght@700&family=Reem+Kufi:wght@700&family=Tajawal:wght@800;900&family=Vibes&display=swap';
+        document.head.appendChild(link);
+      }
+    };
+    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
+      window.requestIdleCallback(loadFonts, { timeout: 4000 });
+    } else {
+      setTimeout(loadFonts, 3500);
     }
   }, []);
 
