@@ -21,16 +21,22 @@ interface AnimatedCounterProps {
 
 function AnimatedCounter({
   valueStr,
-  duration = 1800,
+  duration = 1200,
   triggerKey = 0,
 }: AnimatedCounterProps) {
-  const numericMatch = valueStr.match(/\d+/);
+  const cleanStr = (valueStr || '').trim();
+  const numericMatch = cleanStr.match(/\d+/);
   const target = numericMatch ? parseInt(numericMatch[0], 10) : 0;
-  const hasPlus = valueStr.includes('+');
-  const padZero = target < 10 && !hasPlus;
+  const hasPlus = cleanStr.includes('+');
+  const suffix = cleanStr.replace(/[\d+\s]/g, '');
+  const padZero = target > 0 && target < 10 && !hasPlus && !suffix;
 
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
   const [runKey, setRunKey] = useState(0);
+
+  useEffect(() => {
+    setCount(target);
+  }, [target, valueStr]);
 
   useEffect(() => {
     let startTime: number | null = null;
@@ -63,6 +69,7 @@ function AnimatedCounter({
     >
       {hasPlus && <span className="text-[#208EC1] font-black">+</span>}
       <span>{formatted}</span>
+      {suffix && <span className="text-[0.8em] font-extrabold">{suffix}</span>}
     </span>
   );
 }
@@ -78,35 +85,71 @@ export default function HeroSection() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [activeSpotlight, setActiveSpotlight] = useState(0);
   const [badgeIdx, setBadgeIdx] = useState(0);
+  const [heroWordIdx, setHeroWordIdx] = useState(0);
+
+  const heroRotatingPhrases =
+    lang === 'ar'
+      ? [
+          'واجهات مشروعك',
+          'الأحرف البارزة واللوحات',
+          'الديكور وبديل الشيبورد',
+          'المظلات والسواتر الحديثة',
+          'المعارض وتسوير المشاريع',
+          'أنظمة الأمن والسلامة',
+        ]
+      : lang === 'ur'
+      ? [
+          'کلیڈنگ اور گلاس واجهات',
+          'تھری ڈی حروف اور سائن بورڈز',
+          'ڈیکوریشن اور چپ بورڈ پینلز',
+          'جدید شیڈز اور سواتر',
+          'نمائشی بوتھس اور ہورڈنگ',
+          'فائر سیفٹی اور کیمرے',
+        ]
+      : [
+          'Cladding & Glass Facades',
+          '3D Signs & Channel Letters',
+          'Chipboard & Interior Fit-Outs',
+          'Modern Shades & Pergolas',
+          'Exhibition Booths & Hoarding',
+          'Fire Safety & CCTV Systems',
+        ];
+
+  useEffect(() => {
+    const wordTimer = setInterval(() => {
+      setHeroWordIdx((prev) => (prev + 1) % heroRotatingPhrases.length);
+    }, 3200);
+    return () => clearInterval(wordTimer);
+  }, [heroRotatingPhrases.length]);
 
   const badgeItems = [
     {
       text:
         lang === 'ar'
-          ? 'لوحات إعلانية وواجهات في كافة مدن المملكة'
+          ? '11 قسماً هندسياً وإعلانياً متكاملاً في كافة مدن المملكة'
           : lang === 'ur'
-          ? 'سعودی عرب کے تمام شہروں میں سائن بورڈز'
-          : 'Signage & Facades Across All Saudi Cities',
+          ? 'سعودی عرب کے تمام شہروں میں 11 مکمل انجینئرنگ اور سائن بورڈ اقسام'
+          : '11 Integrated Signage, Facade, Fit-Out & Contracting Divisions',
       colorClass: 'text-[#208EC1] dark:text-sky-400',
       borderClass: 'border-[#208EC1]/30 dark:border-sky-400/25',
     },
     {
       text:
         lang === 'ar'
-          ? 'تصنيع وتنفيذ مباشر بأعلى معايير الجودة المعتمدة'
+          ? 'من الأحرف البارزة والكلادينج والزجاج إلى الجبس بورد والشيبورد'
           : lang === 'ur'
-          ? 'اعلیٰ ترین معیارات کے مطابق براہ راست تیاری'
-          : 'Direct In-House Fabrication to Highest Quality Standards',
+          ? 'تھری ڈی حروف، کلیڈنگ اور گلاس سے لے کر جپسم اور چپ بورڈ تک'
+          : 'From 3D Signage, Cladding & Glass to Gypsum & Chipboard Fit-Outs',
       colorClass: 'text-emerald-600 dark:text-emerald-400',
       borderClass: 'border-emerald-500/30 dark:border-emerald-400/25',
     },
     {
       text:
         lang === 'ar'
-          ? 'معاينة موقعك وتصميم 3D مجاناً قبل التنفيذ'
+          ? 'تجهيز معارض، مظلات وسواتر، تسوير مشاريع، وأنظمة أمن وسلامة'
           : lang === 'ur'
-          ? 'مفت سائٹ وزٹ اور تھری ڈی ڈیزائن'
-          : 'Free Site Survey & 3D Design Preview',
+          ? 'نمائشی بوتھس، شیڈز، پروجیکٹ ہورڈنگ اور فائر سیفٹی و کیمرے'
+          : 'Exhibition Booths, Shades, Project Hoarding, Fire Safety & CCTV',
       colorClass: 'text-amber-600 dark:text-amber-400',
       borderClass: 'border-amber-500/30 dark:border-amber-400/25',
     },
@@ -352,10 +395,10 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
-          ? 'الكلادينج والواجهات'
+          ? 'الكلادينج والزجاج السيكوريت'
           : lang === 'ur'
-          ? 'کلیڈنگ اور واجهات'
-          : 'Cladding & Facades',
+          ? 'کلیڈنگ اور سیکورٹ گلاس'
+          : 'Cladding & Glass Facades',
       href: '/services/general-contracting-cladding-glass',
     },
   ];
@@ -373,20 +416,20 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
+          ? 'تكسيات بديل الشيبورد'
+          : lang === 'ur'
+          ? 'چپ بورڈ اور ووڈ پینلز'
+          : 'Chipboard & Wood Panels',
+      href: '/services/chipboard-wood-marble-cladding',
+    },
+    {
+      label:
+        lang === 'ar'
           ? 'مظلات وسواتر'
           : lang === 'ur'
           ? 'شیڈز اور سواتر'
           : 'Shades & Canopies',
       href: '/services/car-shades-pergolas-screens',
-    },
-    {
-      label:
-        lang === 'ar'
-          ? 'استيكرات وتغليف'
-          : lang === 'ur'
-          ? 'اسٹیکرز اور ریپنگ'
-          : 'Stickers & Wrapping',
-      href: '/services/stickers-vehicle-wrapping-murals',
     },
   ];
 
@@ -412,10 +455,10 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
-          ? 'الأمن والسلامة'
+          ? 'الأمن والسلامة والكاميرات'
           : lang === 'ur'
           ? 'فائر سیفٹی اور کیمرے'
-          : 'Safety & CCTV',
+          : 'Fire Safety & CCTV',
       href: '/services/security-cctv-fire-safety-systems',
     },
   ];
@@ -436,8 +479,8 @@ export default function HeroSection() {
           lang === 'ar'
             ? 'واجهات الكلادينج والزجاج'
             : lang === 'ur'
-            ? 'کلیڈنگ اور گلاس واجهات'
-            : 'Cladding & Glass Facades',
+            ? 'کلیڈنگ اور سیکورٹ گلاس'
+            : 'Cladding & Tempered Glass',
         href: '/services/general-contracting-cladding-glass',
       },
     },
@@ -445,7 +488,7 @@ export default function HeroSection() {
       left: {
         label:
           lang === 'ar'
-            ? 'الجبس والأسمنت بورد والديكور'
+            ? 'الجبس والأسمنت بورد'
             : lang === 'ur'
             ? 'جپسم اور سیمنٹ بورڈ'
             : 'Gypsum & Cement Board',
@@ -454,30 +497,30 @@ export default function HeroSection() {
       right: {
         label:
           lang === 'ar'
-            ? 'مظلات وسواتر وبرجولات'
+            ? 'تكسيات بديل الشيبورد والخشب'
             : lang === 'ur'
-            ? 'شیڈز اور سواتر'
-            : 'Shades & Pergolas',
-        href: '/services/car-shades-pergolas-screens',
+            ? 'چپ بورڈ اور ووڈ کلیڈنگ'
+            : 'Chipboard & Wood Cladding',
+        href: '/services/chipboard-wood-marble-cladding',
       },
     },
     {
       left: {
         label:
           lang === 'ar'
-            ? 'استيكرات وتغليف أساطيل'
+            ? 'مظلات وسواتر وبرجولات'
             : lang === 'ur'
-            ? 'اسٹیکرز اور گاڑیوں کی ریپنگ'
-            : 'Fleet Wrapping & Stickers',
-        href: '/services/stickers-vehicle-wrapping-murals',
+            ? 'شیڈز اور پرگولاز'
+            : 'Shades & Pergolas',
+        href: '/services/car-shades-pergolas-screens',
       },
       right: {
         label:
           lang === 'ar'
-            ? 'تسوير المشاريع الإنشائية'
+            ? 'تسوير المشاريع والاستيكرات'
             : lang === 'ur'
-            ? 'پروجیکٹ ہورڈنگ'
-            : 'Project Hoarding',
+            ? 'پروجیکٹ ہورڈنگ اور اسٹیکرز'
+            : 'Hoarding & Wrapping',
         href: '/services/project-hoarding-construction-fencing',
       },
     },
@@ -494,7 +537,7 @@ export default function HeroSection() {
       right: {
         label:
           lang === 'ar'
-            ? 'الأمن والسلامة والإطفاء'
+            ? 'الأمن والسلامة والكاميرات'
             : lang === 'ur'
             ? 'فائر سیفٹی اور کیمرے'
             : 'Fire Safety & CCTV',
@@ -503,20 +546,14 @@ export default function HeroSection() {
     },
   ];
 
-  const rawPartners = db.settings?.stats?.partnersCount || '';
-  const parsedPartnersNum = parseInt(rawPartners.replace(/\D/g, ''), 10) || 0;
-  const statsPartnersValue =
-    parsedPartnersNum > 13
-      ? `+${parsedPartnersNum}`
-      : db.partners && db.partners.length > 13
-      ? `+${db.partners.length}`
-      : '+45';
-
-  const statsWarrantyValue = db.settings?.stats?.warrantyYears || '10';
+  const statsProjectsValue = (db.settings?.stats?.projectsCount || '145+').trim();
+  const statsServicesValue = (db.settings?.stats?.servicesCount || '11').trim();
+  const statsPartnersValue = (db.settings?.stats?.partnersCount || '45+').trim();
+  const statsWarrantyValue = (db.settings?.stats?.warrantyYears || '10').trim();
 
   const statsItems = [
     {
-      num: `+${db.settings.stats.projectsCount.replace('+', '')}`,
+      num: statsProjectsValue,
       title: dict.hero.statsProjects,
       sub:
         lang === 'ar'
@@ -526,31 +563,31 @@ export default function HeroSection() {
           : 'Delivered across Riyadh, Jeddah, Dammam & all Saudi cities',
     },
     {
-      num: db.settings.stats.servicesCount,
+      num: statsServicesValue,
       title: dict.hero.statsServices,
       sub:
         lang === 'ar'
-          ? 'من اللوحات والكلادينج إلى المقاولات والديكور'
+          ? 'من اللوحات والواجهات إلى الديكور والمظلات والأمن والسلامة'
           : lang === 'ur'
-          ? 'سائن بورڈز اور کلیڈنگ سے لے کر کنٹریکٹنگ اور ڈیکور تک'
-          : 'From signage & cladding to contracting & interiors',
+          ? 'سائن بورڈز اور کلیڈنگ سے لے کر ڈیکور، شیڈز اور فائر سیفٹی تک'
+          : 'From signage & facades to fit-outs, shades & fire safety',
     },
     {
       num: statsPartnersValue,
       title: dict.hero.statsPartners,
       sub:
         lang === 'ar'
-          ? 'علامات تجارية وشركات كبرى تثق بجودتنا'
+          ? 'علامات تجارية وجهات حكومية وشركات كبرى تثق بجودتنا'
           : lang === 'ur'
           ? 'معروف برانڈز اور کمپنیاں جو ہمارے معیار پر اعتماد کرتی ہیں'
-          : 'Leading brands & corporations trusting our quality',
+          : 'Leading brands & organizations trusting our quality',
     },
     {
-      num: `+${statsWarrantyValue}`,
+      num: statsWarrantyValue,
       title: dict.hero.statsWarranty,
       sub:
         lang === 'ar'
-          ? 'ضمان موثق يشمل الهيكل والإضاءة والخامات'
+          ? 'ضمان موثق يشمل الهيكل والإضاءة والخامات والتشطيبات'
           : lang === 'ur'
           ? 'مصدق تحریری وارنٹی برائے اسٹرکچر، میٹریل اور لائٹنگ'
           : 'Certified warranty covering structure, materials & LEDs',
@@ -607,22 +644,57 @@ export default function HeroSection() {
               </span>
             </div>
 
-            {/* Clean Monochromatic 3D Extruded Headline */}
+            {/* Clean Monochromatic 3D Extruded Headline with Dynamic Rotating Cyan Phrase */}
             <h1
               style={{ animationDelay: '80ms' }}
+              aria-label={
+                lang === 'ar'
+                  ? 'شركة همم غيم: نصمم وننفذ واجهات مشروعك، الأحرف البارزة واللوحات، واجهات الكلادينج والزجاج السيكوريت، الديكور والجبس بورد وتكسيات بديل الشيبورد، المظلات والسواتر، تجهيز المعارض وتسوير المشاريع، وأنظمة الأمن والسلامة والكاميرات بجودة عالية وضمان يريح بالك'
+                  : 'Himam Ghaim Company: We Design & Build Cladding & Glass Facades, 3D Signs, Chipboard & Interior Fit-Outs, Shades, Exhibition Booths, Project Hoarding, and Fire Safety & CCTV With Lasting Quality & Full Warranty'
+              }
               className="animate-card-cascade heading-3d-hero font-display font-extrabold text-[22px] sm:text-3xl lg:text-[31px] xl:text-[34px] leading-[1.38] tracking-tight"
             >
-              <span className="block">
+              {/* Full SEO Text for Googlebot & Screen Readers */}
+              <span className="sr-only">
+                شركة همم غيم للدعاية والإعلان والمقاولات العامة في الرياض وجدة والدمام وكافة مدن المملكة — نصمم وننفذ واجهات الكلادينج والزجاج السيكوريت، الأحرف البارزة واللوحات الإعلانية، الديكور الداخلي والجبس بورد وتكسيات بديل الشيبورد والخشب والرخام، المظلات والسواتر والبرجولات، تجهيز المعارض والمؤتمرات، تسوير المشاريع الإنشائية، الاستيكرات وتغليف الأساطيل، وأنظمة الأمن والسلامة وكاميرات المراقبة بجودة عالية وضمان يريح بالك.
+              </span>
+
+              <span aria-hidden="true" className="block whitespace-nowrap">
                 {lang === 'ar' ? (
                   <>
                     نصمم وننفذ{' '}
-                    <span className="heading-3d-cyan">واجهة مشروعك</span>
+                    <span
+                      key={heroWordIdx}
+                      className="heading-3d-cyan animate-badge-text inline-block whitespace-nowrap"
+                    >
+                      {heroRotatingPhrases[heroWordIdx]}
+                    </span>
+                  </>
+                ) : lang === 'ur' ? (
+                  <>
+                    ہم ڈیزائن اور تیار کرتے ہیں{' '}
+                    <span
+                      key={heroWordIdx}
+                      className="heading-3d-cyan animate-badge-text inline-block whitespace-nowrap"
+                    >
+                      {heroRotatingPhrases[heroWordIdx]}
+                    </span>
                   </>
                 ) : (
-                  <span className="heading-3d-cyan">{dict.hero.titleLine1}</span>
+                  <>
+                    We Design &amp; Build{' '}
+                    <span
+                      key={heroWordIdx}
+                      className="heading-3d-cyan animate-badge-text inline-block whitespace-nowrap"
+                    >
+                      {heroRotatingPhrases[heroWordIdx]}
+                    </span>
+                  </>
                 )}
               </span>
-              <span className="block mt-1 sm:mt-1.5">{dict.hero.titleLine2}</span>
+              <span aria-hidden="true" className="block mt-1 sm:mt-1.5">
+                {dict.hero.titleLine2}
+              </span>
             </h1>
 
             {/* Natural, Easy-to-Read Subtitle */}
@@ -632,10 +704,10 @@ export default function HeroSection() {
             >
               <span className="lg:hidden">
                 {lang === 'ar'
-                  ? 'تنفيذ واجهات الكلادينج، الأحرف البارزة والمقاولات من التصميم حتى التركيب بدقة وإتقان.'
+                  ? 'أحرف بارزة، كلادينج وزجاج سيكوريت، جبس بورد وشيبورد، مظلات، معارض، وأنظمة أمن وسلامة بضمان معتمد.'
                   : lang === 'ur'
-                  ? 'ڈیزائن سے تنصیب تک سائن بورڈز، کلیڈنگ اور کنٹریکٹنگ کی اعلیٰ ترین تکمیل۔'
-                  : 'Turnkey execution of signs, cladding and contracting from design to install.'}
+                  ? 'تھری ڈی حروف، کلیڈنگ، ڈیکوریشن، شیڈز، نمائشی بوتھس اور فائر سیفٹی مکمل وارنٹی کے ساتھ۔'
+                  : '3D signage, cladding, glass, interior fit-outs, shades, booths & fire safety with full warranty.'}
               </span>
               <span className="hidden lg:inline">{dict.hero.subtitle}</span>
             </p>

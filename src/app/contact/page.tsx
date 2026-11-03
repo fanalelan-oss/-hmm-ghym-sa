@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 function ContactContent() {
-  const { db, lang, dict } = useApp();
+  const { db, lang, dict, updateDb } = useApp();
   const searchParams = useSearchParams();
   const prefilledService = searchParams.get("service") || "";
   const prefilledProject = searchParams.get("project") || "";

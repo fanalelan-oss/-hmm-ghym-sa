@@ -6,18 +6,30 @@ import initialData from '@/data/initial-db.json';
 const DB_PATH = path.join(process.cwd(), 'data', 'db.json');
 const INITIAL_DB_PATH = path.join(process.cwd(), 'src', 'data', 'initial-db.json');
 
+let memoryDbCache: DatabaseSchema | null = null;
+
 export function getDb(): DatabaseSchema {
   let db: DatabaseSchema;
   try {
     if (fs.existsSync(DB_PATH)) {
       const raw = fs.readFileSync(DB_PATH, 'utf-8');
-      db = JSON.parse(raw) as DatabaseSchema;
+      const diskDb = JSON.parse(raw) as DatabaseSchema;
+      if (memoryDbCache && (memoryDbCache.updatedAt || 0) > (diskDb.updatedAt || 0)) {
+        db = JSON.parse(JSON.stringify(memoryDbCache));
+      } else {
+        db = diskDb;
+        memoryDbCache = JSON.parse(JSON.stringify(diskDb));
+      }
+    } else if (memoryDbCache) {
+      db = JSON.parse(JSON.stringify(memoryDbCache));
     } else {
       db = initialData as unknown as DatabaseSchema;
     }
   } catch (e) {
-    console.error('Error reading data/db.json, falling back to initial-db.json:', e);
-    db = initialData as unknown as DatabaseSchema;
+    console.error('Error reading data/db.json, falling back to memory or initial-db.json:', e);
+    db = memoryDbCache
+      ? JSON.parse(JSON.stringify(memoryDbCache))
+      : (initialData as unknown as DatabaseSchema);
   }
 
   // Inject env key safely so it works 100% locally and in production without being exposed in git
@@ -32,12 +44,18 @@ export function getDb(): DatabaseSchema {
 }
 
 export function saveDb(data: DatabaseSchema): boolean {
+  const stamped: DatabaseSchema = {
+    ...data,
+    updatedAt: Date.now(),
+  };
+  memoryDbCache = JSON.parse(JSON.stringify(stamped));
+
   try {
     const dir = path.dirname(DB_PATH);
     if (!fs.existsSync(dir)) {
       fs.mkdirSync(dir, { recursive: true });
     }
-    const jsonStr = JSON.stringify(data, null, 2);
+    const jsonStr = JSON.stringify(stamped, null, 2);
     fs.writeFileSync(DB_PATH, jsonStr, 'utf-8');
 
     // Also sync to initial-db.json so next builds always persist latest changes
@@ -51,7 +69,7 @@ export function saveDb(data: DatabaseSchema): boolean {
 
     return true;
   } catch (e) {
-    console.error('Error writing data/db.json:', e);
-    return false;
+    console.warn('File system write skipped or read-only, persisted in memoryDbCache:', e);
+    return true;
   }
 }

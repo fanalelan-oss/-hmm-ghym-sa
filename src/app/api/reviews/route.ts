@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getDb, saveDb } from '@/lib/db';
 import { ReviewItem } from '@/lib/types';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -23,7 +26,7 @@ export async function POST(request: Request) {
     db.reviews = [newReview, ...(db.reviews || [])];
     saveDb(db);
 
-    return NextResponse.json({ success: true, review: newReview, reviews: db.reviews });
+    return NextResponse.json({ success: true, review: newReview, reviews: db.reviews, db: getDb() });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to submit review' }, { status: 400 });
   }
@@ -45,7 +48,7 @@ export async function PATCH(request: Request) {
         : r
     );
     saveDb(db);
-    return NextResponse.json({ success: true, reviews: db.reviews });
+    return NextResponse.json({ success: true, reviews: db.reviews, db: getDb() });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update review' }, { status: 400 });
   }
@@ -58,7 +61,7 @@ export async function DELETE(request: Request) {
     const db = getDb();
     db.reviews = (db.reviews || []).filter((r) => r.id !== id);
     saveDb(db);
-    return NextResponse.json({ success: true, reviews: db.reviews });
+    return NextResponse.json({ success: true, reviews: db.reviews, db: getDb() });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to delete review' }, { status: 400 });
   }

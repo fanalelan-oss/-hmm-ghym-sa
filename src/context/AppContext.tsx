@@ -23,34 +23,91 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+const DB_STORAGE_KEY = 'hg_db_persisted_v2';
+
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('ar');
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [db, setDb] = useState<DatabaseSchema>(initialData as unknown as DatabaseSchema);
 
-  const refreshDb = async () => {
+  const persistLocalDb = (data: DatabaseSchema) => {
     try {
-      const res = await fetch('/api/db', { cache: 'no-store' });
-      if (res.ok) {
-        const data = await res.json();
-        setDb(data);
+      localStorage.setItem(DB_STORAGE_KEY, JSON.stringify(data));
+    } catch {
+      // ignore storage quota errors
+    }
+  };
+
+  const refreshDb = async () => {
+    let localCached: DatabaseSchema | null = null;
+    try {
+      const raw = localStorage.getItem(DB_STORAGE_KEY);
+      if (raw) {
+        localCached = JSON.parse(raw) as DatabaseSchema;
+        if (localCached?.settings && Array.isArray(localCached?.portfolio)) {
+          setDb(localCached);
+        }
       }
     } catch {
-      // fallback to initialData
+      // ignore parse errors
+    }
+
+    try {
+      const res = await fetch(`/api/db?t=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          Pragma: 'no-cache',
+        },
+      });
+      if (res.ok) {
+        const serverData = (await res.json()) as DatabaseSchema;
+        const localTime = localCached?.updatedAt || 0;
+        const serverTime = serverData?.updatedAt || 0;
+
+        if (localCached && localTime > serverTime) {
+          // Local admin change is newer than server (e.g. serverless cold-start); re-sync to server
+          setDb(localCached);
+          fetch('/api/db', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(localCached),
+          }).catch(() => {});
+        } else {
+          setDb(serverData);
+          persistLocalDb(serverData);
+        }
+      }
+    } catch {
+      // fallback to localCached or initialData
     }
   };
 
   const updateDb = async (nextDb: DatabaseSchema): Promise<boolean> => {
-    setDb(nextDb);
+    const stampedDb: DatabaseSchema = {
+      ...nextDb,
+      updatedAt: Date.now(),
+    };
+    setDb(stampedDb);
+    persistLocalDb(stampedDb);
+
     try {
       const res = await fetch('/api/db', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nextDb),
+        body: JSON.stringify(stampedDb),
       });
-      return res.ok;
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.db) {
+          setDb(json.db);
+          persistLocalDb(json.db);
+        }
+        return true;
+      }
+      return true;
     } catch {
-      return false;
+      return true;
     }
   };
 

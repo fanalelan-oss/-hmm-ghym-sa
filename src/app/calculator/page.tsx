@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 
 export default function CalculatorPage() {
-  const { db, lang } = useApp();
+  const { db, lang, updateDb } = useApp();
 
   const [selectedServiceId, setSelectedServiceId] = useState<string>(
     db.services[0]?.id || "signage"

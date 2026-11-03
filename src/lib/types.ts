@@ -205,6 +205,7 @@ export interface OgSettings {
 }
 
 export interface DatabaseSchema {
+  updatedAt?: number;
   ogSettings?: OgSettings;
   settings: SiteSettings;
   services: ServiceItem[];

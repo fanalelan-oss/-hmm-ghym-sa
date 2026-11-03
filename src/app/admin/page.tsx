@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useApp } from "@/context/AppContext";
 import {
   Settings,
@@ -67,17 +67,32 @@ export default function AdminDashboardPage() {
   const [geminiApiKey, setGeminiApiKey] = useState(db.settings.aiConfig?.geminiApiKey || "");
 
   const [statsProjectsCount, setStatsProjectsCount] = useState(
-    db.settings.stats?.projectsCount || "100+"
+    db.settings.stats?.projectsCount || "+145"
   );
   const [statsServicesCount, setStatsServicesCount] = useState(
-    db.settings.stats?.servicesCount || "8"
+    db.settings.stats?.servicesCount || "11"
   );
   const [statsPartnersCount, setStatsPartnersCount] = useState(
-    db.settings.stats?.partnersCount || "45+"
+    db.settings.stats?.partnersCount || "+45"
   );
   const [statsWarrantyYears, setStatsWarrantyYears] = useState(
-    db.settings.stats?.warrantyYears || "10"
+    db.settings.stats?.warrantyYears || "+10"
   );
+
+  // Sync settings form fields whenever db.settings updates (e.g. after initial fetch or save)
+  useEffect(() => {
+    setPhone(db.settings.phone || "");
+    setWhatsappNumber(db.settings.whatsappNumber || "");
+    setEmail(db.settings.email || "");
+    setAddressAr(db.settings.address?.ar || "");
+    if (db.settings.aiConfig?.geminiApiKey) {
+      setGeminiApiKey(db.settings.aiConfig.geminiApiKey);
+    }
+    setStatsProjectsCount(db.settings.stats?.projectsCount || "+145");
+    setStatsServicesCount(db.settings.stats?.servicesCount || "11");
+    setStatsPartnersCount(db.settings.stats?.partnersCount || "+45");
+    setStatsWarrantyYears(db.settings.stats?.warrantyYears || "+10");
+  }, [db.settings, db.updatedAt]);
 
   const [newPartnerNameAr, setNewPartnerNameAr] = useState("");
   const [newPartnerNameEn, setNewPartnerNameEn] = useState("");
@@ -220,12 +235,10 @@ export default function AdminDashboardPage() {
     await executeSaveSettings();
   }
 
-  async function handleDeleteLead(leadId: string, leadName: string) {
-    if (confirm(`هل أنت متأكد من حذف طلب العميل "${leadName}"؟`)) {
-      const nextLeads = db.leads.filter((l) => l.id !== leadId);
-      await updateDb({ ...db, leads: nextLeads });
-      showSavedNotification();
-    }
+  async function handleDeleteLead(leadId: string) {
+    const nextLeads = db.leads.filter((l) => l.id !== leadId);
+    await updateDb({ ...db, leads: nextLeads });
+    showSavedNotification();
   }
 
   async function handleToggleLeadStatus(leadId: string, newStatus: string) {
@@ -720,7 +733,6 @@ export default function AdminDashboardPage() {
   }
 
   async function handleDeleteService(id: string) {
-    if (!confirm("هل أنت متأكد من حذف هذه الخدمة؟")) return;
     await updateDb({
       ...db,
       services: db.services.filter((s) => s.id !== id),
@@ -784,20 +796,54 @@ export default function AdminDashboardPage() {
     const reply = replyDrafts[revId];
     if (!reply?.trim()) return;
 
-    await fetch("/api/reviews", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id: revId, reply: reply.trim(), approved: true }),
-    });
-    await refreshDb();
+    const nextReviews = (db.reviews || []).map((r) =>
+      r.id === revId
+        ? { ...r, reply: reply.trim(), approved: true }
+        : r
+    );
+    await updateDb({ ...db, reviews: nextReviews });
     showSavedNotification();
   }
 
   async function handleDeleteReview(revId: string) {
-    await fetch(`/api/reviews?id=${encodeURIComponent(revId)}`, {
-      method: "DELETE",
+    const nextReviews = (db.reviews || []).filter((r) => r.id !== revId);
+    await updateDb({ ...db, reviews: nextReviews });
+    showSavedNotification();
+  }
+
+  async function handleDeleteAiRule(ruleId: string) {
+    const nextRules = (db.knowledgeBase.rules || []).filter((r) => r.id !== ruleId);
+    await updateDb({
+      ...db,
+      knowledgeBase: {
+        ...db.knowledgeBase,
+        rules: nextRules,
+      },
     });
-    await refreshDb();
+    showSavedNotification();
+  }
+
+  async function handleDeleteLearnedQA(qaId: string) {
+    const nextQA = (db.knowledgeBase.learnedQA || []).filter((q) => q.id !== qaId);
+    await updateDb({
+      ...db,
+      knowledgeBase: {
+        ...db.knowledgeBase,
+        learnedQA: nextQA,
+      },
+    });
+    showSavedNotification();
+  }
+
+  async function handleDeleteChatAlert(alertId: string) {
+    const nextAlerts = (db.knowledgeBase.chatAlerts || []).filter((a: any) => a.id !== alertId);
+    await updateDb({
+      ...db,
+      knowledgeBase: {
+        ...db.knowledgeBase,
+        chatAlerts: nextAlerts,
+      },
+    });
     showSavedNotification();
   }
 
@@ -1525,7 +1571,6 @@ export default function AdminDashboardPage() {
                         (item.category || "").toLowerCase().includes(q)
                       );
                     })
-                    .slice(0, 60)
                     .map((item) => {
                       const isEditingThis = editingProjId === item.id;
                       return (
@@ -2002,7 +2047,17 @@ export default function AdminDashboardPage() {
                         <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-500/10 text-sky-600 dark:text-sky-400 border border-sky-500/20">
                           {alert.trigger === 'image_uploaded' ? '📸 صورة واجهة مرفقة' : alert.trigger === 'customer_phone' ? '📞 رقم عميل جديد' : alert.trigger === 'site_visit' ? '📍 طلب معاينة موقع' : 'استفسار هندسي'}
                         </span>
-                        <span className="text-[10px] text-slate-400 font-mono">{alert.createdAt}</span>
+                        <div className="flex items-center gap-1.5">
+                          <span className="text-[10px] text-slate-400 font-mono">{alert.createdAt}</span>
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteChatAlert(alert.id)}
+                            className="p-1 rounded-lg text-rose-500 hover:bg-rose-500/10"
+                            title="حذف التنبيه"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                       </div>
 
                       <p className="text-xs text-slate-700 dark:text-slate-200 font-medium line-clamp-3">
@@ -2086,12 +2141,22 @@ export default function AdminDashboardPage() {
                   {(db.knowledgeBase.rules || []).map((rule) => (
                     <div
                       key={rule.id}
-                      className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 text-xs text-slate-700 dark:text-slate-200 leading-relaxed"
+                      className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/70 text-xs text-slate-700 dark:text-slate-200 leading-relaxed flex items-start justify-between gap-2"
                     >
-                      <span className="font-bold text-[#208EC1]">
-                        {rule.topic}:{" "}
-                      </span>
-                      {rule.answer}
+                      <div>
+                        <span className="font-bold text-[#208EC1]">
+                          {rule.topic}:{" "}
+                        </span>
+                        {rule.answer}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteAiRule(rule.id)}
+                        className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 shrink-0"
+                        title="حذف القاعدة"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
                     </div>
                   ))}
                 </div>
@@ -2115,9 +2180,31 @@ export default function AdminDashboardPage() {
                         key={uq.id}
                         className="p-4 rounded-2xl bg-amber-500/5 border border-amber-500/20 space-y-2"
                       >
-                        <p className="text-sm font-bold text-slate-900 dark:text-white">
-                          &ldquo;{uq.question}&rdquo;
-                        </p>
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="text-sm font-bold text-slate-900 dark:text-white">
+                            &ldquo;{uq.question}&rdquo;
+                          </p>
+                          <button
+                            type="button"
+                            onClick={async () => {
+                              const remaining = (db.knowledgeBase.unansweredQuestions || []).filter(
+                                (u) => u.id !== uq.id
+                              );
+                              await updateDb({
+                                ...db,
+                                knowledgeBase: {
+                                  ...db.knowledgeBase,
+                                  unansweredQuestions: remaining,
+                                },
+                              });
+                              showSavedNotification();
+                            }}
+                            className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 shrink-0"
+                            title="حذف السؤال"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
                         <div className="flex gap-2">
                           <input
                             type="text"
@@ -2154,14 +2241,24 @@ export default function AdminDashboardPage() {
                     {(db.knowledgeBase.learnedQA || []).map((qa) => (
                       <div
                         key={qa.id}
-                        className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 text-xs space-y-1"
+                        className="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 text-xs flex items-start justify-between gap-2"
                       >
-                        <p className="font-bold text-slate-900 dark:text-white">
-                          س: {qa.question}
-                        </p>
-                        <p className="text-slate-600 dark:text-slate-300">
-                          ج: {qa.answer}
-                        </p>
+                        <div className="space-y-1">
+                          <p className="font-bold text-slate-900 dark:text-white">
+                            س: {qa.question}
+                          </p>
+                          <p className="text-slate-600 dark:text-slate-300">
+                            ج: {qa.answer}
+                          </p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteLearnedQA(qa.id)}
+                          className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 shrink-0"
+                          title="حذف السؤال"
+                        >
+                          <Trash2 className="w-3.5 h-3.5" />
+                        </button>
                       </div>
                     ))}
                   </div>
@@ -2365,12 +2462,12 @@ export default function AdminDashboardPage() {
                             <span>واتساب</span>
                           </a>
 
-                          {/* Delete Lead with Security Confirmation */}
+                          {/* Delete Lead Instantly */}
                           <button
                             type="button"
-                            onClick={() => handleDeleteLead(lead.id, lead.name)}
+                            onClick={() => handleDeleteLead(lead.id)}
                             className="p-2 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
-                            title="حذف هذا الطلب"
+                            title="حذف هذا الطلب فوراً"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>

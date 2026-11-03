@@ -2,6 +2,9 @@ import { NextResponse } from 'next/server';
 import { getDb, saveDb } from '@/lib/db';
 import { LeadItem } from '@/lib/types';
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export async function POST(request: Request) {
   try {
     const body = await request.json();
@@ -26,7 +29,7 @@ export async function POST(request: Request) {
     db.leads = [newLead, ...(db.leads || [])];
     saveDb(db);
 
-    return NextResponse.json({ success: true, lead: newLead });
+    return NextResponse.json({ success: true, lead: newLead, leads: db.leads, db: getDb() });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to save lead' }, { status: 400 });
   }
@@ -40,7 +43,7 @@ export async function PATCH(request: Request) {
       l.id === body.id ? { ...l, status: body.status } : l
     );
     saveDb(db);
-    return NextResponse.json({ success: true, leads: db.leads });
+    return NextResponse.json({ success: true, leads: db.leads, db: getDb() });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to update lead' }, { status: 400 });
   }

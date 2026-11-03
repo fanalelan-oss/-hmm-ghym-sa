@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 export default function ReviewsPage() {
-  const { db, lang, dict, refreshDb } = useApp();
+  const { db, lang, dict, updateDb } = useApp();
 
   const [clientName, setClientName] = useState("");
   const [role, setRole] = useState("");
@@ -33,18 +33,22 @@ export default function ReviewsPage() {
     setIsSubmitting(true);
 
     try {
-      await fetch("/api/reviews", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: clientName,
-          role: role || (lang === "ar" ? "عميل موثق" : "Verified Client"),
-          rating,
-          service: serviceUsed,
-          comment,
-        }),
+      const newReview = {
+        id: "rev-" + Date.now(),
+        name: clientName.trim(),
+        role: role.trim() || (lang === "ar" ? "عميل موثق" : "Verified Client"),
+        rating,
+        service: serviceUsed,
+        date: new Date().toISOString().slice(0, 10),
+        comment: comment.trim(),
+        reply: "",
+        approved: true,
+        featured: false,
+      };
+      await updateDb({
+        ...db,
+        reviews: [newReview, ...(db.reviews || [])],
       });
-      await refreshDb();
       setClientName("");
       setRole("");
       setComment("");
