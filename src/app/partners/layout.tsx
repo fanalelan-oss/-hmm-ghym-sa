@@ -18,6 +18,9 @@ ogUrl.searchParams.set('city', 'الرياض · جدة · كافة مناطق ا
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: `${siteUrl}/partners`,
+  },
   openGraph: {
     type: 'website',
     url: `${siteUrl}/partners`,

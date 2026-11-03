@@ -18,6 +18,9 @@ ogUrl.searchParams.set('city', 'جوال وواتساب: 0565467928');
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: `${siteUrl}/contact`,
+  },
   openGraph: {
     type: 'website',
     url: `${siteUrl}/contact`,

@@ -4,6 +4,9 @@ import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useApp, pickLang } from "@/context/AppContext";
 import ScrollReveal from "@/components/layout/ScrollReveal";
+import AutoMediaCarousel, { buildMediaSlides } from "@/components/common/AutoMediaCarousel";
+import SmartLinkedText from "@/components/seo/SmartLinkedText";
+import ExpandableHashtagsCard from "@/components/seo/ExpandableHashtagsCard";
 import {
   Search,
   MapPin,
@@ -71,7 +74,14 @@ export default function PortfolioPage() {
                 {dict.portfolioSection.title}
               </h1>
               <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                {dict.portfolioSection.subtitle}
+                <SmartLinkedText
+                  text={
+                    lang === "ar"
+                      ? `${dict.portfolioSection.subtitle} — تصفح أعمالنا المنفذة في الأحرف البارزة، واجهات الكلادينج، الزجاج السيكوريت، الجبس بورد والأسمنت بورد، المظلات والسواتر، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، والأمن والسلامة وكاميرات المراقبة.`
+                      : dict.portfolioSection.subtitle
+                  }
+                  maxLinks={10}
+                />
               </p>
             </div>
           </ScrollReveal>
@@ -122,15 +132,15 @@ export default function PortfolioPage() {
                           : "All"
                         : mType === "image"
                         ? lang === "ar"
-                          ? "صور (96)"
+                          ? "صور"
                           : lang === "ur"
                           ? "تصاویر"
-                          : "Photos (96)"
+                          : "Photos"
                         : lang === "ar"
-                        ? "فيديو (4)"
+                        ? "فيديو"
                         : lang === "ur"
                         ? "ویڈیوز"
-                        : "Videos (4)"}
+                        : "Videos"}
                     </button>
                   ))}
                 </div>
@@ -218,13 +228,21 @@ export default function PortfolioPage() {
                     className="group block clean-card rounded-3xl overflow-hidden h-full flex flex-col"
                   >
                     <div className="relative h-64 overflow-hidden bg-slate-900">
-                      <img
-                        src={imgSrc}
+                      <AutoMediaCarousel
+                        slides={buildMediaSlides(project)}
                         alt={pickLang(project.alt, lang)}
-                        loading="lazy"
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        mode="card"
+                        imgClassName="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                      <div className="hidden">
+                        <img
+                          src={imgSrc}
+                          alt={pickLang(project.alt, lang)}
+                          loading="lazy"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
                       <div className="absolute top-4 start-4 flex items-center gap-2">
                         <span className="px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1">
@@ -286,6 +304,19 @@ export default function PortfolioPage() {
             </button>
           </div>
         )}
+
+        {/* Massive SEO Hashtags Card with Expandable Dropdown */}
+        <div className="mt-14">
+          <ExpandableHashtagsCard
+            category={activeCategory === "all" ? undefined : activeCategory}
+            visibleCount={10}
+            title={
+              lang === "ar"
+                ? "هاشتاقات مشاريعنا المنفذة في الرياض وجدة وجميع مدن المملكة"
+                : "Executed Projects SEO Hashtags Across Saudi Arabia"
+            }
+          />
+        </div>
       </section>
     </div>
   );

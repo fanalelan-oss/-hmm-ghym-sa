@@ -5,21 +5,14 @@ import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
 import { tText } from '@/lib/i18n';
 import ScrollReveal from '@/components/layout/ScrollReveal';
+import AutoMediaCarousel, { buildMediaSlides } from '@/components/common/AutoMediaCarousel';
 import { ArrowLeft, ArrowRight, Play, MapPin, Sparkles } from 'lucide-react';
-
-function resolveItemSrc(item: any): string {
-  const raw = item.type === 'video' ? item.poster || item.src : item.src;
-  if (!raw) return '/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp';
-  if (raw.startsWith('/') || raw.startsWith('http') || raw.startsWith('data:')) return raw;
-  return `/${raw}`;
-}
 
 export default function PortfolioShowcaseSection() {
   const { lang, dict, db } = useApp();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
   const [activeFilter, setActiveFilter] = useState<string>('all');
 
-  // Filtered projects: exactly 6 cards (1 per distinct service when 'all', or up to 6 of selected service)
   const filtered = useMemo(() => {
     if (activeFilter === 'all') {
       const pickedCategories = new Set<string>();
@@ -77,7 +70,7 @@ export default function PortfolioShowcaseSection() {
           </div>
         </ScrollReveal>
 
-        {/* Categories Filter Tabs: 4 per row on mobile, compact and organized */}
+        {/* Categories Filter Tabs */}
         <ScrollReveal variant="fade-up" delayMs={50}>
           <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2 mb-3.5 sm:mb-6">
             {categories.map((cat) => {
@@ -105,7 +98,7 @@ export default function PortfolioShowcaseSection() {
           </div>
         </ScrollReveal>
 
-        {/* MOBILE ONLY: 3-Column Responsive Grid (نظام شبكة 3 بطاقات متناسقة x سطرين = 6 بطاقات بالضبط) */}
+        {/* MOBILE ONLY: 3-Column Responsive Grid */}
         <div key={`mob-${activeFilter}`} className="grid grid-cols-3 gap-1.5 sm:hidden mb-4">
           {filtered.map((item, idx) => (
             <Link
@@ -116,15 +109,13 @@ export default function PortfolioShowcaseSection() {
             >
               <div>
                 <div className="relative aspect-[4/3] rounded-lg bg-slate-900 overflow-hidden block shadow-inner mb-1">
-                  <img
-                    src={resolveItemSrc(item)}
+                  <AutoMediaCarousel
+                    slides={buildMediaSlides(item)}
                     alt={tText(item.alt, lang)}
-                    width={400}
-                    height={300}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    mode="card"
+                    imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
                   {item.type === 'video' && (
                     <span className="absolute top-1 start-1 inline-flex items-center gap-0.5 px-1 py-0.5 rounded-full bg-[#208EC1] text-white text-[7px] font-black shadow-sm">
                       <Play className="w-1.5 h-1.5 fill-current" />
@@ -150,7 +141,7 @@ export default function PortfolioShowcaseSection() {
           ))}
         </div>
 
-        {/* DESKTOP ONLY: 3-Column / 6-Card Grid with Expanded Details */}
+        {/* DESKTOP ONLY: 3-Column / 6-Card Grid — Entire Card Clickable */}
         <div
           key={activeFilter}
           className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-6"
@@ -161,18 +152,18 @@ export default function PortfolioShowcaseSection() {
               style={{ animationDelay: `${idx * 50}ms` }}
               className="animate-card-cascade h-full"
             >
-              <article className="floating-card group h-full flex flex-col rounded-[22px] overflow-hidden p-2.5">
-                <Link
-                  href={`/portfolio/${item.slug}`}
-                  className="relative aspect-[4/3] rounded-[16px] bg-slate-900 overflow-hidden block shadow-inner"
-                >
-                  <img
-                    src={resolveItemSrc(item)}
+              <Link
+                href={`/portfolio/${item.slug}`}
+                className="cursor-pointer floating-card group h-full flex flex-col rounded-[22px] overflow-hidden p-2.5"
+              >
+                <div className="relative aspect-[4/3] rounded-[16px] bg-slate-900 overflow-hidden block shadow-inner">
+                  <AutoMediaCarousel
+                    slides={buildMediaSlides(item)}
                     alt={tText(item.alt, lang)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+                    mode="card"
+                    imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/15 to-transparent pointer-events-none" />
                   {item.type === 'video' && (
                     <span className="absolute top-3 start-3 inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#208EC1] text-white text-[11px] font-extrabold shadow-md">
                       <Play className="w-3 h-3 fill-current" />
@@ -183,14 +174,12 @@ export default function PortfolioShowcaseSection() {
                     <MapPin className="w-3 h-3 text-[#208EC1]" />
                     {tText(item.city, lang)}
                   </span>
-                </Link>
+                </div>
 
                 <div className="p-3.5 flex-1 flex flex-col justify-between space-y-3">
                   <div>
                     <h3 className="font-display font-extrabold text-sm sm:text-base text-[#0f2544] dark:text-white group-hover:text-[#208EC1] transition-colors line-clamp-1">
-                      <Link href={`/portfolio/${item.slug}`}>
-                        {tText(item.title, lang)}
-                      </Link>
+                      {tText(item.title, lang)}
                     </h3>
                     <p className="mt-1 text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                       {tText(item.summary, lang)}
@@ -198,24 +187,21 @@ export default function PortfolioShowcaseSection() {
                   </div>
 
                   <div className="pt-2.5 border-t border-slate-200/80 dark:border-white/10 flex items-center justify-between">
-                    <Link
-                      href={`/portfolio/${item.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#11345C] dark:text-sky-300 hover:text-[#208EC1]"
-                    >
+                    <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#11345C] dark:text-sky-300 group-hover:text-[#208EC1]">
                       <span>{dict.portfolioSection.projectDetails}</span>
                       <ArrowIcon className="w-3.5 h-3.5" />
-                    </Link>
+                    </span>
                     <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 truncate max-w-[115px]">
                       {item.hashtags?.[0] || '#همم_غيم'}
                     </span>
                   </div>
                 </div>
-              </article>
+              </Link>
             </div>
           ))}
         </div>
 
-        {/* BOTTOM BUTTON: تصفح كل المشاريع - تحت الست بطاقات مباشرة */}
+        {/* BOTTOM BUTTON: تصفح كل المشاريع */}
         <ScrollReveal variant="fade-up" delayMs={100}>
           <div className="flex justify-center pt-1 sm:pt-2">
             <Link

@@ -35,6 +35,7 @@ import Link from "next/link";
 import SocialPreviewManager from "@/components/admin/SocialPreviewManager";
 import SecurityConfirmModal from "@/components/admin/SecurityConfirmModal";
 import SmartImageUploader from "@/components/admin/SmartImageUploader";
+import SmartGalleryUploader, { GalleryMediaItem } from "@/components/admin/SmartGalleryUploader";
 
 type AdminTab =
   | "settings"
@@ -87,17 +88,54 @@ export default function AdminDashboardPage() {
     "/assets/images/partners/partner-sustainable-agriculture-center-himam-ghaim-saudi-client.webp"
   );
 
+  const [editingProjId, setEditingProjId] = useState<string | null>(null);
+  const [projSearchQuery, setProjSearchQuery] = useState("");
+  const [isAiAnalyzingProj, setIsAiAnalyzingProj] = useState(false);
+  const [aiAnalyzeStatus, setAiAnalyzeStatus] = useState<string | null>(null);
+  const [showMultilingualProj, setShowMultilingualProj] = useState(false);
+
   const [newProjTitleAr, setNewProjTitleAr] = useState("");
+  const [newProjTitleEn, setNewProjTitleEn] = useState("");
+  const [newProjTitleUr, setNewProjTitleUr] = useState("");
+
   const [newProjCityAr, setNewProjCityAr] = useState("الرياض");
+  const [newProjCityEn, setNewProjCityEn] = useState("Riyadh");
+  const [newProjCityUr, setNewProjCityUr] = useState("ریاض");
+
   const [newProjCat, setNewProjCat] = useState<string>("signage");
   const [newProjImage, setNewProjImage] = useState("");
+  const [newProjGallery, setNewProjGallery] = useState<GalleryMediaItem[]>([]);
+
+  const [newProjDurationAr, setNewProjDurationAr] = useState("");
+  const [newProjDurationEn, setNewProjDurationEn] = useState("");
+  const [newProjDurationUr, setNewProjDurationUr] = useState("");
+
+  const [newProjWarrantyAr, setNewProjWarrantyAr] = useState("");
+  const [newProjWarrantyEn, setNewProjWarrantyEn] = useState("");
+  const [newProjWarrantyUr, setNewProjWarrantyUr] = useState("");
+
   const [newProjSummaryAr, setNewProjSummaryAr] = useState("");
+  const [newProjSummaryEn, setNewProjSummaryEn] = useState("");
+  const [newProjSummaryUr, setNewProjSummaryUr] = useState("");
+
+  const [newProjDescAr, setNewProjDescAr] = useState("");
+  const [newProjDescEn, setNewProjDescEn] = useState("");
+  const [newProjDescUr, setNewProjDescUr] = useState("");
+
+  const [newProjSpecsAr, setNewProjSpecsAr] = useState("");
+  const [newProjSpecsEn, setNewProjSpecsEn] = useState("");
+  const [newProjSpecsUr, setNewProjSpecsUr] = useState("");
+
   const [newProjTags, setNewProjTags] = useState(
     "لوحات_حروف_بارزة, دعاية_وإعلان_الرياض, شركة_همم_غيم"
   );
 
+  const [editingSrvId, setEditingSrvId] = useState<string | null>(null);
+  const [isAiAnalyzingSrv, setIsAiAnalyzingSrv] = useState(false);
   const [newSrvTitleAr, setNewSrvTitleAr] = useState("");
   const [newSrvShortAr, setNewSrvShortAr] = useState("");
+  const [newSrvFeaturesAr, setNewSrvFeaturesAr] = useState("");
+  const [newSrvGallery, setNewSrvGallery] = useState<GalleryMediaItem[]>([]);
   const [newSrvPriceAr, setNewSrvPriceAr] = useState(
     "تبدأ من 350 ريال للمتر المربع"
   );
@@ -255,62 +293,249 @@ export default function AdminDashboardPage() {
     showSavedNotification();
   }
 
+  function resetProjectForm() {
+    setEditingProjId(null);
+    setNewProjTitleAr("");
+    setNewProjTitleEn("");
+    setNewProjTitleUr("");
+    setNewProjCityAr("الرياض");
+    setNewProjCityEn("Riyadh");
+    setNewProjCityUr("ریاض");
+    setNewProjCat("signage");
+    setNewProjImage("");
+    setNewProjGallery([]);
+    setNewProjDurationAr("");
+    setNewProjDurationEn("");
+    setNewProjDurationUr("");
+    setNewProjWarrantyAr("");
+    setNewProjWarrantyEn("");
+    setNewProjWarrantyUr("");
+    setNewProjSummaryAr("");
+    setNewProjSummaryEn("");
+    setNewProjSummaryUr("");
+    setNewProjDescAr("");
+    setNewProjDescEn("");
+    setNewProjDescUr("");
+    setNewProjSpecsAr("");
+    setNewProjSpecsEn("");
+    setNewProjSpecsUr("");
+    setNewProjTags("لوحات_حروف_بارزة, دعاية_وإعلان_الرياض, شركة_همم_غيم");
+    setAiAnalyzeStatus(null);
+  }
+
+  function handleEditProject(item: any) {
+    setEditingProjId(item.id);
+    setNewProjTitleAr(item.title?.ar || "");
+    setNewProjTitleEn(item.title?.en || "");
+    setNewProjTitleUr(item.title?.ur || "");
+    setNewProjCityAr(item.city?.ar || "");
+    setNewProjCityEn(item.city?.en || "");
+    setNewProjCityUr(item.city?.ur || "");
+    setNewProjCat(item.category || "signage");
+    setNewProjImage(item.src || "");
+    const existingGallery: GalleryMediaItem[] =
+      Array.isArray(item.gallery) && item.gallery.length > 0
+        ? item.gallery
+        : item.src
+        ? [{ type: item.type === "video" ? "video" : "image", src: item.src, poster: item.poster }]
+        : [];
+    setNewProjGallery(existingGallery);
+    setNewProjDurationAr(item.duration?.ar || "");
+    setNewProjDurationEn(item.duration?.en || "");
+    setNewProjDurationUr(item.duration?.ur || "");
+    setNewProjWarrantyAr(item.warranty?.ar || "");
+    setNewProjWarrantyEn(item.warranty?.en || "");
+    setNewProjWarrantyUr(item.warranty?.ur || "");
+    setNewProjSummaryAr(item.summary?.ar || "");
+    setNewProjSummaryEn(item.summary?.en || "");
+    setNewProjSummaryUr(item.summary?.ur || "");
+    setNewProjDescAr(item.description?.ar || "");
+    setNewProjDescEn(item.description?.en || "");
+    setNewProjDescUr(item.description?.ur || "");
+    setNewProjSpecsAr((item.specs?.ar || []).join("\n"));
+    setNewProjSpecsEn((item.specs?.en || []).join("\n"));
+    setNewProjSpecsUr((item.specs?.ur || []).join("\n"));
+    setNewProjTags((item.hashtags || []).join(", "));
+    setAiAnalyzeStatus(null);
+    window.scrollTo({ top: 120, behavior: "smooth" });
+  }
+
+  async function handleAiAutofillProject(overrideGallery?: GalleryMediaItem[]) {
+    const galleryList = overrideGallery !== undefined ? overrideGallery : newProjGallery;
+    const imageUrls = galleryList
+      .map((g) => (g.type === "video" ? g.poster || "" : g.src))
+      .filter(Boolean);
+    const primaryImg = imageUrls[0] || newProjImage;
+
+    if (!newProjTitleAr.trim() && !primaryImg.trim()) {
+      alert("يرجى إدخال عنوان العمل أو اختيار صورة المشروع أولاً ليقوم الذكاء الاصطناعي بتحليلها وتعبئة البيانات.");
+      return;
+    }
+
+    setIsAiAnalyzingProj(true);
+    setAiAnalyzeStatus(
+      newProjTitleAr.trim()
+        ? `جاري تحليل العنوان ("${newProjTitleAr.trim()}") وفحص الصور بالذكاء الاصطناعي...`
+        : "جاري فحص الصور وتحليل تفاصيل المشروع بالذكاء الاصطناعي..."
+    );
+
+    try {
+      const res = await fetch("/api/ai-project-autofill", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: newProjTitleAr,
+          image: primaryImg,
+          images: imageUrls,
+          city: newProjCityAr,
+          category: newProjCat,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || (!json.ok && !json.success) || !json.data) {
+        throw new Error(json.error || "تعذر تحليل المشروع بالذكاء الاصطناعي");
+      }
+
+      const d = json.data;
+      if (d.titleAr) setNewProjTitleAr(d.titleAr);
+      if (d.titleEn) setNewProjTitleEn(d.titleEn);
+      if (d.titleUr) setNewProjTitleUr(d.titleUr);
+
+      if (d.category) setNewProjCat(d.category);
+
+      if (d.cityAr) setNewProjCityAr(d.cityAr);
+      if (d.cityEn) setNewProjCityEn(d.cityEn);
+      if (d.cityUr) setNewProjCityUr(d.cityUr);
+
+      if (d.durationAr !== undefined) setNewProjDurationAr(d.durationAr);
+      if (d.durationEn !== undefined) setNewProjDurationEn(d.durationEn);
+      if (d.durationUr !== undefined) setNewProjDurationUr(d.durationUr);
+
+      if (d.warrantyAr !== undefined) setNewProjWarrantyAr(d.warrantyAr);
+      if (d.warrantyEn !== undefined) setNewProjWarrantyEn(d.warrantyEn);
+      if (d.warrantyUr !== undefined) setNewProjWarrantyUr(d.warrantyUr);
+
+      if (d.summaryAr) setNewProjSummaryAr(d.summaryAr);
+      if (d.summaryEn) setNewProjSummaryEn(d.summaryEn);
+      if (d.summaryUr) setNewProjSummaryUr(d.summaryUr);
+
+      if (d.descriptionAr) setNewProjDescAr(d.descriptionAr);
+      if (d.descriptionEn) setNewProjDescEn(d.descriptionEn);
+      if (d.descriptionUr) setNewProjDescUr(d.descriptionUr);
+
+      if (Array.isArray(d.specsAr)) setNewProjSpecsAr(d.specsAr.join("\n"));
+      if (Array.isArray(d.specsEn)) setNewProjSpecsEn(d.specsEn.join("\n"));
+      if (Array.isArray(d.specsUr)) setNewProjSpecsUr(d.specsUr.join("\n"));
+
+      if (Array.isArray(d.hashtags) && d.hashtags.length > 0) {
+        setNewProjTags(d.hashtags.join(", "));
+      }
+
+      setAiAnalyzeStatus("✨ تم تحليل العنوان والصور وتعبئة كافة المواصفات والضمان والتفاصيل بدقة! يمكنك مراجعتها وتعديل أي حقل قبل الحفظ.");
+    } catch (err: any) {
+      setAiAnalyzeStatus(`⚠️ ${err?.message || "حدث خطأ أثناء الاتصال بالذكاء الاصطناعي"}`);
+    } finally {
+      setIsAiAnalyzingProj(false);
+    }
+  }
+
   async function handleAddPortfolioProject(e: React.FormEvent) {
     e.preventDefault();
     if (!newProjTitleAr.trim()) {
       alert("يرجى إدخال اسم المشروع أولاً");
       return;
     }
-    if (!newProjImage.trim()) {
-      alert("يرجى اختيار صورة للمشروع من الاستوديو أولاً");
+    const finalGallery: GalleryMediaItem[] =
+      newProjGallery.length > 0
+        ? newProjGallery
+        : newProjImage.trim()
+        ? [{ type: "image", src: newProjImage.trim() }]
+        : [];
+
+    if (finalGallery.length === 0) {
+      alert("يرجى اختيار صورة أو فيديو للمشروع من الاستوديو أولاً");
       return;
     }
 
-    const newId = `proj-custom-${Date.now()}`;
-    const newItem = {
-      id: newId,
-      slug: newId,
+    const primaryMedia = finalGallery[0];
+
+    const specsArList = newProjSpecsAr
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const specsEnList = newProjSpecsEn
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const specsUrList = newProjSpecsUr
+      .split("\n")
+      .map((s) => s.trim())
+      .filter(Boolean);
+
+    const existingItem = editingProjId
+      ? db.portfolio.find((p) => p.id === editingProjId)
+      : null;
+
+    const itemId = existingItem ? existingItem.id : `proj-custom-${Date.now()}`;
+    const itemSlug = existingItem ? existingItem.slug : itemId;
+
+    const summaryArFinal =
+      newProjSummaryAr.trim() ||
+      newProjDescAr.trim() ||
+      newProjTitleAr.trim();
+    const descArFinal =
+      newProjDescAr.trim() ||
+      newProjSummaryAr.trim() ||
+      newProjTitleAr.trim();
+
+    const updatedItem = {
+      ...(existingItem || {}),
+      id: itemId,
+      slug: itemSlug,
       category: newProjCat,
-      type: "image" as const,
-      src: newProjImage,
+      type: primaryMedia.type,
+      src: primaryMedia.src,
+      poster: primaryMedia.poster,
+      gallery: finalGallery,
       title: {
-        ar: newProjTitleAr,
-        en: newProjTitleAr,
-        ur: newProjTitleAr,
+        ar: newProjTitleAr.trim(),
+        en: newProjTitleEn.trim() || newProjTitleAr.trim(),
+        ur: newProjTitleUr.trim() || newProjTitleAr.trim(),
       },
       summary: {
-        ar:
-          newProjSummaryAr ||
-          `تنفيذ احترافي لمشروع ${newProjTitleAr} بأعلى معايير الجودة والضمان من شركة همم غيم.`,
-        en: newProjSummaryAr || newProjTitleAr,
-        ur: newProjSummaryAr || newProjTitleAr,
+        ar: summaryArFinal,
+        en: newProjSummaryEn.trim() || summaryArFinal,
+        ur: newProjSummaryUr.trim() || summaryArFinal,
       },
       description: {
-        ar:
-          newProjSummaryAr ||
-          `تنفيذ احترافي لمشروع ${newProjTitleAr} بأعلى معايير الجودة والضمان من شركة همم غيم.`,
-        en: newProjSummaryAr || newProjTitleAr,
-        ur: newProjSummaryAr || newProjTitleAr,
+        ar: descArFinal,
+        en: newProjDescEn.trim() || descArFinal,
+        ur: newProjDescUr.trim() || descArFinal,
       },
       alt: {
-        ar: `${newProjTitleAr} - تنفيذ شركة همم غيم للدعاية والإعلان والمقاولات`,
-        en: newProjTitleAr,
-        ur: newProjTitleAr,
+        ar: `${newProjTitleAr.trim()} - تنفيذ شركة همم غيم`,
+        en: newProjTitleEn.trim() || newProjTitleAr.trim(),
+        ur: newProjTitleUr.trim() || newProjTitleAr.trim(),
       },
       city: {
-        ar: newProjCityAr,
-        en: newProjCityAr,
-        ur: newProjCityAr,
+        ar: newProjCityAr.trim(),
+        en: newProjCityEn.trim() || newProjCityAr.trim(),
+        ur: newProjCityUr.trim() || newProjCityAr.trim(),
       },
       duration: {
-        ar: "7 أيام عمل",
-        en: "7 Business Days",
-        ur: "7 کاروباری دن",
+        ar: newProjDurationAr.trim(),
+        en: newProjDurationEn.trim() || newProjDurationAr.trim(),
+        ur: newProjDurationUr.trim() || newProjDurationAr.trim(),
       },
       warranty: {
-        ar: "ضمان 5 سنوات",
-        en: "5 Years Warranty",
-        ur: "5 سال وارنٹی",
+        ar: newProjWarrantyAr.trim(),
+        en: newProjWarrantyEn.trim() || newProjWarrantyAr.trim(),
+        ur: newProjWarrantyUr.trim() || newProjWarrantyAr.trim(),
+      },
+      specs: {
+        ar: specsArList,
+        en: specsEnList.length > 0 ? specsEnList : specsArList,
+        ur: specsUrList.length > 0 ? specsUrList : specsArList,
       },
       hashtags: newProjTags
         .split(",")
@@ -319,14 +544,16 @@ export default function AdminDashboardPage() {
       featured: true,
     };
 
+    const nextPortfolio = existingItem
+      ? db.portfolio.map((p) => (p.id === editingProjId ? updatedItem : p))
+      : [updatedItem, ...db.portfolio];
+
     const nextDb = {
       ...db,
-      portfolio: [newItem, ...db.portfolio],
+      portfolio: nextPortfolio,
     };
     await updateDb(nextDb);
-    setNewProjTitleAr("");
-    setNewProjSummaryAr("");
-    setNewProjImage("");
+    resetProjectForm();
     showSavedNotification();
   }
 
@@ -339,63 +566,165 @@ export default function AdminDashboardPage() {
     showSavedNotification();
   }
 
+  function resetServiceForm() {
+    setEditingSrvId(null);
+    setNewSrvTitleAr("");
+    setNewSrvShortAr("");
+    setNewSrvFeaturesAr("");
+    setNewSrvGallery([]);
+    setNewSrvPriceAr("تبدأ من 350 ريال للمتر المربع");
+  }
+
+  function handleEditService(srv: any) {
+    setEditingSrvId(srv.id);
+    setNewSrvTitleAr(srv.name?.ar || "");
+    setNewSrvShortAr(srv.description?.ar || srv.tagline?.ar || "");
+    setNewSrvFeaturesAr((srv.features?.ar || []).join("\n"));
+    setNewSrvPriceAr(srv.priceRange?.ar || "");
+    const existingGallery: GalleryMediaItem[] =
+      Array.isArray(srv.gallery) && srv.gallery.length > 0
+        ? srv.gallery
+        : srv.coverImage
+        ? [{ type: "image", src: srv.coverImage }]
+        : [];
+    setNewSrvGallery(existingGallery);
+    window.scrollTo({ top: 120, behavior: "smooth" });
+  }
+
+  async function handleAiAutofillService() {
+    const imgUrls = newSrvGallery
+      .map((g) => (g.type === "video" ? g.poster || "" : g.src))
+      .filter(Boolean);
+    if (!newSrvTitleAr.trim() && imgUrls.length === 0) {
+      alert("يرجى إدخال اسم الخدمة أو اختيار صورة للخدمة أولاً ليقوم الذكاء الاصطناعي بتحليلها.");
+      return;
+    }
+
+    setIsAiAnalyzingSrv(true);
+    try {
+      const res = await fetch("/api/ai-project-autofill", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title: newSrvTitleAr,
+          image: imgUrls[0] || "",
+          images: imgUrls,
+        }),
+      });
+      const json = await res.json();
+      if (res.ok && json.data) {
+        const d = json.data;
+        if (d.titleAr && !newSrvTitleAr.trim()) setNewSrvTitleAr(d.titleAr);
+        if (d.descriptionAr) setNewSrvShortAr(d.descriptionAr);
+        if (Array.isArray(d.specsAr) && d.specsAr.length > 0) {
+          setNewSrvFeaturesAr(d.specsAr.join("\n"));
+        }
+      }
+    } catch {}
+    setIsAiAnalyzingSrv(false);
+  }
+
   async function handleAddService(e: React.FormEvent) {
     e.preventDefault();
     if (!newSrvTitleAr.trim()) return;
-    const slug = `service-${Date.now()}`;
-    const newSrv = {
-      id: slug,
+
+    const existingSrv = editingSrvId
+      ? db.services.find((s) => s.id === editingSrvId)
+      : null;
+
+    const slug = existingSrv ? existingSrv.slug : `service-${Date.now()}`;
+    const id = existingSrv ? existingSrv.id : slug;
+
+    const primaryCover =
+      newSrvGallery[0]?.type === "video"
+        ? newSrvGallery[0]?.poster || newSrvGallery[0]?.src
+        : newSrvGallery[0]?.src ||
+          existingSrv?.coverImage ||
+          "/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp";
+
+    const featList = newSrvFeaturesAr
+      .split("\n")
+      .map((f) => f.trim())
+      .filter(Boolean);
+
+    const updatedSrv = {
+      ...(existingSrv || {}),
+      id,
       slug,
-      icon: "Sparkles",
+      icon: existingSrv?.icon || "Sparkles",
       illustration:
+        existingSrv?.illustration ||
         "/assets/services/3d-signage-letters-manufacturing-riyadh.svg",
-      coverImage:
-        "/assets/portfolio/3d-signage-letters-luxury-storefront-riyadh-01.webp",
+      coverImage: primaryCover,
+      gallery: newSrvGallery.length > 0 ? newSrvGallery : existingSrv?.gallery,
       name: {
-        ar: newSrvTitleAr,
-        en: newSrvTitleAr,
-        ur: newSrvTitleAr,
+        ar: newSrvTitleAr.trim(),
+        en: existingSrv?.name?.en || newSrvTitleAr.trim(),
+        ur: existingSrv?.name?.ur || newSrvTitleAr.trim(),
       },
       shortName: {
-        ar: newSrvTitleAr,
-        en: newSrvTitleAr,
-        ur: newSrvTitleAr,
+        ar: existingSrv?.shortName?.ar || newSrvTitleAr.trim(),
+        en: existingSrv?.shortName?.en || newSrvTitleAr.trim(),
+        ur: existingSrv?.shortName?.ur || newSrvTitleAr.trim(),
       },
       tagline: {
-        ar: newSrvShortAr || newSrvTitleAr,
-        en: newSrvShortAr || newSrvTitleAr,
-        ur: newSrvShortAr || newSrvTitleAr,
+        ar: newSrvShortAr.trim() || newSrvTitleAr.trim(),
+        en: existingSrv?.tagline?.en || newSrvShortAr.trim() || newSrvTitleAr.trim(),
+        ur: existingSrv?.tagline?.ur || newSrvShortAr.trim() || newSrvTitleAr.trim(),
       },
       description: {
-        ar: newSrvShortAr || newSrvTitleAr,
-        en: newSrvShortAr || newSrvTitleAr,
-        ur: newSrvShortAr || newSrvTitleAr,
+        ar: newSrvShortAr.trim() || newSrvTitleAr.trim(),
+        en: existingSrv?.description?.en || newSrvShortAr.trim() || newSrvTitleAr.trim(),
+        ur: existingSrv?.description?.ur || newSrvShortAr.trim() || newSrvTitleAr.trim(),
       },
       features: {
-        ar: ["تنفيذ هندسي متكامل بضمان رسمي"],
-        en: ["Full engineering execution with official warranty"],
-        ur: ["سرکاری وارنٹی کے ساتھ مکمل عملدرآمد"],
+        ar:
+          featList.length > 0
+            ? featList
+            : existingSrv?.features?.ar || ["تنفيذ هندسي متكامل بضمان رسمي"],
+        en:
+          existingSrv?.features?.en ||
+          (featList.length > 0
+            ? featList
+            : ["Full engineering execution with official warranty"]),
+        ur:
+          existingSrv?.features?.ur ||
+          (featList.length > 0
+            ? featList
+            : ["سرکاری وارنٹی کے ساتھ مکمل عملدرآمد"]),
       },
-      audience: {
+      audience: existingSrv?.audience || {
         ar: ["الشركات والمؤسسات والمشاريع التجارية"],
         en: ["Commercial & Corporate Projects"],
         ur: ["تجارتی اور کارپوریٹ منصوبے"],
       },
       priceRange: {
-        ar: newSrvPriceAr,
-        en: newSrvPriceAr,
-        ur: newSrvPriceAr,
+        ar: newSrvPriceAr.trim(),
+        en: existingSrv?.priceRange?.en || newSrvPriceAr.trim(),
+        ur: existingSrv?.priceRange?.ur || newSrvPriceAr.trim(),
       },
-      hashtags: ["شركة_همم_غيم", "دعاية_وإعلان", "مقاولات"],
-      faqs: [],
+      hashtags: existingSrv?.hashtags || ["شركة_همم_غيم", "دعاية_وإعلان", "مقاولات"],
+      faqs: existingSrv?.faqs || [],
     };
+
+    const nextServices = existingSrv
+      ? db.services.map((s) => (s.id === editingSrvId ? updatedSrv : s))
+      : [...db.services, updatedSrv];
 
     await updateDb({
       ...db,
-      services: [...db.services, newSrv],
+      services: nextServices,
     });
-    setNewSrvTitleAr("");
-    setNewSrvShortAr("");
+    resetServiceForm();
+    showSavedNotification();
+  }
+
+  async function handleDeleteService(id: string) {
+    if (!confirm("هل أنت متأكد من حذف هذه الخدمة؟")) return;
+    await updateDb({
+      ...db,
+      services: db.services.filter((s) => s.id !== id),
+    });
     showSavedNotification();
   }
 
@@ -888,137 +1217,384 @@ export default function AdminDashboardPage() {
 
         {activeTab === "portfolio" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-5">
-              <div className="clean-card rounded-3xl p-6 sm:p-8">
-                <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                  <Plus className="w-5 h-5 text-[#208EC1]" />
-                  إضافة مشروع جديد إلى سابقة الأعمال
-                </h2>
+            <div className="lg:col-span-6">
+              <div className="clean-card rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800">
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-[#208EC1]" />
+                    {editingProjId ? "تعديل بيانات وتفاصيل المشروع" : "إضافة مشروع ذكي إلى سابقة الأعمال"}
+                  </h2>
+                  {editingProjId && (
+                    <button
+                      type="button"
+                      onClick={resetProjectForm}
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-rose-50 hover:text-rose-600 transition-all"
+                    >
+                      إلغاء التعديل + مشروع جديد
+                    </button>
+                  )}
+                </div>
+
+                <div className="p-3.5 rounded-2xl bg-gradient-to-l from-[#11345C]/10 via-[#208EC1]/10 to-transparent border border-[#208EC1]/25 mb-5">
+                  <p className="text-xs font-bold text-slate-700 dark:text-slate-200 leading-relaxed">
+                    💡 <span className="text-[#208EC1]">المساعد الذكي لإدخال المشاريع:</span> فقط اكتب <strong>عنوان العمل</strong> وارفع <strong>صورة المشروع</strong> من الاستوديو، ثم اضغط زر التحليل الذكي ليقوم الذكاء الاصطناعي بقراءة الصورة وتعبئة الأوصاف والضمان ومدة التنفيذ والمواصفات الفنية والترجمات تلقائياً، ويمكنك تعديل أي تفصيل قبل الحفظ!
+                  </p>
+                </div>
+
                 <form onSubmit={handleAddPortfolioProject} className="space-y-4">
                   <div>
-                    <label className="block text-xs font-bold text-slate-500 mb-1">
-                      عنوان المشروع (غني بالكلمات المفتاحية للسيو) *
+                    <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
+                      1. عنوان العمل واسم العميل (سيعتمد عليه الذكاء الاصطناعي بدقة في كتابة الأوصاف) *
                     </label>
                     <input
                       type="text"
                       required
                       value={newProjTitleAr}
                       onChange={(e) => setNewProjTitleAr(e.target.value)}
-                      placeholder="مثال: تنفيذ لوحة حروف بارزة وواجهة كلادينج لمجمع طبي بالرياض"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
+                      placeholder="مثال: عمل عامود أسعار لمحطة درب الوقود"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
                     />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-500 mb-1">
-                        القسم
-                      </label>
-                      <select
-                        value={newProjCat}
-                        onChange={(e) => setNewProjCat(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
-                      >
-                        {db.services.map((s) => (
-                          <option key={s.id} value={s.id}>
-                            {s.shortName.ar || s.name.ar}
-                          </option>
-                        ))}
-                      </select>
+                  <SmartGalleryUploader
+                    label="2. صور وفيديوهات المشروع (اختر صورة أو عدة صور وفيديو لتقلب تلقائياً كمعرض)"
+                    items={newProjGallery}
+                    onChange={(nextItems) => {
+                      setNewProjGallery(nextItems);
+                      setNewProjImage(nextItems[0]?.src || "");
+                    }}
+                    folder="portfolio"
+                    fallbackName={newProjTitleAr || "project"}
+                  />
+
+                  <button
+                    type="button"
+                    disabled={isAiAnalyzingProj}
+                    onClick={() => handleAiAutofillProject()}
+                    className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#11345C] via-[#208EC1] to-[#11345C] hover:opacity-95 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-[#208EC1]/20 transition-all disabled:opacity-60"
+                  >
+                    <Sparkles className={`w-4 h-4 ${isAiAnalyzingProj ? "animate-spin" : ""}`} />
+                    {isAiAnalyzingProj
+                      ? "جاري تحليل العنوان والصور وتوليد الأوصاف والضمان والمواصفات..."
+                      : "✨ تحليل العنوان والصور وتعبئة كافة التفاصيل بالذكاء الاصطناعي"}
+                  </button>
+
+                  {aiAnalyzeStatus && (
+                    <div
+                      className={`p-3 rounded-xl text-xs font-bold leading-relaxed border ${
+                        aiAnalyzeStatus.startsWith("⚠️")
+                          ? "bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-300"
+                          : "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-300"
+                      }`}
+                    >
+                      {aiAnalyzeStatus}
                     </div>
-                    <div>
+                  )}
+
+                  <div className="pt-2 border-t border-slate-200/70 dark:border-slate-800">
+                    <p className="text-xs font-bold text-[#208EC1] mb-3">
+                      3. تفاصيل المشروع والضمان والمواصفات (تُعبأ بالذكاء الاصطناعي ويمكنك تعديلها بحرية):
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 mb-1">
+                          القسم الهندسي
+                        </label>
+                        <select
+                          value={newProjCat}
+                          onChange={(e) => setNewProjCat(e.target.value)}
+                          className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+                        >
+                          {db.services.map((s) => (
+                            <option key={s.id} value={s.id}>
+                              {s.shortName.ar || s.name.ar}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 mb-1">
+                          المدينة (اتركها فارغة لإخفائها)
+                        </label>
+                        <input
+                          type="text"
+                          value={newProjCityAr}
+                          onChange={(e) => setNewProjCityAr(e.target.value)}
+                          placeholder="مثال: الرياض"
+                          className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 mb-1">
+                          مدة التنفيذ (اتركها فارغة إذا لا ترغب بعرضها)
+                        </label>
+                        <input
+                          type="text"
+                          value={newProjDurationAr}
+                          onChange={(e) => setNewProjDurationAr(e.target.value)}
+                          placeholder="مثال: 5 - 7 أيام عمل"
+                          className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-bold text-slate-500 mb-1">
+                          الضمان المعتمد (اتركه فارغاً إذا بدون ضمان)
+                        </label>
+                        <input
+                          type="text"
+                          value={newProjWarrantyAr}
+                          onChange={(e) => setNewProjWarrantyAr(e.target.value)}
+                          placeholder="مثال: ضمان 5 سنوات على الإضاءة والخامات"
+                          className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="mb-3">
                       <label className="block text-xs font-bold text-slate-500 mb-1">
-                        المدينة
+                        وصف مختصر (يظهر في بطاقة المعرض)
+                      </label>
+                      <textarea
+                        rows={2}
+                        value={newProjSummaryAr}
+                        onChange={(e) => setNewProjSummaryAr(e.target.value)}
+                        placeholder="ملخص جذاب من سطر أو سطرين يوضح طبيعة المشروع..."
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label className="block text-xs font-bold text-slate-500 mb-1">
+                        التفاصيل الهندسية الكاملة للمشروع (تظهر داخل صفحة المشروع)
+                      </label>
+                      <textarea
+                        rows={4}
+                        value={newProjDescAr}
+                        onChange={(e) => setNewProjDescAr(e.target.value)}
+                        placeholder="شرح تفصيلي للخامات المستخدمة وطريقة التصنيع والتركيب والإضاءة..."
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label className="block text-xs font-bold text-slate-500 mb-1">
+                        المواصفات الفنية المنفذة في هذا المشروع (كل ميزة في سطر مستقل)
+                      </label>
+                      <textarea
+                        rows={4}
+                        value={newProjSpecsAr}
+                        onChange={(e) => setNewProjSpecsAr(e.target.value)}
+                        placeholder={`قص ليزر CNC عالي الدقة مع حواف مصقولة\nإضاءة ليد كورية عدسات مقاومة للحرارة والغبار IP68\nهيكل تثبيت هندسي مخفي مقاوم للرياح والعوامل الجوية\nتشطيب ألوان حراري مقاوم لأشعة الشمس`}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed"
+                      />
+                    </div>
+
+                    <div className="mb-3">
+                      <label className="block text-xs font-bold text-slate-500 mb-1">
+                        الهاشتاقات والكلمات المفتاحية (مفصولة بفاصلة)
                       </label>
                       <input
                         type="text"
-                        value={newProjCityAr}
-                        onChange={(e) => setNewProjCityAr(e.target.value)}
-                        className="w-full px-3 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
+                        value={newProjTags}
+                        onChange={(e) => setNewProjTags(e.target.value)}
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
                       />
                     </div>
-                  </div>
 
-                  <SmartImageUploader
-                    label="صورة المشروع (رفع مباشر من الاستوديو / الكاميرا مع ضغط ذكي)"
-                    value={newProjImage}
-                    onChange={setNewProjImage}
-                    folder="portfolio"
-                    fallbackName={newProjTitleAr || 'project'}
-                  />
+                    <div className="mb-2">
+                      <button
+                        type="button"
+                        onClick={() => setShowMultilingualProj(!showMultilingualProj)}
+                        className="text-xs font-bold text-[#208EC1] hover:underline flex items-center gap-1"
+                      >
+                        {showMultilingualProj
+                          ? "إخفاء حقول الترجمة الإنجليزية والأردية ▲"
+                          : "عرض/تعديل الترجمة الإنجليزية والأردية التلقائية (EN / UR) ▼"}
+                      </button>
 
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 mb-1">
-                      وصف المشروع والمواصفات المنفذة
-                    </label>
-                    <textarea
-                      rows={3}
-                      value={newProjSummaryAr}
-                      onChange={(e) => setNewProjSummaryAr(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-xs font-bold text-slate-500 mb-1">
-                      الهاشتاقات (مفصولة بفاصلة)
-                    </label>
-                    <input
-                      type="text"
-                      value={newProjTags}
-                      onChange={(e) => setNewProjTags(e.target.value)}
-                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs"
-                    />
+                      {showMultilingualProj && (
+                        <div className="mt-3 p-3.5 rounded-2xl bg-slate-100/70 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 space-y-3">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-[11px] font-bold text-slate-500 mb-1">
+                                Title (EN)
+                              </label>
+                              <input
+                                type="text"
+                                dir="ltr"
+                                value={newProjTitleEn}
+                                onChange={(e) => setNewProjTitleEn(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[11px] font-bold text-slate-500 mb-1">
+                                عنوان (UR)
+                              </label>
+                              <input
+                                type="text"
+                                value={newProjTitleUr}
+                                onChange={(e) => setNewProjTitleUr(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                              />
+                            </div>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                              <label className="block text-[11px] font-bold text-slate-500 mb-1">
+                                Warranty (EN)
+                              </label>
+                              <input
+                                type="text"
+                                dir="ltr"
+                                value={newProjWarrantyEn}
+                                onChange={(e) => setNewProjWarrantyEn(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-[11px] font-bold text-slate-500 mb-1">
+                                Duration (EN)
+                              </label>
+                              <input
+                                type="text"
+                                dir="ltr"
+                                value={newProjDurationEn}
+                                onChange={(e) => setNewProjDurationEn(e.target.value)}
+                                className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                              />
+                            </div>
+                          </div>
+                          <div>
+                            <label className="block text-[11px] font-bold text-slate-500 mb-1">
+                              Description (EN)
+                            </label>
+                            <textarea
+                              rows={2}
+                              dir="ltr"
+                              value={newProjDescEn}
+                              onChange={(e) => setNewProjDescEn(e.target.value)}
+                              className="w-full px-3 py-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 text-xs"
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-[#208EC1] hover:bg-[#11345C] text-white font-bold text-sm transition-all"
+                    className="w-full py-4 rounded-2xl bg-[#208EC1] hover:bg-[#11345C] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all"
                   >
-                    إضافة المشروع فوراً للمعرض
+                    <Save className="w-4 h-4" />
+                    {editingProjId
+                      ? "حفظ التعديلات وتحديث المشروع فوراً"
+                      : "اعتماد وحفظ المشروع في سابقة الأعمال"}
                   </button>
                 </form>
               </div>
             </div>
 
-            <div className="lg:col-span-7">
-              <div className="clean-card rounded-3xl p-6 max-h-[680px] overflow-y-auto space-y-3">
-                <h3 className="text-base font-bold text-slate-900 dark:text-white mb-3">
-                  المشاريع الحالية ({db.portfolio.length} مشروع)
-                </h3>
-                {db.portfolio.slice(0, 30).map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between gap-4 p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60"
-                  >
-                    <div className="flex items-center gap-3">
-                      <img
-                        src={
-                          item.type === "video"
-                            ? item.poster || item.src
-                            : item.src
-                        }
-                        alt={item.title.ar}
-                        className="w-14 h-14 rounded-xl object-cover shrink-0"
-                      />
-                      <div>
-                        <p className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
-                          {item.title.ar}
-                        </p>
-                        <p className="text-xs text-slate-500">
-                          {item.city.ar} • {item.category}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleDeleteProject(item.id)}
-                      className="p-2 rounded-xl text-rose-500 hover:bg-rose-500/10"
-                      title="حذف المشروع"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
+            <div className="lg:col-span-6">
+              <div className="clean-card rounded-3xl p-6 max-h-[950px] flex flex-col">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                  <h3 className="text-base font-bold text-slate-900 dark:text-white">
+                    المشاريع الحالية ({db.portfolio.length} مشروع)
+                  </h3>
+                  <input
+                    type="text"
+                    value={projSearchQuery}
+                    onChange={(e) => setProjSearchQuery(e.target.value)}
+                    placeholder="ابحث في المشاريع بالاسم أو المدينة..."
+                    className="px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs w-full sm:w-64"
+                  />
+                </div>
+
+                <div className="overflow-y-auto space-y-3 pr-1 flex-1">
+                  {db.portfolio
+                    .filter((item) => {
+                      if (!projSearchQuery.trim()) return true;
+                      const q = projSearchQuery.trim().toLowerCase();
+                      return (
+                        (item.title?.ar || "").toLowerCase().includes(q) ||
+                        (item.city?.ar || "").toLowerCase().includes(q) ||
+                        (item.category || "").toLowerCase().includes(q)
+                      );
+                    })
+                    .slice(0, 60)
+                    .map((item) => {
+                      const isEditingThis = editingProjId === item.id;
+                      return (
+                        <div
+                          key={item.id}
+                          className={`flex items-center justify-between gap-3 p-3 rounded-2xl border transition-all ${
+                            isEditingThis
+                              ? "bg-[#208EC1]/10 border-[#208EC1]"
+                              : "bg-slate-50 dark:bg-slate-800/60 border-transparent hover:border-slate-200 dark:hover:border-slate-700"
+                          }`}
+                        >
+                          <div className="flex items-center gap-3 min-w-0">
+                            <img
+                              src={
+                                item.type === "video"
+                                  ? item.poster || item.src
+                                  : item.src
+                              }
+                              alt={item.title.ar}
+                              className="w-14 h-14 rounded-xl object-cover shrink-0 bg-slate-200 dark:bg-slate-700"
+                            />
+                            <div className="min-w-0">
+                              <p className="text-sm font-bold text-slate-900 dark:text-white line-clamp-1">
+                                {item.title.ar}
+                              </p>
+                              <div className="flex flex-wrap items-center gap-2 mt-1 text-[11px] text-slate-500">
+                                {item.city?.ar && <span>📍 {item.city.ar}</span>}
+                                {item.warranty?.ar && (
+                                  <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-bold">
+                                    {item.warranty.ar}
+                                  </span>
+                                )}
+                                {item.duration?.ar && (
+                                  <span className="px-2 py-0.5 rounded-md bg-slate-200/70 dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                    ⏱ {item.duration.ar}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-1.5 shrink-0">
+                            <Link
+                              href={`/portfolio/${item.slug}`}
+                              target="_blank"
+                              className="p-2 rounded-xl text-slate-500 hover:bg-slate-200/60 dark:hover:bg-slate-700"
+                              title="معاينة صفحة المشروع"
+                            >
+                              <ExternalLink className="w-4 h-4" />
+                            </Link>
+                            <button
+                              type="button"
+                              onClick={() => handleEditProject(item)}
+                              className="px-3 py-1.5 rounded-xl bg-[#208EC1]/10 hover:bg-[#208EC1] text-[#208EC1] hover:text-white text-xs font-bold transition-all"
+                            >
+                              تعديل
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => handleDeleteProject(item.id)}
+                              className="p-2 rounded-xl text-rose-500 hover:bg-rose-500/10"
+                              title="حذف المشروع"
+                            >
+                              <Trash2 className="w-4 h-4" />
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
               </div>
             </div>
           </div>
@@ -1026,36 +1602,85 @@ export default function AdminDashboardPage() {
 
         {activeTab === "services" && (
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-6">
               <div className="clean-card rounded-3xl p-6 sm:p-8">
-                <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white mb-4">
-                  إضافة خدمة جديدة للموقع
-                </h2>
+                <div className="flex items-center justify-between gap-2 mb-4">
+                  <h2 className="text-lg font-bold font-heading text-slate-900 dark:text-white flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-[#208EC1]" />
+                    {editingSrvId ? "تعديل الخدمة ومعرض الصور/الفيديو" : "إضافة خدمة جديدة للموقع (مع معرض صور وفيديو متحرك)"}
+                  </h2>
+                  {editingSrvId && (
+                    <button
+                      type="button"
+                      onClick={resetServiceForm}
+                      className="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-rose-50 hover:text-rose-600 transition-all"
+                    >
+                      إلغاء التعديل + خدمة جديدة
+                    </button>
+                  )}
+                </div>
+
                 <form onSubmit={handleAddService} className="space-y-4">
                   <div>
                     <label className="block text-xs font-bold text-slate-500 mb-1">
-                      اسم الخدمة *
+                      1. اسم الخدمة *
                     </label>
                     <input
                       type="text"
                       required
                       value={newSrvTitleAr}
                       onChange={(e) => setNewSrvTitleAr(e.target.value)}
-                      placeholder="مثال: الشاشات الرقمية الإلكترونية الخارجية"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
+                      placeholder="مثال: الشاشات الرقمية وعواميد الأسعار لمحطات الوقود"
+                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold"
                     />
                   </div>
+
+                  <SmartGalleryUploader
+                    label="2. صور وفيديوهات الخدمة (يمكنك اختيار أكثر من صورة وفيديو لتقلب تلقائياً كمعرض)"
+                    items={newSrvGallery}
+                    onChange={setNewSrvGallery}
+                    folder="services"
+                    fallbackName={newSrvTitleAr || "service"}
+                  />
+
+                  <button
+                    type="button"
+                    disabled={isAiAnalyzingSrv}
+                    onClick={handleAiAutofillService}
+                    className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-[#11345C] via-[#208EC1] to-[#11345C] hover:opacity-95 text-white font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all disabled:opacity-60"
+                  >
+                    <Sparkles className={`w-4 h-4 ${isAiAnalyzingSrv ? "animate-spin" : ""}`} />
+                    {isAiAnalyzingSrv
+                      ? "جاري تحليل عنوان الخدمة والصور بالذكاء الاصطناعي..."
+                      : "✨ توليد وصف ومميزات الخدمة بالذكاء الاصطناعي من العنوان والصور"}
+                  </button>
+
                   <div>
                     <label className="block text-xs font-bold text-slate-500 mb-1">
-                      الوصف المختصر والمواصفات
+                      الوصف التفصيلي للخدمة
                     </label>
                     <textarea
                       rows={3}
                       value={newSrvShortAr}
                       onChange={(e) => setNewSrvShortAr(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
+                      placeholder="شرح للخدمة وما تقدمه الشركة للعملاء..."
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed"
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-500 mb-1">
+                      مميزات ومواصفات الخدمة (كل ميزة في سطر مستقل)
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={newSrvFeaturesAr}
+                      onChange={(e) => setNewSrvFeaturesAr(e.target.value)}
+                      placeholder={`تصنيع وتركيب بأعلى معايير الجودة\nضمان رسمي موثق على الخامات والإضاءة`}
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs leading-relaxed"
+                    />
+                  </div>
+
                   <div>
                     <label className="block text-xs font-bold text-slate-500 mb-1">
                       النطاق السعري التقريبي
@@ -1064,35 +1689,74 @@ export default function AdminDashboardPage() {
                       type="text"
                       value={newSrvPriceAr}
                       onChange={(e) => setNewSrvPriceAr(e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm"
+                      className="w-full px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-xs font-bold"
                     />
                   </div>
+
                   <button
                     type="submit"
-                    className="w-full py-3.5 rounded-xl bg-[#208EC1] text-white font-bold text-sm"
+                    className="w-full py-3.5 rounded-xl bg-[#208EC1] hover:bg-[#11345C] text-white font-bold text-sm flex items-center justify-center gap-2 shadow-lg transition-all"
                   >
-                    إضافة الخدمة وتوليد صفحة مستقلة لها
+                    <Save className="w-4 h-4" />
+                    {editingSrvId
+                      ? "حفظ التعديلات وتحديث الخدمة"
+                      : "إضافة الخدمة وتوليد صفحة مستقلة لها"}
                   </button>
                 </form>
               </div>
             </div>
 
-            <div className="lg:col-span-7 space-y-4">
-              {db.services.map((srv) => (
-                <div key={srv.id} className="clean-card rounded-2xl p-5">
-                  <div className="flex items-center justify-between">
-                    <h3 className="font-bold text-slate-900 dark:text-white">
-                      {srv.name.ar}
-                    </h3>
-                    <span className="text-xs font-bold text-[#208EC1]">
-                      {srv.priceRange.ar}
-                    </span>
+            <div className="lg:col-span-6 space-y-3">
+              {db.services.map((srv) => {
+                const mediaCount = Array.isArray(srv.gallery) ? srv.gallery.length : 1;
+                return (
+                  <div key={srv.id} className="clean-card rounded-2xl p-4 flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <img
+                        src={srv.coverImage}
+                        alt={srv.name.ar}
+                        className="w-14 h-14 rounded-xl object-cover shrink-0 bg-slate-200 dark:bg-slate-700"
+                      />
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-sm text-slate-900 dark:text-white line-clamp-1">
+                          {srv.name.ar}
+                        </h3>
+                        <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
+                          {srv.tagline.ar}
+                        </p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className="text-[11px] font-bold text-[#208EC1]">
+                            {srv.priceRange.ar}
+                          </span>
+                          {mediaCount > 1 && (
+                            <span className="px-2 py-0.5 rounded-md bg-emerald-500/10 text-emerald-600 text-[10px] font-bold">
+                              معرض متحرك ({mediaCount} وسائط)
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      <button
+                        type="button"
+                        onClick={() => handleEditService(srv)}
+                        className="px-3 py-1.5 rounded-xl bg-[#208EC1]/10 hover:bg-[#208EC1] text-[#208EC1] hover:text-white text-xs font-bold transition-all"
+                      >
+                        تعديل
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleDeleteService(srv.id)}
+                        className="p-2 rounded-xl text-rose-500 hover:bg-rose-500/10"
+                        title="حذف الخدمة"
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
                   </div>
-                  <p className="text-xs text-slate-500 mt-1">
-                    {srv.tagline.ar}
-                  </p>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         )}

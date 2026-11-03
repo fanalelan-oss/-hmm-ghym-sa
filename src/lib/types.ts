@@ -21,8 +21,9 @@ export interface ServiceItem {
   id: string;
   slug: string;
   icon: string;
-  illustration: string;
+  illustration?: string;
   coverImage: string;
+  gallery?: Array<{ type: 'image' | 'video'; src: string; poster?: string }>;
   name: LocalizedText;
   shortName: LocalizedText;
   tagline: LocalizedText;
@@ -37,7 +38,10 @@ export interface ServiceItem {
 export interface LetterTypeItem {
   id: string;
   image: string;
+  diagramImage?: string;
+  gallery?: Array<{ type: 'image' | 'video'; src: string; poster?: string }>;
   name: LocalizedText;
+  shortTab?: LocalizedText;
   desc: LocalizedText;
   specs: LocalizedText;
 }
@@ -49,6 +53,7 @@ export interface PortfolioItem {
   type: 'image' | 'video';
   src: string;
   poster?: string;
+  gallery?: Array<{ type: 'image' | 'video'; src: string; poster?: string }>;
   title: LocalizedText;
   summary: LocalizedText;
   description: LocalizedText;
@@ -56,6 +61,7 @@ export interface PortfolioItem {
   city: LocalizedText;
   duration: LocalizedText;
   warranty: LocalizedText;
+  specs?: LocalizedList;
   hashtags: string[];
   featured?: boolean;
 }

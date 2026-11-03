@@ -1,16 +1,16 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useApp } from '@/context/AppContext';
+import SmartLinkedText from '@/components/seo/SmartLinkedText';
+import ExpandableHashtagsCard from '@/components/seo/ExpandableHashtagsCard';
 import {
   Phone,
   Mail,
   Bot,
-  Hash,
   ArrowLeft,
   ArrowRight,
-  ChevronDown,
   Calculator,
   Sparkles,
 } from 'lucide-react';
@@ -18,25 +18,19 @@ import {
 export default function SeoHashtagsCtaSection() {
   const { dict, db, lang } = useApp();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
-  const [tagsOpen, setTagsOpen] = useState(false);
 
-  const allHashtags = Array.from(
+  const primaryHashtags = Array.from(
     new Set([
-      ...db.services.flatMap((s) => s.hashtags || []),
+      ...db.services.flatMap((s) => (s.hashtags || []).slice(0, 2)),
       '#شركة_همم_غيم',
       '#دعاية_وإعلان_الرياض',
-      '#مقاولات_عامة_السعودية',
       '#تركيب_أحرف_بارزة_مضيئة',
       '#واجهات_كلادينج_ACP',
       '#مظلات_وسواتر_الرياض',
-      '#تسوير_مشاريع_عقارية',
-      '#تجهيز_معارض_ومؤتمرات',
-      '#ديكورات_وتشطيبات_داخلية',
-      '#زجاج_سيكوريت_وقواطع_مكاتب',
-      '#كاميرات_مراقبة_وشبكات_إطفاء',
-      '#لوحات_محلات_مطابقة_للبلدية',
-      '#برجولات_حدائق_مودرن',
-      '#تغليف_سيارات_واستيكرات',
+      '#أعمال_الجبس_بورد_والأسمنت_بورد',
+      '#الواجهات_الزجاجية_والسيكوريت',
+      '#الأمن_والسلامة_وشبكات_الإطفاء',
+      '#كاميرات_المراقبة_والأنظمة_الأمنية',
     ])
   );
 
@@ -59,7 +53,7 @@ export default function SeoHashtagsCtaSection() {
                 {dict.seoSection.ctaTitle}
               </h2>
               <p className="text-sky-100/90 text-xs sm:text-sm leading-relaxed max-w-xl">
-                {dict.seoSection.ctaDesc}
+                <SmartLinkedText text={dict.seoSection.ctaDesc} maxLinks={5} />
               </p>
               <div className="pt-1 flex flex-wrap items-center gap-3 text-xs text-sky-300 font-bold">
                 <a
@@ -107,82 +101,12 @@ export default function SeoHashtagsCtaSection() {
           </div>
         </div>
 
-        {/* Clean Collapsible SEO Keywords Accordion */}
-        <div className="rounded-2xl bg-white dark:bg-[#0b1b32] border border-slate-200/80 dark:border-white/10 overflow-hidden transition-all">
-          <button
-            type="button"
-            onClick={() => setTagsOpen(!tagsOpen)}
-            aria-expanded={tagsOpen}
-            className="w-full px-5 py-3.5 flex items-center justify-between gap-4 text-start hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#208EC1]/10 text-[#208EC1] flex items-center justify-center shrink-0">
-                <Hash className="w-4 h-4" />
-              </div>
-              <div>
-                <h3 className="font-display font-bold text-xs sm:text-sm text-slate-800 dark:text-slate-100">
-                  {dict.seoSection.eyebrow} ({allHashtags.length}+ {lang === 'ar' ? 'خدمة ووسم' : lang === 'ur' ? 'ٹیگز اور خدمات' : 'tags & services'})
-                </h3>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                  {tagsOpen
-                    ? lang === 'ar'
-                      ? 'اضغط لإغلاق القائمة'
-                      : lang === 'ur'
-                      ? 'بند کرنے کے لیے کلک کریں'
-                      : 'Click to collapse'
-                    : lang === 'ar'
-                    ? 'اضغط لعرض الكلمات المفتاحية والخدمات السريعة'
-                    : lang === 'ur'
-                    ? 'مقبول ٹیگز اور خدمات دیکھنے کے لیے کلک کریں'
-                    : 'Click to expand popular services & tags'}
-                </p>
-              </div>
-            </div>
-
-            <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/10 text-xs font-bold text-slate-700 dark:text-slate-200 shrink-0">
-              <span>
-                {tagsOpen
-                  ? lang === 'ar'
-                    ? 'إخفاء'
-                    : lang === 'ur'
-                    ? 'چھپائیں'
-                    : 'Hide'
-                  : lang === 'ar'
-                  ? 'عرض الكل'
-                  : lang === 'ur'
-                  ? 'تمام دیکھیں'
-                  : 'Show All'}
-              </span>
-              <ChevronDown
-                className={`w-3.5 h-3.5 transition-transform duration-300 ${
-                  tagsOpen ? 'rotate-180 text-[#208EC1]' : ''
-                }`}
-              />
-            </span>
-          </button>
-
-          <div
-            className={`transition-all duration-300 ${
-              tagsOpen
-                ? 'max-h-[900px] opacity-100 p-5 pt-2 border-t border-slate-100 dark:border-white/10 overflow-y-auto'
-                : 'max-h-0 opacity-0 overflow-hidden pointer-events-none'
-            }`}
-          >
-            <div className="flex flex-wrap gap-2 pt-2">
-              {allHashtags.map((tag) => (
-                <Link
-                  key={tag}
-                  href={`/portfolio?q=${encodeURIComponent(
-                    tag.replace('#', '').replace(/_/g, ' ')
-                  )}`}
-                  className="px-3 py-1 rounded-full bg-slate-100 dark:bg-white/5 hover:bg-[#208EC1] hover:text-white text-slate-600 dark:text-slate-300 text-xs font-medium transition-colors"
-                >
-                  {tag.startsWith('#') ? tag : `#${tag}`}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
+        {/* Dedicated Hashtags Card: Current Visible Tags + Massive Expandable Dropdown */}
+        <ExpandableHashtagsCard
+          primaryTags={primaryHashtags}
+          visibleCount={12}
+          title={dict.seoSection.eyebrow}
+        />
       </div>
     </section>
   );

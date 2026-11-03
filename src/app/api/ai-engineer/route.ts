@@ -100,10 +100,12 @@ export async function POST(request: Request) {
           parts.push({ text: `سؤال العميل: "${message}"` });
         }
 
-        // Verified fast models with active quota (gemini-3-flash-preview & gemini-3.1-flash-lite)
+        // Verified fast models with active quota
         const modelsToTry = [
-          'gemini-3-flash-preview',
+          'gemini-3.5-flash-lite',
+          'gemini-3.5-flash',
           'gemini-3.1-flash-lite',
+          'gemini-3-flash-preview',
         ];
         for (const model of modelsToTry) {
           try {

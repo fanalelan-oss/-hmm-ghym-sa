@@ -153,10 +153,10 @@ export default function SiteHeader() {
                             <div className="flex items-center justify-between px-2 pb-2.5 mb-2.5 border-b border-slate-100 dark:border-white/10">
                               <span className="text-xs font-extrabold text-[#0f2544] dark:text-white">
                                 {lang === 'ar'
-                                  ? 'خدماتنا المتكاملة (8 قطاعات)'
+                                  ? `خدماتنا المتكاملة (${db.services.length} أقسام)`
                                   : lang === 'ur'
-                                  ? 'ہماری جامع خدمات (8 شعبہ جات)'
-                                  : 'Our Core Services (8 Sectors)'}
+                                  ? `ہماری جامع خدمات (${db.services.length} شعبہ جات)`
+                                  : `Our Core Services (${db.services.length} Sectors)`}
                               </span>
                               <Link
                                 href="/services"
@@ -179,7 +179,7 @@ export default function SiteHeader() {
                                   className="group flex items-start gap-2.5 p-2.5 rounded-2xl hover:bg-[#eef3f8] dark:hover:bg-white/5 transition-colors"
                                 >
                                   <span className="w-7 h-7 rounded-xl bg-[#eef3f8] dark:bg-white/10 group-hover:bg-[#208EC1] text-[#0f2544] dark:text-white group-hover:text-white font-display font-black text-[11px] flex items-center justify-center shrink-0 transition-colors">
-                                    0{idx + 1}
+                                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                                   </span>
                                   <div className="min-w-0">
                                     <p className="text-xs font-extrabold text-[#0f2544] dark:text-white group-hover:text-[#208EC1] truncate transition-colors">

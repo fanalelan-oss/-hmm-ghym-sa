@@ -6,34 +6,57 @@ import LayoutShell from '@/components/layout/LayoutShell';
 import PageTransition from '@/components/layout/PageTransition';
 import JsonLdSchema from '@/components/seo/JsonLdSchema';
 
-const cairo = { className: "font-cairo", variable: "--font-cairo" };
+const cairo = { className: 'font-cairo', variable: '--font-cairo' };
+const tajawal = { className: 'font-tajawal', variable: '--font-tajawal' };
 
-const tajawal = { className: "font-tajawal", variable: "--font-tajawal" };
+const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app';
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app'
-  ),
+  metadataBase: new URL(SITE_URL),
+  alternates: {
+    canonical: SITE_URL,
+    languages: {
+      'ar-SA': SITE_URL,
+      ar: SITE_URL,
+    },
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   title: {
     default:
       'شركة همم غيم للدعاية والإعلان والمقاولات العامة | من الحرف البارز إلى تسليم المفتاح',
     template: '%s | شركة همم غيم للدعاية والإعلان والمقاولات العامة',
   },
   description:
-    'شركة همم غيم للدعاية والإعلان والمقاولات العامة في المملكة العربية السعودية: تصنيع وتركيب الأحرف البارزة والواجهات والكلادينج، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة. جوال: +966 56 546 7928 | إيميل: hmm.ghym.sa@gmail.com',
+    'شركة همم غيم للدعاية والإعلان والمقاولات العامة في المملكة العربية السعودية (11 قسماً هندسياً متكاملاً): تصنيع وتركيب الأحرف البارزة واللوحات الإعلانية، واجهات الكلادينج المقاومة للحريق، الواجهات الزجاجية والزجاج السيكوريت، أعمال الجبس بورد والأسمنت بورد، تكسيات بديل الشيبورد وبديل الخشب والرخام، المظلات والسواتر والبرجولات، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، أنظمة الأمن والسلامة، وكاميرات المراقبة. جوال: +966 56 546 7928 | إيميل: hmm.ghym.sa@gmail.com',
   keywords: [
     'شركة همم غيم',
     'همم غيم للدعاية والإعلان والمقاولات',
     'أحرف بارزة مضيئة الرياض',
     'تركيب لوحات محلات تجارية',
     'واجهات كلادينج ACP السعودية',
+    'واجهات زجاج سيكوريت واستركشر',
+    'أعمال جبس بورد وأسمنت بورد الرياض',
+    'تكسيات بديل الشيبورد وخلفيات تلفزيون',
+    'بديل الخشب والرخام وأبواب مخفية',
     'مظلات وسواتر الرياض وجدة',
     'برجولات حدائق وسواتر قص ليزر',
     'تسوير مشاريع عقارية وإنشائية',
     'تجهيز معارض وبوثات مؤتمرات',
-    'ديكورات وتشطيبات داخلية',
-    'مقاولات عامة وزجاج سيكوريت',
-    'كاميرات مراقبة وشبكات إطفاء حريق',
+    'استيكرات وتغليف سيارات الشحن',
+    'شبكات إطفاء حريق وأمن وسلامة',
+    'تركيب كاميرات مراقبة IP CCTV',
   ],
   icons: {
     icon: '/assets/images/brand/himam-ghaim-favicon-icon.svg',
@@ -41,18 +64,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ar_SA',
-    url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
+    url: SITE_URL,
     siteName: 'شركة همم غيم للدعاية والإعلان والمقاولات العامة',
-    title: 'شركة همم غيم للدعاية والإعلان والمقاولات العامة | من الحرف البارز إلى تسليم المفتاح',
+    title:
+      'شركة همم غيم للدعاية والإعلان والمقاولات العامة | من الحرف البارز إلى تسليم المفتاح',
     description:
-      'ثماني خدمات هندسية وإعلانية تحت إدارة واحدة في المملكة العربية السعودية: أحرف بارزة وكلادينج، استيكرات، تسوير مشاريع، معارض، مظلات وسواتر، ديكور وتشطيبات، مقاولات عامة، وأمن وسلامة.',
+      '11 قسماً هندسياً وإعلانياً تحت إدارة واحدة في المملكة العربية السعودية: أحرف بارزة، واجهات كلادينج، زجاج سيكوريت، جبس بورد وأسمنت بورد، تكسيات بديل الشيبورد، مظلات وسواتر، استيكرات، تسوير مشاريع، معارض، أمن وسلامة، وكاميرات مراقبة.',
     images: [
       {
-        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og',
+        url: `${SITE_URL}/api/og`,
         width: 1200,
         height: 630,
         type: 'image/jpeg',
-        alt: 'شركة همم غيم للدعاية والإعلان والمقاولات',
+        alt: 'شركة همم غيم للدعاية والإعلان والمقاولات العامة',
       },
     ],
   },
@@ -60,8 +84,8 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'شركة همم غيم | دعاية وإعلان ومقاولات عامة بالسعودية',
     description:
-      'تصنيع وتركيب الأحرف البارزة والكلادينج، المعارض، المظلات، والديكور الداخلي بضمان 10 سنوات.',
-    images: ['https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/api/og'],
+      'تصنيع وتركيب الأحرف البارزة والكلادينج، الزجاج السيكوريت، الجبس والأسمنت بورد، تكسيات بديل الشيبورد، المظلات، والمعارض بضمان 10 سنوات.',
+    images: [`${SITE_URL}/api/og`],
   },
 };
 
@@ -72,27 +96,27 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl" className={`${cairo.variable} ${tajawal.variable}`}>
-  <head>
-      {/* High-Priority LCP Hero Image Preload */}
-      <link
-        rel="preload"
-        as="image"
-        type="image/webp"
-        href="/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp"
-      />
+      <head>
+        {/* High-Priority LCP Hero Image Preload */}
+        <link
+          rel="preload"
+          as="image"
+          type="image/webp"
+          href="/assets/images/portfolio/saudi-3d-signage-cladding-letters-black-stamp-cafe-sign-himam-ghaim.webp"
+        />
 
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      <link
-        rel="preload"
-        as="style"
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap"
-      />
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap"
-      />
-  </head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          rel="preload"
+          as="style"
+          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800&display=swap"
+        />
+      </head>
       <body className="min-h-screen flex flex-col bg-white dark:bg-brand-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-signal-500 selection:text-white">
         <AppProvider>
           <JsonLdSchema />

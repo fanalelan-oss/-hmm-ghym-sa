@@ -44,8 +44,11 @@ export default function CalculatorPage() {
     exhibitions: { min: 650, max: 1350 },
     shades: { min: 140, max: 270 },
     interiors: { min: 550, max: 1100 },
-    contracting: { min: 600, max: 1250 },
+    chipboard: { min: 160, max: 340 },
+    contracting: { min: 190, max: 450 },
+    glass: { min: 260, max: 520 },
     safety: { min: 220, max: 460 },
+    cctv: { min: 180, max: 390 },
   };
 
   const calculation = useMemo(() => {

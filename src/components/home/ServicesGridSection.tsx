@@ -2,13 +2,16 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useApp } from '@/context/AppContext';
 import { tText } from '@/lib/i18n';
 import ScrollReveal from '@/components/layout/ScrollReveal';
+import AutoMediaCarousel, { buildMediaSlides } from '@/components/common/AutoMediaCarousel';
 import { ArrowLeft, ArrowRight, Check, Sparkles } from 'lucide-react';
 
 export default function ServicesGridSection() {
   const { lang, dict, db } = useApp();
+  const router = useRouter();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
 
   return (
@@ -48,17 +51,15 @@ export default function ServicesGridSection() {
             >
               <div>
                 <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-slate-900 mb-1.5 shadow-inner">
-                  <img
-                    src={service.coverImage?.startsWith('/') ? service.coverImage : `/${service.coverImage}`}
+                  <AutoMediaCarousel
+                    slides={buildMediaSlides(service)}
                     alt={tText(service.name, lang)}
-                    width={400}
-                    height={300}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    mode="card"
+                    imgClassName="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent" />
-                  <span className="absolute top-1 start-1 w-5 h-5 rounded-full bg-black/60 backdrop-blur-sm text-white font-display font-black text-[9px] flex items-center justify-center shadow-sm">
-                    0{idx + 1}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none" />
+                  <span className="absolute top-1.5 start-2 z-20 text-white font-display font-black text-[10px] drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] pointer-events-none">
+                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                   </span>
                   <span className="absolute bottom-1 inset-x-1 px-1 py-0.5 rounded-md bg-[#208EC1]/90 backdrop-blur-xs text-white text-[8px] font-extrabold truncate text-center shadow-sm">
                     {tText(service.shortName, lang)}
@@ -78,75 +79,53 @@ export default function ServicesGridSection() {
           ))}
         </div>
 
-        {/* DESKTOP ONLY: 4-Column Grid with Full Expanded Content */}
-        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        {/* DESKTOP ONLY: 5-Column Grid with Full Clickable Cards */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {db.services.map((service, idx) => (
             <ScrollReveal key={service.id} delayMs={idx * 40}>
-              <article className="floating-card group h-full flex flex-col rounded-[24px] overflow-hidden p-2.5">
-                <Link
-                  href={`/services/${service.slug}`}
-                  className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-slate-900 block"
-                >
-                  <img
-                    src={service.coverImage?.startsWith('/') ? service.coverImage : `/${service.coverImage}`}
+              <article
+                role="link"
+                tabIndex={0}
+                onClick={() => router.push(`/services/${service.slug}`)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    router.push(`/services/${service.slug}`);
+                  }
+                }}
+                className="cursor-pointer floating-card group h-full flex flex-col rounded-[22px] overflow-hidden p-2 select-none"
+              >
+                <div className="relative aspect-[16/10] rounded-[16px] overflow-hidden bg-slate-900 block">
+                  <AutoMediaCarousel
+                    slides={buildMediaSlides(service)}
                     alt={tText(service.name, lang)}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
+                    mode="card"
+                    imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f2544]/85 via-[#0f2544]/15 to-transparent" />
-                  <span className="absolute top-3 start-3 w-7 h-7 rounded-full bg-white/95 text-[#0f2544] font-display font-black text-xs flex items-center justify-center shadow-sm">
-                    0{idx + 1}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0f2544]/85 via-[#0f2544]/15 to-transparent pointer-events-none" />
+                  <span className="absolute top-2 start-2.5 z-20 text-white font-display font-black text-xs drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] pointer-events-none">
+                    {idx + 1 < 10 ? `0${idx + 1}` : idx + 1}
                   </span>
-                  <span className="absolute bottom-3 inset-x-3 flex items-center justify-between">
-                    <span className="px-3 py-1 rounded-full bg-[#208EC1] text-white text-[11px] font-bold shadow-sm">
+                  <span className="absolute bottom-2.5 inset-x-2.5 flex items-center justify-between pointer-events-none">
+                    <span className="px-2.5 py-0.5 rounded-full bg-[#208EC1] text-white text-[10.5px] font-bold shadow-sm">
                       {tText(service.shortName, lang)}
                     </span>
                   </span>
-                </Link>
+                </div>
 
-                <div className="p-4 flex-1 flex flex-col justify-between space-y-4">
+                <div className="p-3 flex-1 flex flex-col justify-between space-y-2.5">
                   <div>
-                    <h3 className="font-display font-bold text-base text-[#0f2544] dark:text-white group-hover:text-[#208EC1] transition-colors">
-                      <Link href={`/services/${service.slug}`}>
-                        {tText(service.name, lang)}
-                      </Link>
+                    <h3 className="font-display font-extrabold text-sm text-[#0f2544] dark:text-white group-hover:text-[#208EC1] transition-colors line-clamp-1">
+                      {tText(service.shortName, lang)}
                     </h3>
-                    <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                    <p className="mt-1 text-[11px] text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
                       {tText(service.tagline, lang)}
                     </p>
-
-                    <ul className="mt-3 space-y-1.5">
-                      {(service.features[lang] || service.features.ar)
-                        .slice(0, 2)
-                        .map((feat, i) => (
-                          <li
-                            key={i}
-                            className="flex items-start gap-2 text-xs text-slate-600 dark:text-slate-300"
-                          >
-                            <Check className="w-3.5 h-3.5 text-[#208EC1] shrink-0 mt-0.5" />
-                            <span className="line-clamp-1">{feat}</span>
-                          </li>
-                        ))}
-                    </ul>
                   </div>
 
-                  <div className="pt-3 border-t border-slate-100 dark:border-white/10 flex items-center justify-between gap-2">
-                    <Link
-                      href={`/services/${service.slug}`}
-                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#0f2544] dark:text-sky-300 hover:text-[#208EC1]"
-                    >
-                      <span>{dict.servicesSection.exploreService}</span>
-                      <ArrowIcon className="w-3.5 h-3.5" />
-                    </Link>
-
-                    <Link
-                      href={`/contact?service=${encodeURIComponent(
-                        tText(service.name, lang)
-                      )}`}
-                      className="whitespace-nowrap px-3.5 py-1.5 rounded-full bg-[#eef3f8] dark:bg-white/10 hover:bg-[#208EC1] hover:text-white text-[#0f2544] dark:text-slate-200 text-xs font-bold transition-colors"
-                    >
-                      {dict.servicesSection.requestService}
-                    </Link>
+                  <div className="pt-2 border-t border-slate-100 dark:border-white/10 flex items-center justify-between text-[11px] font-extrabold text-[#208EC1]">
+                    <span>{dict.servicesSection.exploreService}</span>
+                    <ArrowIcon className="w-3.5 h-3.5" />
                   </div>
                 </div>
               </article>

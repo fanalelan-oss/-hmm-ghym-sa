@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { useApp, pickLang } from "@/context/AppContext";
 import ScrollReveal from "@/components/layout/ScrollReveal";
+import SmartLinkedText from "@/components/seo/SmartLinkedText";
+import ExpandableHashtagsCard from "@/components/seo/ExpandableHashtagsCard";
 import { BookOpen, Calendar, ArrowUpRight, Sparkles } from "lucide-react";
 
 export default function BlogPage() {
@@ -28,9 +30,14 @@ export default function BlogPage() {
                 : "Engineering Guides & Expert Articles"}
             </h1>
             <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg leading-relaxed">
-              {lang === "ar"
-                ? "دليلك الشامل لاختيار أفضل أنواع الحروف البارزة، مواصفات الكلادينج المقاوم للحريق، مظلات السيارات، واشتراطات البلديات في المملكة."
-                : "Comprehensive guides on choosing 3D signage, fire-rated ACP cladding, car shades, and Saudi municipal regulations."}
+              <SmartLinkedText
+                text={
+                  lang === "ar"
+                    ? "دليلك الشامل لاختيار أفضل أنواع الأحرف البارزة، مواصفات واجهات الكلادينج المقاوم للحريق، الواجهات الزجاجية والزجاج السيكوريت، أعمال الجبس بورد والأسمنت بورد، مظلات السيارات والسواتر، تجهيز المعارض وتسوير المشاريع، وأنظمة الأمن والسلامة وكاميرات المراقبة في المملكة."
+                    : "Comprehensive guides on choosing 3D signage, fire-rated ACP cladding, structural glass, gypsum board & cement board, car shades, and Saudi municipal regulations."
+                }
+                maxLinks={10}
+              />
             </p>
           </div>
         </ScrollReveal>
@@ -75,6 +82,17 @@ export default function BlogPage() {
               </Link>
             </ScrollReveal>
           ))}
+        </div>
+
+        <div className="mt-14">
+          <ExpandableHashtagsCard
+            visibleCount={10}
+            title={
+              lang === "ar"
+                ? "موسوعة الهاشتاقات الهندسية والمصطلحات الفنية للمقالات"
+                : "Engineering Knowledge Hub SEO Hashtags"
+            }
+          />
         </div>
       </div>
     </div>

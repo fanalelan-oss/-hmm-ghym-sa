@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '@/context/AppContext';
 import ScrollReveal from '@/components/layout/ScrollReveal';
+import SmartLinkedText from '@/components/seo/SmartLinkedText';
 import { ShieldCheck, Award, FileCheck2, Layers, Sparkles } from 'lucide-react';
 
 export default function WhyUsSection() {
@@ -61,7 +62,7 @@ export default function WhyUsSection() {
               </h2>
             </div>
             <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm max-w-lg leading-relaxed">
-              {dict.whyUs.subtitle}
+              <SmartLinkedText text={dict.whyUs.subtitle} maxLinks={5} />
             </p>
           </div>
         </ScrollReveal>
@@ -183,7 +184,7 @@ export default function WhyUsSection() {
                       {c.title}
                     </h3>
                     <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                      {c.desc}
+                      <SmartLinkedText text={c.desc} maxLinks={3} />
                     </p>
                   </div>
 

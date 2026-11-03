@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { useApp } from '@/context/AppContext';
@@ -14,33 +14,61 @@ export default function JsonLdSchema() {
         ).toFixed(1)
       : '5.0';
 
+  const siteUrl = 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app';
+
   const schemaData = {
     '@context': 'https://schema.org',
     '@graph': [
       {
         '@type': ['HomeAndConstructionBusiness', 'LocalBusiness', 'ProfessionalService'],
-        '@id': 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/#organization',
+        '@id': `${siteUrl}/#organization`,
         name: db.settings.fullLegalName.ar,
-        alternateName: [db.settings.companyName.ar, db.settings.companyName.en, db.settings.companyName.ur],
+        alternateName: [
+          db.settings.companyName.ar,
+          db.settings.companyName.en,
+          db.settings.companyName.ur,
+        ],
         description:
-          'شركة همم غيم للدعاية والإعلان والمقاولات العامة في المملكة العربية السعودية: تصنيع وتركيب الأحرف البارزة والواجهات واللوحات الإعلانية، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، المظلات والسواتر، الديكور والتشطيبات الداخلية، المقاولات العامة، والأمن والسلامة.',
-        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
+          'شركة همم غيم للدعاية والإعلان والمقاولات العامة في المملكة العربية السعودية (11 قسماً هندسياً): تصنيع وتركيب الأحرف البارزة واللوحات الإعلانية، واجهات الكلادينج ACP، الواجهات الزجاجية والزجاج السيكوريت، أعمال الجبس بورد والأسمنت بورد، تكسيات بديل الشيبورد وبديل الخشب والرخام، المظلات والسواتر والبرجولات، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، أنظمة الأمن والسلامة، وكاميرات المراقبة.',
+        url: siteUrl,
         telephone: db.settings.phoneClean,
         email: db.settings.email,
-        logo: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app${db.settings.logoDark}`,
-        image: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app${db.settings.logoDark}`,
+        logo: `${siteUrl}${db.settings.logoDark}`,
+        image: `${siteUrl}${db.settings.logoDark}`,
         priceRange: '$$',
         address: {
           '@type': 'PostalAddress',
           addressCountry: 'SA',
+          addressLocality: 'الرياض',
           addressRegion: 'الرياض، جدة، الدمام، المملكة العربية السعودية',
         },
+        geo: {
+          '@type': 'GeoCoordinates',
+          latitude: 24.7136,
+          longitude: 46.6753,
+        },
+        openingHoursSpecification: [
+          {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: [
+              'Saturday',
+              'Sunday',
+              'Monday',
+              'Tuesday',
+              'Wednesday',
+              'Thursday',
+            ],
+            opens: '08:00',
+            closes: '22:00',
+          },
+        ],
         areaServed: [
           { '@type': 'City', name: 'الرياض' },
           { '@type': 'City', name: 'جدة' },
           { '@type': 'City', name: 'الدمام' },
           { '@type': 'City', name: 'الخبر' },
           { '@type': 'City', name: 'مكة المكرمة' },
+          { '@type': 'City', name: 'المدينة المنورة' },
           { '@type': 'Country', name: 'المملكة العربية السعودية' },
         ],
         aggregateRating: {
@@ -50,7 +78,7 @@ export default function JsonLdSchema() {
           bestRating: '5',
           worstRating: '1',
         },
-        review: approvedReviews.slice(0, 5).map((r) => ({
+        review: approvedReviews.slice(0, 6).map((r) => ({
           '@type': 'Review',
           author: { '@type': 'Person', name: r.name },
           datePublished: r.date,
@@ -63,25 +91,31 @@ export default function JsonLdSchema() {
         })),
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: 'خدمات شركة همم غيم الهندسية والإعلانية',
+          name: 'الأقسام الهندسية والإعلانية الـ 11 لشركة همم غيم',
           itemListElement: db.services.map((s, idx) => ({
             '@type': 'Offer',
             position: idx + 1,
             itemOffered: {
               '@type': 'Service',
               name: s.name.ar,
+              alternateName: s.name.en,
               description: s.description.ar,
-              url: `https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/services/${s.slug}`,
+              url: `${siteUrl}/services/${s.slug}`,
             },
           })),
         },
       },
       {
         '@type': 'WebSite',
-        '@id': 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app/#website',
-        url: 'https://hmm-ghym-sa--my-saudi-node.us-east4.hosted.app',
+        '@id': `${siteUrl}/#website`,
+        url: siteUrl,
         name: db.settings.fullLegalName.ar,
         inLanguage: ['ar-SA', 'en-US', 'ur-PK'],
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${siteUrl}/portfolio?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
       },
     ],
   };

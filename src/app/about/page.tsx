@@ -4,6 +4,8 @@ import React from "react";
 import Link from "next/link";
 import { useApp, pickLang } from "@/context/AppContext";
 import ScrollReveal from "@/components/layout/ScrollReveal";
+import SmartLinkedText from "@/components/seo/SmartLinkedText";
+import ExpandableHashtagsCard from "@/components/seo/ExpandableHashtagsCard";
 import {
   ShieldCheck,
   Target,
@@ -34,10 +36,10 @@ export default function AboutPage() {
                   {dict.whyUs.title}
                 </h1>
                 <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {dict.whyUs.subtitle}
+                  <SmartLinkedText text={dict.whyUs.subtitle} maxLinks={8} />
                 </p>
                 <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-                  {dict.footer.aboutText}
+                  <SmartLinkedText text={dict.footer.aboutText} maxLinks={8} />
                 </p>
 
                 <div className="flex flex-wrap gap-3 pt-2">
@@ -108,9 +110,14 @@ export default function AboutPage() {
                 {lang === "ar" ? "رؤيتنا المتوافقة مع 2030" : "Our Vision"}
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {lang === "ar"
-                  ? "أن نكون الشريك الهندسي والإعلاني الأول في المملكة العربية السعودية لتطوير المشهد الحضري والواجهات التجارية والمشاريع الوطنية بأعلى معايير الابتكار والاستدامة."
-                  : "To be Saudi Arabia's leading engineering and architectural branding partner aligned with Vision 2030 urban excellence."}
+                <SmartLinkedText
+                  text={
+                    lang === "ar"
+                      ? "أن نكون الشريك الهندسي والإعلاني الأول في المملكة العربية السعودية لتطوير المشهد الحضري، وتصنيع الأحرف البارزة، وتنفيذ واجهات الكلادينج والواجهات الزجاجية، وأعمال الجبس بورد والأسمنت بورد بأعلى معايير الابتكار والاستدامة."
+                      : "To be Saudi Arabia's leading engineering and architectural branding partner aligned with Vision 2030 urban excellence."
+                  }
+                  maxLinks={6}
+                />
               </p>
             </div>
           </ScrollReveal>
@@ -124,9 +131,14 @@ export default function AboutPage() {
                 {lang === "ar" ? "رسالتنا الهندسية" : "Our Mission"}
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {lang === "ar"
-                  ? "تحويل أفكار عملائنا وهوياتهم البصرية إلى واقع معماري ملموس يجمع بين المتانة الإنشائية، الدقة الجمالية، والالتزام الصارم بمواعيد التسليم."
-                  : "Transforming brand identities into durable architectural landmarks with precision manufacturing and on-time delivery."}
+                <SmartLinkedText
+                  text={
+                    lang === "ar"
+                      ? "تحويل أفكار عملائنا وهوياتهم البصرية إلى واقع معماري ملموس يشمل تجهيز المعارض وتسوير المشاريع وتركيب المظلات والسواتر والبرجولات والاستيكرات وتغليف السيارات وأنظمة الأمن والسلامة وكاميرات المراقبة بدقة والتزام صارم."
+                      : "Transforming brand identities into durable architectural landmarks with precision manufacturing and on-time delivery."
+                  }
+                  maxLinks={6}
+                />
               </p>
             </div>
           </ScrollReveal>
@@ -140,9 +152,14 @@ export default function AboutPage() {
                 {lang === "ar" ? "التزامنا بالضمان والجودة" : "Quality & Warranty"}
               </h2>
               <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                {lang === "ar"
-                  ? "نستخدم خامات أصلية معتمدة (أكريليك كوري، إضاءة LED كورية IP68، كلادينج مقاوم للحريق FR، وأقمشة PVC ألمانية) مع ضمان رسمي مكتوب يصل إلى 10 سنوات."
-                  : "We exclusively use certified materials (Korean Acrylic, IP68 LEDs, FR Cladding, German PVC) backed by up to 10 years of written warranty."}
+                <SmartLinkedText
+                  text={
+                    lang === "ar"
+                      ? "نستخدم خامات أصلية معتمدة (أكريليك كوري، إضاءة LED كورية IP68، كلادينج مقاوم للحريق FR، زجاج سيكوريت 12 ملم، وأقمشة PVC ألمانية) مع ضمان رسمي مكتوب يصل إلى 10 سنوات."
+                      : "We exclusively use certified materials (Korean Acrylic, IP68 LEDs, FR Cladding, Tempered Glass, German PVC) backed by up to 10 years of written warranty."
+                  }
+                  maxLinks={6}
+                />
               </p>
             </div>
           </ScrollReveal>
@@ -172,7 +189,7 @@ export default function AboutPage() {
                 >
                   <CheckCircle2 className="w-5 h-5 text-[#208EC1] shrink-0 mt-0.5" />
                   <span className="text-sm font-medium text-slate-700 dark:text-slate-200">
-                    {point}
+                    <SmartLinkedText text={point} maxLinks={4} />
                   </span>
                 </div>
               ))}
@@ -199,6 +216,10 @@ export default function AboutPage() {
             </div>
           </div>
         </ScrollReveal>
+
+        <div className="mt-12">
+          <ExpandableHashtagsCard visibleCount={10} />
+        </div>
       </div>
     </div>
   );

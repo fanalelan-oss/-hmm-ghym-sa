@@ -306,6 +306,10 @@ export default function HeroSection() {
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
 
   function getSmartWarrantyBadge(project: any, currentLang: string): string {
+    const customW = tText(project?.warranty, currentLang as any)?.trim();
+    if (customW && customW.length <= 24) {
+      return customW;
+    }
     const cat = (project?.category || '').toLowerCase();
     const slug = (project?.slug || '').toLowerCase();
     const title = (project?.title?.ar || '').toLowerCase();
@@ -339,20 +343,20 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
-          ? 'الدعاية والإعلان'
+          ? 'الأحرف البارزة واللوحات'
           : lang === 'ur'
-          ? 'اشتہارات اور سائن بورڈز'
-          : 'Signage & Advertising',
+          ? 'تھری ڈی حروف اور سائن بورڈز'
+          : '3D Letters & Signage',
       href: '/services/signage-3d-letters-cladding',
     },
     {
       label:
         lang === 'ar'
-          ? 'الأحرف البارزة والكلادينج'
+          ? 'الكلادينج والواجهات'
           : lang === 'ur'
-          ? 'تھری ڈی لیٹرز اور کلیڈنگ'
-          : '3D Letters & Cladding',
-      href: '/services/signage-3d-letters-cladding',
+          ? 'کلیڈنگ اور واجهات'
+          : 'Cladding & Facades',
+      href: '/services/general-contracting-cladding-glass',
     },
   ];
 
@@ -360,19 +364,10 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
-          ? 'المقاولات العامة'
+          ? 'الجبس والأسمنت بورد'
           : lang === 'ur'
-          ? 'جنرل کنٹریکٹنگ'
-          : 'General Contracting',
-      href: '/services/general-contracting-cladding-glass',
-    },
-    {
-      label:
-        lang === 'ar'
-          ? 'ديكور وتشطيبات'
-          : lang === 'ur'
-          ? 'انٹیریئر اور فنشنگ'
-          : 'Interior Fit-Out',
+          ? 'جپسم اور سیمنٹ بورڈ'
+          : 'Gypsum & Cement Board',
       href: '/services/interior-design-decor-finishing',
     },
     {
@@ -383,6 +378,15 @@ export default function HeroSection() {
           ? 'شیڈز اور سواتر'
           : 'Shades & Canopies',
       href: '/services/car-shades-pergolas-screens',
+    },
+    {
+      label:
+        lang === 'ar'
+          ? 'استيكرات وتغليف'
+          : lang === 'ur'
+          ? 'اسٹیکرز اور ریپنگ'
+          : 'Stickers & Wrapping',
+      href: '/services/stickers-vehicle-wrapping-murals',
     },
   ];
 
@@ -408,11 +412,11 @@ export default function HeroSection() {
     {
       label:
         lang === 'ar'
-          ? 'تواصل مباشر'
+          ? 'الأمن والسلامة'
           : lang === 'ur'
-          ? 'براہ راست رابطہ'
-          : 'Direct Contact',
-      href: '/contact',
+          ? 'فائر سیفٹی اور کیمرے'
+          : 'Safety & CCTV',
+      href: '/services/security-cctv-fire-safety-systems',
     },
   ];
 
@@ -421,13 +425,44 @@ export default function HeroSection() {
       left: {
         label:
           lang === 'ar'
-            ? 'الدعاية والإعلان'
+            ? 'الأحرف البارزة واللوحات'
             : lang === 'ur'
-            ? 'اشتہارات اور سائن بورڈز'
-            : 'Signage & Advertising',
+            ? 'تھری ڈی حروف اور سائن بورڈز'
+            : '3D Letters & Signage',
         href: '/services/signage-3d-letters-cladding',
       },
       right: {
+        label:
+          lang === 'ar'
+            ? 'واجهات الكلادينج والزجاج'
+            : lang === 'ur'
+            ? 'کلیڈنگ اور گلاس واجهات'
+            : 'Cladding & Glass Facades',
+        href: '/services/general-contracting-cladding-glass',
+      },
+    },
+    {
+      left: {
+        label:
+          lang === 'ar'
+            ? 'الجبس والأسمنت بورد والديكور'
+            : lang === 'ur'
+            ? 'جپسم اور سیمنٹ بورڈ'
+            : 'Gypsum & Cement Board',
+        href: '/services/interior-design-decor-finishing',
+      },
+      right: {
+        label:
+          lang === 'ar'
+            ? 'مظلات وسواتر وبرجولات'
+            : lang === 'ur'
+            ? 'شیڈز اور سواتر'
+            : 'Shades & Pergolas',
+        href: '/services/car-shades-pergolas-screens',
+      },
+    },
+    {
+      left: {
         label:
           lang === 'ar'
             ? 'استيكرات وتغليف أساطيل'
@@ -436,41 +471,10 @@ export default function HeroSection() {
             : 'Fleet Wrapping & Stickers',
         href: '/services/stickers-vehicle-wrapping-murals',
       },
-    },
-    {
-      left: {
-        label:
-          lang === 'ar'
-            ? 'المقاولات العامة'
-            : lang === 'ur'
-            ? 'جنرل کنٹریکٹنگ'
-            : 'General Contracting',
-        href: '/services/general-contracting-cladding-glass',
-      },
       right: {
         label:
           lang === 'ar'
-            ? 'الديكور والتشطيبات'
-            : lang === 'ur'
-            ? 'انٹیریئر اور فنشنگ'
-            : 'Interior Fit-Out',
-        href: '/services/interior-design-decor-finishing',
-      },
-    },
-    {
-      left: {
-        label:
-          lang === 'ar'
-            ? 'مظلات وسواتر'
-            : lang === 'ur'
-            ? 'شیڈز اور سواتر'
-            : 'Shades & Canopies',
-        href: '/services/car-shades-pergolas-screens',
-      },
-      right: {
-        label:
-          lang === 'ar'
-            ? 'تسوير المشاريع'
+            ? 'تسوير المشاريع الإنشائية'
             : lang === 'ur'
             ? 'پروجیکٹ ہورڈنگ'
             : 'Project Hoarding',
@@ -481,7 +485,7 @@ export default function HeroSection() {
       left: {
         label:
           lang === 'ar'
-            ? 'تجهيز المعارض'
+            ? 'تجهيز المعارض والبوثات'
             : lang === 'ur'
             ? 'نمائشی بوتھس'
             : 'Exhibition Booths',
@@ -490,11 +494,11 @@ export default function HeroSection() {
       right: {
         label:
           lang === 'ar'
-            ? 'تواصل معنا مباشرة'
+            ? 'الأمن والسلامة والإطفاء'
             : lang === 'ur'
-            ? 'براہ راست رابطہ کریں'
-            : 'Contact Us Directly',
-        href: '/contact',
+            ? 'فائر سیفٹی اور کیمرے'
+            : 'Fire Safety & CCTV',
+        href: '/services/security-cctv-fire-safety-systems',
       },
     },
   ];
@@ -556,7 +560,7 @@ export default function HeroSection() {
   return (
     <section
       ref={heroRef}
-      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[52px] sm:-mt-[58px] lg:-mt-[90px] pt-[66px] sm:pt-[74px] lg:pt-[96px] pb-1.5 sm:pb-2.5 lg:pb-0 h-[100dvh] max-h-[100dvh] lg:h-[100dvh] lg:min-h-[610px] lg:max-h-[1080px] flex flex-col justify-between"
+      className="relative overflow-hidden bg-[#eef3f8] dark:bg-[#06101e] transition-colors duration-300 -mt-[52px] sm:-mt-[58px] lg:-mt-[90px] pt-[66px] sm:pt-[74px] lg:pt-[96px] pb-1.5 sm:pb-2.5 lg:pb-0 h-[100dvh] max-h-[100dvh] lg:h-[111.11dvh] lg:min-h-[680px] lg:max-h-[1200px] flex flex-col justify-between"
     >
       {/* Calm, Minimalist Architectural Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">

@@ -18,6 +18,9 @@ ogUrl.searchParams.set('city', 'المملكة العربية السعودية')
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: `${siteUrl}/ai-engineer`,
+  },
   openGraph: {
     type: 'website',
     url: `${siteUrl}/ai-engineer`,

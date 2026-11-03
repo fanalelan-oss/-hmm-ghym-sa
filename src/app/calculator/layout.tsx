@@ -22,6 +22,9 @@ ogUrl.searchParams.set(
 export const metadata: Metadata = {
   title,
   description,
+  alternates: {
+    canonical: `${siteUrl}/calculator`,
+  },
   openGraph: {
     type: 'website',
     url: `${siteUrl}/calculator`,
