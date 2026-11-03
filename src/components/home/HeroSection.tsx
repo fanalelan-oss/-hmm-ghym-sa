@@ -74,6 +74,15 @@ function AnimatedCounter({
   );
 }
 
+const CURATED_HERO_SHOWCASE_IDS = [
+  'proj-1',  // 1. الأحرف البارزة واللوحات الإعلانية (مقهى بلاك ستامب)
+  'proj-25', // 2. واجهات الكلادينج والمقاولات (واجهة مستشفى ماجستي)
+  'proj-20', // 3. تكسيات بديل الشيبورد والديكور (مكتبة تلفزيون مودرن بزوايا مقوسة)
+  'proj-21', // 4. المظلات والسواتر والبرجولات (مظلة سيارات معلقة لفيلا)
+  'proj-2',  // 5. تجهيز المعارض والبوثات (جناح المركز الوطني للزراعة المستدامة)
+  'proj-6',  // 6. تسوير المشاريع الإنشائية والهوردينج (تسوير مشروع المهيدب العقاري)
+];
+
 export default function HeroSection() {
   const { lang, dict, db } = useApp();
   const ArrowIcon = dict.dir === 'rtl' ? ArrowLeft : ArrowRight;
@@ -81,7 +90,24 @@ export default function HeroSection() {
   const heroRef = useRef<HTMLElement | null>(null);
   const isSnappingRef = useRef<boolean>(false);
 
-  const showcaseProjects = db.portfolio.slice(0, 6);
+  // 6 diverse showcase projects from 6 distinct core services
+  const showcaseProjects = React.useMemo(() => {
+    const list: typeof db.portfolio = [];
+    for (const id of CURATED_HERO_SHOWCASE_IDS) {
+      const found = db.portfolio.find((p) => p.id === id);
+      if (found) list.push(found);
+    }
+    if (list.length < 6) {
+      for (const p of db.portfolio) {
+        if (!list.some((item) => item.id === p.id)) {
+          list.push(p);
+          if (list.length === 6) break;
+        }
+      }
+    }
+    return list.slice(0, 6);
+  }, [db.portfolio]);
+
   const [activeIdx, setActiveIdx] = useState(0);
   const [activeSpotlight, setActiveSpotlight] = useState(0);
   const [badgeIdx, setBadgeIdx] = useState(0);
@@ -347,6 +373,11 @@ export default function HeroSection() {
   }, []);
 
   const currentProject = showcaseProjects[activeIdx] || db.portfolio[0];
+
+  const currentProjectService = React.useMemo(() => {
+    if (!currentProject) return null;
+    return db.services.find((s) => s.id === currentProject.category);
+  }, [currentProject, db.services]);
 
   function getSmartWarrantyBadge(project: any, currentLang: string): string {
     const customW = tText(project?.warranty, currentLang as any)?.trim();
@@ -917,10 +948,22 @@ export default function HeroSection() {
                           <MapPin className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#208EC1] shrink-0" />
                           <span>
                             {lang === 'ar'
-                              ? `من أعمالنا · ${tText(currentProject.city, lang)}`
+                              ? `من أعمالنا · ${tText(currentProject.city, lang)}${
+                                  currentProjectService
+                                    ? ` · ${tText(currentProjectService.shortName || currentProjectService.name, lang)}`
+                                    : ''
+                                }`
                               : lang === 'ur'
-                              ? `ہمارے کام · ${tText(currentProject.city, lang)}`
-                              : `Delivered · ${tText(currentProject.city, lang)}`}
+                              ? `ہمارے کام · ${tText(currentProject.city, lang)}${
+                                  currentProjectService
+                                    ? ` · ${tText(currentProjectService.shortName || currentProjectService.name, lang)}`
+                                    : ''
+                                }`
+                              : `Delivered · ${tText(currentProject.city, lang)}${
+                                  currentProjectService
+                                    ? ` · ${tText(currentProjectService.shortName || currentProjectService.name, lang)}`
+                                    : ''
+                                }`}
                           </span>
                         </p>
                         <h2 className="text-[11px] sm:text-xs lg:text-sm font-extrabold text-white line-clamp-1 mt-0.5">
