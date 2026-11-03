@@ -577,7 +577,7 @@ export default function HeroSection() {
     },
   ];
 
-  const statsProjectsValue = (db.settings?.stats?.projectsCount || '145+').trim();
+  const statsProjectsValue = (db.settings?.stats?.projectsCount || '+155').trim();
   const statsServicesValue = (db.settings?.stats?.servicesCount || '11').trim();
   const statsPartnersValue = (db.settings?.stats?.partnersCount || '45+').trim();
   const statsWarrantyValue = (db.settings?.stats?.warrantyYears || '10').trim();

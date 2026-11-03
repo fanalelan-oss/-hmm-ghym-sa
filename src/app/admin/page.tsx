@@ -67,7 +67,7 @@ export default function AdminDashboardPage() {
   const [geminiApiKey, setGeminiApiKey] = useState(db.settings.aiConfig?.geminiApiKey || "");
 
   const [statsProjectsCount, setStatsProjectsCount] = useState(
-    db.settings.stats?.projectsCount || "+145"
+    db.settings.stats?.projectsCount || "+155"
   );
   const [statsServicesCount, setStatsServicesCount] = useState(
     db.settings.stats?.servicesCount || "11"
@@ -88,7 +88,7 @@ export default function AdminDashboardPage() {
     if (db.settings.aiConfig?.geminiApiKey) {
       setGeminiApiKey(db.settings.aiConfig.geminiApiKey);
     }
-    setStatsProjectsCount(db.settings.stats?.projectsCount || "+145");
+    setStatsProjectsCount(db.settings.stats?.projectsCount || "+155");
     setStatsServicesCount(db.settings.stats?.servicesCount || "11");
     setStatsPartnersCount(db.settings.stats?.partnersCount || "+45");
     setStatsWarrantyYears(db.settings.stats?.warrantyYears || "+10");
