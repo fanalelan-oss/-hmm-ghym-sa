@@ -169,6 +169,10 @@ export default function AutoMediaCarousel({
       >
         {slides.map((slide, idx) => {
           const isActive = idx === safeIndex;
+          const isNext = count > 1 && idx === (safeIndex + 1) % count;
+          // In card mode, only mount active and immediate next slide to prevent wasteful image downloads
+          if (!isActive && !isNext) return null;
+
           const slideSeoAlt = slide.altText || `${alt} - ${idx + 1}`;
           return (
             <div
@@ -183,6 +187,9 @@ export default function AutoMediaCarousel({
                     src={slide.poster}
                     alt={slideSeoAlt}
                     title={slideSeoAlt}
+                    width={480}
+                    height={320}
+                    decoding="async"
                     className={imgClassName}
                     loading="lazy"
                   />
@@ -201,6 +208,9 @@ export default function AutoMediaCarousel({
                   src={slide.src}
                   alt={slideSeoAlt}
                   title={slideSeoAlt}
+                  width={480}
+                  height={320}
+                  decoding="async"
                   className={imgClassName}
                   loading="lazy"
                 />

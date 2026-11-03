@@ -52,6 +52,15 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       // ignore parse errors
     }
 
+    // Only fetch full 1MB JSON over the wire if on /admin route or if local admin changes exist
+    const isAdminRoute =
+      typeof window !== 'undefined' &&
+      window.location.pathname.startsWith('/admin');
+
+    if (!isAdminRoute && !localCached) {
+      return;
+    }
+
     try {
       const res = await fetch(`/api/db?t=${Date.now()}`, {
         cache: 'no-store',

@@ -83,17 +83,9 @@ export default function ServicesGridSection() {
         <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-4">
           {db.services.map((service, idx) => (
             <ScrollReveal key={service.id} delayMs={idx * 40}>
-              <article
-                role="link"
-                tabIndex={0}
-                onClick={() => router.push(`/services/${service.slug}`)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    router.push(`/services/${service.slug}`);
-                  }
-                }}
-                className="cursor-pointer floating-card group h-full flex flex-col rounded-[22px] overflow-hidden p-2 select-none"
+              <Link
+                href={`/services/${service.slug}`}
+                className="block floating-card group h-full flex flex-col rounded-[22px] overflow-hidden p-2 select-none"
               >
                 <div className="relative aspect-[16/10] rounded-[16px] overflow-hidden bg-slate-900 block">
                   <AutoMediaCarousel
@@ -128,7 +120,7 @@ export default function ServicesGridSection() {
                     <ArrowIcon className="w-3.5 h-3.5" />
                   </div>
                 </div>
-              </article>
+              </Link>
             </ScrollReveal>
           ))}
         </div>

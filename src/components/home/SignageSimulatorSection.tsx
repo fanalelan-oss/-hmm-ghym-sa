@@ -128,8 +128,11 @@ export default function SignageSimulatorSection() {
     origY: 0,
   });
 
-  // Dynamically load the 22 Google Fonts deferred during idle time
+  // Dynamically load the Google Fonts ONLY when the studio section is visible in viewport on desktop
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (window.innerWidth < 1024) return;
+
     const loadFonts = () => {
       const linkId = 'hg-signage-studio-fonts';
       if (!document.getElementById(linkId)) {
@@ -141,10 +144,22 @@ export default function SignageSimulatorSection() {
         document.head.appendChild(link);
       }
     };
-    if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-      window.requestIdleCallback(loadFonts, { timeout: 4000 });
-    } else {
-      setTimeout(loadFonts, 3500);
+
+    const sectionEl = document.getElementById('design-studio');
+    if (!sectionEl) return;
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          if (entries[0]?.isIntersecting) {
+            loadFonts();
+            observer.disconnect();
+          }
+        },
+        { rootMargin: '300px' }
+      );
+      observer.observe(sectionEl);
+      return () => observer.disconnect();
     }
   }, []);
 
@@ -528,6 +543,7 @@ export default function SignageSimulatorSection() {
                     onChange={(e) => setSignText(e.target.value)}
                     maxLength={32}
                     placeholder={dict.simulator.inputPlaceholder}
+                    aria-label={dict.simulator.inputLabel || "اسم المحل أو العلامة التجارية"}
                     className="flex-1 px-4 py-3 rounded-2xl bg-[#f4f7fb] dark:bg-[#071324] border border-slate-200/95 dark:border-white/15 text-[#0f2544] dark:text-white font-bold text-sm sm:text-base focus:outline-none focus:border-[#208EC1]"
                   />
 
@@ -625,7 +641,7 @@ export default function SignageSimulatorSection() {
                           </span>
                           <span
                             className={`block text-[10px] font-sans truncate mt-0.5 ${
-                              fontIdx === idx ? 'text-sky-200' : 'text-slate-400'
+                              fontIdx === idx ? 'text-sky-200' : 'text-slate-600 dark:text-slate-300 font-medium'
                             }`}
                           >
                             {f.category}
@@ -822,6 +838,7 @@ export default function SignageSimulatorSection() {
                         max={125}
                         value={fontScale}
                         onChange={(e) => setFontScale(Number(e.target.value))}
+                        aria-label="حجم اللوحة بالنسبة المئوية"
                         className="w-full accent-[#208EC1] mt-2"
                       />
                     </div>
@@ -939,7 +956,7 @@ export default function SignageSimulatorSection() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <div className="flex justify-between text-[10.5px] font-bold text-slate-500 mb-1">
+                    <div className="flex justify-between text-[10.5px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       <span>العرض: {boardWidthM} متر</span>
                     </div>
                     <input
@@ -949,11 +966,12 @@ export default function SignageSimulatorSection() {
                       step={0.5}
                       value={boardWidthM}
                       onChange={(e) => setBoardWidthM(Number(e.target.value))}
+                      aria-label="عرض اللوحة بالأمتار"
                       className="w-full accent-[#208EC1]"
                     />
                   </div>
                   <div>
-                    <div className="flex justify-between text-[10.5px] font-bold text-slate-500 mb-1">
+                    <div className="flex justify-between text-[10.5px] font-bold text-slate-700 dark:text-slate-300 mb-1">
                       <span>الارتفاع: {boardHeightM} متر</span>
                     </div>
                     <input
@@ -963,6 +981,7 @@ export default function SignageSimulatorSection() {
                       step={0.1}
                       value={boardHeightM}
                       onChange={(e) => setBoardHeightM(Number(e.target.value))}
+                      aria-label="ارتفاع اللوحة بالأمتار"
                       className="w-full accent-[#208EC1]"
                     />
                   </div>
