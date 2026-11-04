@@ -90,6 +90,7 @@ interface AutoMediaCarouselProps {
   mode?: "card" | "detail";
   intervalMs?: number;
   imgClassName?: string;
+  compact?: boolean;
 }
 
 export default function AutoMediaCarousel({
@@ -98,6 +99,7 @@ export default function AutoMediaCarousel({
   mode = "card",
   intervalMs = 3500,
   imgClassName = "w-full h-full object-cover",
+  compact = false,
 }: AutoMediaCarouselProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
@@ -220,18 +222,32 @@ export default function AutoMediaCarousel({
         })}
 
         {/* Slide counter number only (no pill or icon) */}
-        <span className="absolute top-2 end-2.5 z-20 text-white font-display font-black text-[11px] tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.9)] pointer-events-none">
+        <span
+          className={`absolute z-20 text-white font-display font-black tracking-wider drop-shadow-[0_1px_2px_rgba(0,0,0,0.95)] pointer-events-none ${
+            compact
+              ? "top-1 end-1.5 text-[7px] sm:text-[8px]"
+              : "top-2 end-2.5 text-[11px]"
+          }`}
+        >
           {safeIndex + 1}/{count}
         </span>
 
-        <div className="absolute bottom-2 inset-x-0 z-20 flex items-center justify-center gap-1 pointer-events-none">
+        <div
+          className={`absolute inset-x-0 z-20 flex items-center justify-center pointer-events-none ${
+            compact ? "bottom-1 gap-0.5" : "bottom-2 gap-1"
+          }`}
+        >
           {slides.map((_, idx) => (
             <span
               key={idx}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                idx === safeIndex
-                  ? "w-4 bg-[#208EC1]"
-                  : "w-1.5 bg-white/60"
+              className={`rounded-full transition-all duration-300 ${
+                compact
+                  ? idx === safeIndex
+                    ? "h-[2px] w-2 sm:w-2.5 bg-[#208EC1]"
+                    : "h-[2px] w-1 bg-white/70"
+                  : idx === safeIndex
+                    ? "h-1.5 w-4 bg-[#208EC1]"
+                    : "h-1.5 w-1.5 bg-white/60"
               }`}
             />
           ))}

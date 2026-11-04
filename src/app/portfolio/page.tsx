@@ -1,233 +1,449 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, Suspense } from "react";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useApp, pickLang } from "@/context/AppContext";
 import ScrollReveal from "@/components/layout/ScrollReveal";
-import AutoMediaCarousel, { buildMediaSlides } from "@/components/common/AutoMediaCarousel";
-import SmartLinkedText from "@/components/seo/SmartLinkedText";
+import AutoMediaCarousel, {
+  buildMediaSlides,
+  CarouselMediaSlide,
+} from "@/components/common/AutoMediaCarousel";
 import ExpandableHashtagsCard from "@/components/seo/ExpandableHashtagsCard";
 import {
   Search,
   MapPin,
   ArrowUpRight,
   Play,
-  SlidersHorizontal,
   Sparkles,
   CheckCircle2,
+  ArrowLeft,
+  ArrowRight,
+  Building2,
+  Grid3x3,
+  Paintbrush,
+  LayoutGrid,
+  Umbrella,
+  Truck,
+  HardHat,
+  Store,
+  Flame,
+  Camera,
+  Layers,
 } from "lucide-react";
 
-export default function PortfolioPage() {
+const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  signage: Sparkles,
+  contracting: Building2,
+  glass: Grid3x3,
+  interiors: Paintbrush,
+  chipboard: LayoutGrid,
+  shades: Umbrella,
+  stickers: Truck,
+  hoarding: HardHat,
+  exhibitions: Store,
+  safety: Flame,
+  cctv: Camera,
+};
+
+function PortfolioContent() {
   const { db, lang, dict } = useApp();
-  const [activeCategory, setActiveCategory] = useState<string>("all");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+
+  // القسم المحدد حالياً (إن وجد)
+  const initialCategory = searchParams.get("category");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(
+    initialCategory && db.services.some((s) => s.id === initialCategory)
+      ? initialCategory
+      : null
+  );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [mediaFilter, setMediaFilter] = useState<"all" | "image" | "video">("all");
   const [visibleCount, setVisibleCount] = useState<number>(18);
 
-  const categories = useMemo(() => {
-    return [
-      { id: "all", label: dict.portfolioSection.allFilter },
-      ...db.services.map((s) => ({
-        id: s.id,
-        label: pickLang(s.shortName || s.name, lang),
-      })),
-    ];
-  }, [db.services, dict.portfolioSection.allFilter, lang]);
+  // مزامنة القسم المختار مع معلمة الرابط ?category=
+  useEffect(() => {
+    const cat = searchParams.get("category");
+    if (cat && db.services.some((s) => s.id === cat)) {
+      setSelectedCategory(cat);
+    } else {
+      setSelectedCategory(null);
+    }
+  }, [searchParams, db.services]);
 
-  const filteredItems = useMemo(() => {
+  const selectCategory = (catId: string | null) => {
+    setSelectedCategory(catId);
+    setVisibleCount(18);
+    setSearchQuery("");
+    setMediaFilter("all");
+    if (typeof window !== "undefined") {
+      const url = catId ? `/portfolio?category=${catId}` : "/portfolio";
+      window.history.pushState({}, "", url);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+
+  const currentService = useMemo(() => {
+    if (!selectedCategory) return null;
+    return db.services.find((s) => s.id === selectedCategory) || null;
+  }, [db.services, selectedCategory]);
+
+  // تحضير بطاقات الأقسام مع شرائح الصور المتحركة
+  const departmentCards = useMemo(() => {
+    return db.services.map((srv) => {
+      let slides = buildMediaSlides(srv);
+      if (slides.length === 0) {
+        slides = db.portfolio
+          .filter((p) => p.category === srv.id)
+          .slice(0, 6)
+          .map((p) => ({
+            type: (p.type === "video" ? "video" : "image") as "image" | "video",
+            src: p.src,
+            poster: p.poster,
+            altText: pickLang(p.title, lang),
+          }));
+      }
+
+      const count = db.portfolio.filter((p) => p.category === srv.id).length;
+
+      return {
+        id: srv.id,
+        label: pickLang(srv.shortName || srv.name, lang),
+        tagline: pickLang(srv.tagline, lang),
+        count,
+        slides,
+      };
+    });
+  }, [db.services, db.portfolio, lang]);
+
+  // فلترة الأقسام بناءً على شريط البحث (في صفحة الأقسام الرئيسية)
+  const filteredDepartments = useMemo(() => {
+    if (!searchQuery.trim()) return departmentCards;
+    const q = searchQuery.toLowerCase();
+    return departmentCards.filter(
+      (dept) =>
+        dept.label.toLowerCase().includes(q) ||
+        (dept.tagline && dept.tagline.toLowerCase().includes(q))
+    );
+  }, [departmentCards, searchQuery]);
+
+  // فلترة مشاريع القسم المحدد (عند دخول القسم)
+  const departmentProjects = useMemo(() => {
+    if (!selectedCategory) return [];
+
     return db.portfolio.filter((item) => {
       const matchesCat =
-        activeCategory === "all" || item.category === activeCategory;
-      const matchesMedia = mediaFilter === "all" || item.type === mediaFilter;
+        item.category === selectedCategory ||
+        (selectedCategory === "chipboard" &&
+          (item.category as string) === "chipboard-wood-marble-cladding") ||
+        (selectedCategory === "interiors" &&
+          (item.category as string) === "interior-design-decor-finishing") ||
+        (selectedCategory === "shades" &&
+          (item.category as string) === "car-shades-pergolas-screens");
 
-      if (!searchQuery.trim()) return matchesCat && matchesMedia;
+      const matchesMedia = mediaFilter === "all" || item.type === mediaFilter;
+      if (!matchesCat || !matchesMedia) return false;
+
+      if (!searchQuery.trim()) return true;
 
       const q = searchQuery.toLowerCase();
       const titleMatch =
-        item.title.ar.toLowerCase().includes(q) ||
-        item.title.en.toLowerCase().includes(q) ||
-        item.title.ur.toLowerCase().includes(q);
+        (item.title.ar || "").toLowerCase().includes(q) ||
+        (item.title.en || "").toLowerCase().includes(q) ||
+        (item.title.ur || "").toLowerCase().includes(q);
       const cityMatch =
-        item.city.ar.toLowerCase().includes(q) ||
-        item.city.en.toLowerCase().includes(q);
-      const tagMatch = (item.hashtags || []).some((h) =>
+        (item.city.ar || "").toLowerCase().includes(q) ||
+        (item.city.en || "").toLowerCase().includes(q);
+      const tagMatch = (((item as unknown as { tags?: string[] }).tags || item.hashtags || [])).some((h: string) =>
         h.toLowerCase().includes(q)
       );
 
-      return matchesCat && matchesMedia && (titleMatch || cityMatch || tagMatch);
+      return titleMatch || cityMatch || tagMatch;
     });
-  }, [db.portfolio, activeCategory, mediaFilter, searchQuery]);
+  }, [db.portfolio, selectedCategory, mediaFilter, searchQuery]);
 
-  const displayedItems = filteredItems.slice(0, visibleCount);
+  const displayedProjects = departmentProjects.slice(0, visibleCount);
+  const BackArrow = dict.dir === "rtl" ? ArrowRight : ArrowLeft;
 
-  return (
-    <div className="min-h-screen pt-28 pb-24">
-      <section className="relative py-14 bg-gradient-to-b from-[#11345C]/10 to-transparent">
+  // =========================================================================
+  // الحالة 1: صفحة أعمالنا الرئيسية (أقسام فقط وبحث فقط - بدون أي أعمال بالأسفل)
+  // =========================================================================
+  if (!selectedCategory) {
+    return (
+      <div className="min-h-screen py-3 sm:py-6 lg:py-8 space-y-3.5 sm:space-y-5 bg-[#eef3f8] dark:bg-brand-950">
+        {/* 1. العنوان الرئيسي والتبرير حقه (سطرين فقط، مرفوعين للأعلى وبدون فراغ زائد) */}
         <div className="smart-container">
           <ScrollReveal>
-            <div className="max-w-3xl">
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#208EC1]/10 text-[#208EC1] text-sm font-bold mb-4">
-                <Sparkles className="w-4 h-4" />
-                {dict.portfolioSection.eyebrow} ({db.portfolio.length})
+            <div className="text-center max-w-2xl mx-auto space-y-1.5 sm:space-y-2">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#208EC1] text-xs font-extrabold shadow-xs">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>
+                  {lang === "ar"
+                    ? `أقسام أعمالنا المنفذة (11 قسماً هندسياً)`
+                    : lang === "ur"
+                    ? `ہمارے کاروباری شعبہ جات (11 شعبے)`
+                    : `Our Project Departments (11 Sectors)`}
+                </span>
               </span>
-              <h1 className="text-3xl sm:text-5xl font-extrabold font-heading text-slate-900 dark:text-white mb-4 leading-tight">
+
+              <h1 className="font-display font-extrabold text-xl sm:text-2xl lg:text-3xl text-[#0f2544] dark:text-white leading-tight">
                 {dict.portfolioSection.title}
               </h1>
-              <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                <SmartLinkedText
-                  text={
-                    lang === "ar"
-                      ? `${dict.portfolioSection.subtitle} — تصفح أعمالنا المنفذة في الأحرف البارزة، واجهات الكلادينج، الزجاج السيكوريت، الجبس بورد والأسمنت بورد، المظلات والسواتر، الاستيكرات وتغليف السيارات، تسوير المشاريع، تجهيز المعارض، والأمن والسلامة وكاميرات المراقبة.`
-                      : dict.portfolioSection.subtitle
-                  }
-                  maxLinks={10}
-                />
+
+              <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed line-clamp-2 max-w-xl mx-auto">
+                {lang === "ar"
+                  ? "اختر القسم المطلوب لاستعراض نماذج مشاريعنا المنفذة والمواصفات المعتمدة بأعلى معايير الجودة والضمان في كافة مناطق المملكة."
+                  : dict.portfolioSection.subtitle}
               </p>
             </div>
           </ScrollReveal>
+        </div>
 
-          <ScrollReveal delay={100}>
-            <div className="mt-10 clean-card rounded-3xl p-5 sm:p-6 shadow-sm">
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
-                <div className="lg:col-span-5 relative">
-                  <Search className="w-5 h-5 text-slate-400 absolute top-1/2 -translate-y-1/2 start-4" />
-                  <input
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setVisibleCount(18);
-                    }}
-                    placeholder={
-                      lang === "ar"
-                        ? "ابحث باسم المشروع، الخدمة، المدينة (الرياض، جدة...) أو الهاشتاق"
-                        : lang === "ur"
-                        ? "پروجیکٹ، شہر یا ہیش ٹیگ تلاش کریں..."
-                        : "Search by project title, city (Riyadh, Jeddah...), or hashtag..."
-                    }
-                    className="w-full ps-12 pe-4 py-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
-                  />
-                </div>
+        {/* 2. شريط البحث مباشرة تحت العنوان والتبرير */}
+        <div className="smart-container">
+          <div className="clean-card rounded-2xl p-2 sm:p-3 shadow-xs">
+            <div className="relative">
+              <Search className="w-4 h-4 text-slate-400 absolute top-1/2 -translate-y-1/2 start-3.5" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder={
+                  lang === "ar"
+                    ? "ابحث في أقسام الأعمال (لوحات، كلادينج، مظلات، ديكور، سيكوريت...)"
+                    : lang === "ur"
+                    ? "کاروباری شعبہ تلاش کریں..."
+                    : "Search project departments (signage, cladding, shades...)"
+                }
+                className="w-full ps-10 pe-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
+              />
+            </div>
+          </div>
+        </div>
 
-                <div className="lg:col-span-3 flex items-center gap-2">
-                  <SlidersHorizontal className="w-4 h-4 text-slate-400 shrink-0" />
-                  {(["all", "image", "video"] as const).map((mType) => (
-                    <button
-                      key={mType}
-                      onClick={() => {
-                        setMediaFilter(mType);
-                        setVisibleCount(18);
-                      }}
-                      className={`flex-1 py-2.5 px-3 rounded-xl text-xs font-bold transition-all ${
-                        mediaFilter === mType
-                          ? "bg-[#11345C] text-white dark:bg-[#208EC1]"
-                          : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
-                      }`}
-                    >
-                      {mType === "all"
-                        ? lang === "ar"
-                          ? "الكل"
-                          : lang === "ur"
-                          ? "سب"
-                          : "All"
-                        : mType === "image"
-                        ? lang === "ar"
-                          ? "صور"
-                          : lang === "ur"
-                          ? "تصاویر"
-                          : "Photos"
-                        : lang === "ar"
-                        ? "فيديو"
-                        : lang === "ur"
-                        ? "ویڈیوز"
-                        : "Videos"}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="lg:col-span-4 flex items-center justify-end gap-2 text-sm text-slate-500 dark:text-slate-400">
-                  <CheckCircle2 className="w-4 h-4 text-[#208EC1]" />
-                  <span>
-                    {lang === "ar"
-                      ? `عرض ${displayedItems.length} من أصل ${filteredItems.length} مشروع`
-                      : lang === "ur"
-                      ? `${filteredItems.length} میں سے ${displayedItems.length} منصوبے`
-                      : `Showing ${displayedItems.length} of ${filteredItems.length} projects`}
-                  </span>
-                </div>
+        {/* 3. مباشرة تبدأ بطاقات أقسام الأعمال (3 بطاقات في الصف بالجوال وبصور متحركة) */}
+        <div className="smart-container">
+          <ScrollReveal delay={50}>
+            {filteredDepartments.length === 0 ? (
+              <div className="clean-card rounded-2xl p-8 text-center">
+                <p className="text-sm font-bold text-slate-600 dark:text-slate-300 mb-2">
+                  {lang === "ar"
+                    ? "لم يتم العثور على قسم مطابق للبحث"
+                    : "No matching department found"}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="px-4 py-1.5 rounded-xl bg-[#208EC1] text-white text-xs font-bold"
+                >
+                  {lang === "ar" ? "مسح البحث" : "Clear Search"}
+                </button>
               </div>
+            ) : (
+              <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-3.5">
+                {filteredDepartments.map((dept) => {
+                  const IconComponent = categoryIconMap[dept.id] || Layers;
 
-              <div className="flex flex-wrap gap-2 mt-5 pt-5 border-t border-slate-100 dark:border-slate-800">
-                {categories.map((cat) => {
-                  const count =
-                    cat.id === "all"
-                      ? db.portfolio.length
-                      : db.portfolio.filter((p) => p.category === cat.id).length;
                   return (
-                    <button
-                      key={cat.id}
-                      onClick={() => {
-                        setActiveCategory(cat.id);
-                        setVisibleCount(18);
+                    <article
+                      key={dept.id}
+                      role="link"
+                      tabIndex={0}
+                      onClick={() => selectCategory(dept.id)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          selectCategory(dept.id);
+                        }
                       }}
-                      className={`px-4 py-2 rounded-xl text-sm font-bold transition-all flex items-center gap-2 ${
-                        activeCategory === cat.id
-                          ? "bg-[#208EC1] text-white shadow-md shadow-[#208EC1]/25"
-                          : "bg-slate-100 dark:bg-slate-800/70 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
-                      }`}
+                      className="group cursor-pointer rounded-xl sm:rounded-2xl overflow-hidden flex flex-col justify-between border border-slate-200/90 dark:border-white/10 hover:border-[#208EC1] bg-white dark:bg-[#0c1d34] transition-all duration-300 shadow-xs hover:shadow-md hover:-translate-y-1 select-none active:scale-95"
                     >
-                      <span>{cat.label}</span>
-                      <span
-                        className={`text-xs px-2 py-0.5 rounded-full ${
-                          activeCategory === cat.id
-                            ? "bg-white/20 text-white"
-                            : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
-                        }`}
-                      >
-                        {count}
-                      </span>
-                    </button>
+                      {/* جزء الصور المتحركة للقسم كبطاقة عمل متكاملة */}
+                      <div className="relative aspect-[4/3] w-full overflow-hidden bg-slate-900">
+                        <AutoMediaCarousel
+                          slides={dept.slides}
+                          alt={dept.label}
+                          mode="card"
+                          compact={true}
+                          imgClassName="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent pointer-events-none" />
+
+                        {/* أيقونة القسم في الأعلى مصغرة */}
+                        <div className="absolute top-1 start-1 z-20 w-4 h-4 sm:w-5 sm:h-5 rounded sm:rounded-md bg-slate-900/75 backdrop-blur-xs text-[#208EC1] flex items-center justify-center">
+                          <IconComponent className="w-2 h-2 sm:w-2.5 sm:h-2.5" />
+                        </div>
+                      </div>
+
+                      {/* عنوان القسم تحت الصورة ومعه عدد الأعمال بخط مصغر بدون أي فقاعة */}
+                      <div className="p-1.5 sm:p-2 text-center flex-1 flex flex-col items-center justify-center">
+                        <h2 className="font-display font-extrabold text-[10px] sm:text-xs leading-tight line-clamp-2 text-[#0f2544] dark:text-white group-hover:text-[#208EC1] transition-colors">
+                          {dept.label}
+                        </h2>
+                        <span className="text-[7.5px] sm:text-[9px] font-bold text-slate-400 dark:text-slate-400 mt-0.5">
+                          ({dept.count} {lang === "ar" ? "عمل" : "Projects"})
+                        </span>
+                      </div>
+                    </article>
                   );
                 })}
               </div>
-            </div>
+            )}
           </ScrollReveal>
         </div>
-      </section>
 
-      <section className="smart-container mt-8">
-        {displayedItems.length === 0 ? (
-          <div className="clean-card rounded-3xl p-12 text-center">
-            <p className="text-lg font-bold text-slate-700 dark:text-slate-300 mb-3">
+        {/* كارت الهاشتاقات في أسفل الصفحة */}
+        <div className="smart-container pt-4">
+          <ExpandableHashtagsCard
+            visibleCount={10}
+            title={
+              lang === "ar"
+                ? "هاشتاقات مشاريعنا المنفذة في الرياض وجدة وجميع مدن المملكة"
+                : "Executed Projects SEO Hashtags Across Saudi Arabia"
+            }
+          />
+        </div>
+      </div>
+    );
+  }
+
+  // =========================================================================
+  // الحالة 2: الزائر داخل القسم المحدد (مشاهدة أعمال هذا القسم بالتفصيل)
+  // =========================================================================
+  const SectionIcon = categoryIconMap[selectedCategory] || Layers;
+
+  return (
+    <div className="min-h-screen py-3 sm:py-6 lg:py-8 space-y-4 sm:space-y-5 bg-[#eef3f8] dark:bg-brand-950">
+      {/* شريط الرجوع لكافة الأقسام + ترويسة القسم */}
+      <div className="smart-container">
+        <ScrollReveal>
+          <div className="space-y-3">
+            <button
+              type="button"
+              onClick={() => selectCategory(null)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#0f2544] dark:text-white text-xs font-extrabold hover:text-[#208EC1] hover:border-[#208EC1] transition-all shadow-xs group cursor-pointer"
+            >
+              <BackArrow className="w-3.5 h-3.5 text-[#208EC1] transition-transform group-hover:-translate-x-0.5 rtl:group-hover:translate-x-0.5" />
+              <span>{lang === "ar" ? "العودة لكافة أقسام الأعمال" : "Back to All Departments"}</span>
+            </button>
+
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200/80 dark:border-white/10 pb-3">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-xl bg-[#208EC1]/10 text-[#208EC1] flex items-center justify-center shrink-0">
+                  <SectionIcon className="w-5 h-5 sm:w-6 sm:h-6" />
+                </div>
+                <div>
+                  <h1 className="font-display font-extrabold text-lg sm:text-2xl text-[#0f2544] dark:text-white leading-tight">
+                    {currentService ? pickLang(currentService.name, lang) : "أعمال القسم"}
+                  </h1>
+                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 line-clamp-1">
+                    {currentService
+                      ? pickLang(currentService.tagline, lang)
+                      : "نماذج حقيقية منفذة بأعلى معايير الجودة"}
+                  </p>
+                </div>
+              </div>
+
+              <span className="self-start sm:self-auto px-3 py-1 rounded-full bg-[#208EC1] text-white text-xs font-black shadow-xs">
+                {departmentProjects.length}{" "}
+                {lang === "ar" ? "مشروعاً منفذاً" : "Executed Projects"}
+              </span>
+            </div>
+          </div>
+        </ScrollReveal>
+      </div>
+
+      {/* شريط البحث وفلاتر الوسائط داخل القسم */}
+      <div className="smart-container">
+        <div className="clean-card rounded-2xl p-2.5 sm:p-3 shadow-xs">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
+            <div className="md:col-span-7 relative">
+              <Search className="w-4 h-4 text-slate-400 absolute top-1/2 -translate-y-1/2 start-3.5" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => {
+                  setSearchQuery(e.target.value);
+                  setVisibleCount(18);
+                }}
+                placeholder={
+                  lang === "ar"
+                    ? "ابحث في مشاريع هذا القسم بالاسم، المدينة (الرياض، جدة...) أو الهاشتاق"
+                    : "Search projects in this department..."
+                }
+                className="w-full ps-10 pe-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
+              />
+            </div>
+
+            <div className="md:col-span-5 flex items-center gap-1.5">
+              {(["all", "image", "video"] as const).map((mType) => (
+                <button
+                  key={mType}
+                  type="button"
+                  onClick={() => {
+                    setMediaFilter(mType);
+                    setVisibleCount(18);
+                  }}
+                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all ${
+                    mediaFilter === mType
+                      ? "bg-[#11345C] text-white dark:bg-[#208EC1]"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
+                  }`}
+                >
+                  {mType === "all"
+                    ? lang === "ar"
+                      ? "الكل"
+                      : "All"
+                    : mType === "image"
+                    ? lang === "ar"
+                      ? "صور"
+                      : "Photos"
+                    : lang === "ar"
+                    ? "فيديو"
+                    : "Videos"}
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* شبكة الأعمال المنفذة للقسم المختار (عمودين متجاورين بالجوال) */}
+      <div className="smart-container">
+        {displayedProjects.length === 0 ? (
+          <div className="clean-card rounded-2xl p-10 text-center space-y-3">
+            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
               {lang === "ar"
-                ? "لا توجد مشاريع مطابقة لبحثك حالياً"
-                : "No projects match your current filter"}
+                ? "لا توجد مشاريع مطابقة لبحثك في هذا القسم"
+                : "No projects match your search in this department"}
             </p>
             <button
+              type="button"
               onClick={() => {
-                setActiveCategory("all");
-                setMediaFilter("all");
                 setSearchQuery("");
+                setMediaFilter("all");
               }}
-              className="px-6 py-2.5 rounded-xl bg-[#208EC1] text-white text-sm font-bold"
+              className="px-4 py-2 rounded-xl bg-[#208EC1] text-white text-xs font-bold"
             >
               {lang === "ar" ? "إعادة تعيين الفلاتر" : "Reset Filters"}
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {displayedItems.map((project, idx) => {
+          <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">
+            {displayedProjects.map((project, idx) => {
               const imgSrc =
                 project.type === "video"
                   ? project.poster || project.src
                   : project.src;
+
               return (
-                <ScrollReveal key={project.id} delay={(idx % 6) * 50}>
+                <ScrollReveal key={project.id} delay={(idx % 6) * 40}>
                   <Link
                     href={`/portfolio/${project.slug}`}
-                    className="group block clean-card rounded-3xl overflow-hidden h-full flex flex-col"
+                    className="group block clean-card rounded-2xl overflow-hidden h-full flex flex-col transition-all duration-300 hover:-translate-y-1 hover:border-[#208EC1]/50 shadow-xs hover:shadow-md"
                   >
-                    <div className="relative h-64 overflow-hidden bg-slate-900">
+                    <div className="relative aspect-[4/3] sm:h-60 sm:aspect-auto overflow-hidden bg-slate-900">
                       <AutoMediaCarousel
                         slides={buildMediaSlides(project)}
                         alt={pickLang(project.alt, lang)}
@@ -244,39 +460,39 @@ export default function PortfolioPage() {
                       </div>
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent pointer-events-none" />
 
-                      <div className="absolute top-4 start-4 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white text-xs font-bold flex items-center gap-1">
-                          <MapPin className="w-3.5 h-3.5 text-[#208EC1]" />
+                      <div className="absolute top-2 start-2 flex items-center gap-1 z-20">
+                        <span className="px-2 py-0.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white text-[9px] sm:text-xs font-bold flex items-center gap-1">
+                          <MapPin className="w-2.5 h-2.5 text-[#208EC1]" />
                           {pickLang(project.city, lang)}
                         </span>
                       </div>
 
                       {project.type === "video" && (
-                        <div className="absolute top-4 end-4 w-10 h-10 rounded-full bg-[#208EC1] text-white flex items-center justify-center shadow-lg">
-                          <Play className="w-4 h-4 fill-current" />
+                        <div className="absolute top-2 end-2 w-6 h-6 sm:w-9 sm:h-9 rounded-full bg-[#208EC1] text-white flex items-center justify-center shadow-md z-20">
+                          <Play className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 fill-current" />
                         </div>
                       )}
 
-                      <div className="absolute bottom-4 inset-x-4 flex items-end justify-between gap-2">
-                        <h2 className="text-lg font-bold text-white group-hover:text-[#7dd3fc] transition-colors line-clamp-1">
+                      <div className="absolute bottom-2 inset-x-2 flex items-end justify-between gap-1 z-20">
+                        <h2 className="text-xs sm:text-base font-bold text-white group-hover:text-[#7dd3fc] transition-colors line-clamp-1 leading-snug">
                           {pickLang(project.title, lang)}
                         </h2>
-                        <span className="w-9 h-9 rounded-xl bg-white/15 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-[#208EC1] transition-colors shrink-0">
-                          <ArrowUpRight className="w-4 h-4" />
+                        <span className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-white/15 backdrop-blur-md text-white flex items-center justify-center group-hover:bg-[#208EC1] transition-colors shrink-0">
+                          <ArrowUpRight className="w-3 h-3" />
                         </span>
                       </div>
                     </div>
 
-                    <div className="p-6 flex-1 flex flex-col justify-between">
-                      <p className="text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed mb-4">
+                    <div className="p-2 sm:p-4 flex-1 flex flex-col justify-between">
+                      <p className="text-[10px] sm:text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed mb-2">
                         {pickLang(project.summary, lang)}
                       </p>
 
-                      <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-1.5">
-                        {(project.hashtags || []).slice(0, 3).map((tag, i) => (
+                      <div className="pt-2 border-t border-slate-100 dark:border-slate-800 flex flex-wrap gap-1">
+                        {(project.hashtags || []).slice(0, 2).map((tag, i) => (
                           <span
                             key={i}
-                            className="text-[11px] px-2.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400"
+                            className="text-[8.5px] sm:text-[10px] px-1.5 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 truncate max-w-[110px]"
                           >
                             {tag.startsWith("#") ? tag : `#${tag}`}
                           </span>
@@ -290,34 +506,46 @@ export default function PortfolioPage() {
           </div>
         )}
 
-        {visibleCount < filteredItems.length && (
-          <div className="mt-12 text-center">
+        {visibleCount < departmentProjects.length && (
+          <div className="mt-8 text-center">
             <button
+              type="button"
               onClick={() => setVisibleCount((prev) => prev + 18)}
-              className="px-8 py-4 rounded-2xl bg-[#11345C] hover:bg-[#208EC1] text-white font-bold text-sm transition-all shadow-lg"
+              className="px-6 py-3 rounded-xl bg-[#11345C] hover:bg-[#208EC1] text-white font-bold text-xs sm:text-sm transition-all shadow-md active:scale-95 cursor-pointer"
             >
               {lang === "ar"
-                ? `عرض المزيد من المشاريع (${filteredItems.length - visibleCount} متبقي)`
-                : lang === "ur"
-                ? `مزید منصوبے دیکھیں (${filteredItems.length - visibleCount})`
-                : `Load More Projects (${filteredItems.length - visibleCount} remaining)`}
+                ? `عرض المزيد من مشاريع هذا القسم (${departmentProjects.length - visibleCount} متبقي)`
+                : `Load More Projects (${departmentProjects.length - visibleCount} remaining)`}
             </button>
           </div>
         )}
 
-        {/* Massive SEO Hashtags Card with Expandable Dropdown */}
-        <div className="mt-14">
-          <ExpandableHashtagsCard
-            category={activeCategory === "all" ? undefined : activeCategory}
-            visibleCount={10}
-            title={
-              lang === "ar"
-                ? "هاشتاقات مشاريعنا المنفذة في الرياض وجدة وجميع مدن المملكة"
-                : "Executed Projects SEO Hashtags Across Saudi Arabia"
-            }
-          />
+        {/* زر العودة لاختيار قسم آخر في أسفل المعرض */}
+        <div className="mt-8 text-center">
+          <button
+            type="button"
+            onClick={() => selectCategory(null)}
+            className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-white dark:bg-[#0c1d34] border border-slate-200/90 dark:border-white/10 text-[#0f2544] dark:text-white text-xs font-extrabold hover:text-[#208EC1] hover:border-[#208EC1] transition-all shadow-xs"
+          >
+            <BackArrow className="w-3.5 h-3.5 text-[#208EC1]" />
+            <span>{lang === "ar" ? "العودة لاختيار قسم آخر" : "Choose Another Department"}</span>
+          </button>
         </div>
-      </section>
+      </div>
     </div>
+  );
+}
+
+export default function PortfolioPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen py-12 flex items-center justify-center">
+          <div className="w-8 h-8 rounded-full border-2 border-[#208EC1] border-t-transparent animate-spin" />
+        </div>
+      }
+    >
+      <PortfolioContent />
+    </Suspense>
   );
 }
