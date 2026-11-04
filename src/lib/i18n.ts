@@ -296,7 +296,7 @@ export const UI_DICT = {
       blog: 'بلاگ',
       contact: 'کوٹیشن طلب کریں',
       admin: 'ایڈمن',
-      requestQuote: 'کوٹیشن حاصل کریں',
+      requestQuote: 'کوٹیشن',
       whatsapp: 'واٹس ایپ',
     },
     hero: {

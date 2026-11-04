@@ -82,7 +82,7 @@ export default function SiteHeader() {
         <div className="rounded-full p-[2px] sm:p-[3px] bg-white/60 dark:bg-white/[0.04] backdrop-blur-xl border border-white/90 dark:border-white/10 shadow-[0_16px_36px_-12px_rgba(15,37,68,0.12),0_4px_12px_-4px_rgba(15,37,68,0.06)]">
           {/* Inner Pure Porcelain Bar with Top Specular Highlight & Bottom Depth Lip */}
           <div
-            className={`relative rounded-full bg-white/95 dark:bg-[#0b192e]/95 border border-slate-200/85 dark:border-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(15,37,68,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-3 ${
+            className={`relative rounded-full bg-white/95 dark:bg-[#0b192e]/95 border border-slate-200/85 dark:border-white/10 shadow-[inset_0_1.5px_0_rgba(255,255,255,1),inset_0_-1.5px_0_rgba(15,37,68,0.05)] dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.08)] transition-all duration-300 px-2.5 sm:px-6 flex items-center justify-between gap-1.5 sm:gap-3 ${
               isScrolled
                 ? 'h-[48px] sm:h-[54px] lg:h-[58px]'
                 : 'h-[52px] sm:h-[60px] lg:h-[66px]'
@@ -295,7 +295,7 @@ export default function SiteHeader() {
               {/* Primary Dark Navy Pill CTA Button with Elevated Depth (Slimmed on mobile) */}
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-1 sm:px-4 sm:py-2 rounded-full bg-[#0f2544] hover:bg-[#208EC1] dark:bg-[#208EC1] dark:hover:bg-sky-400 text-white text-[11px] sm:text-xs font-black shadow-[0_8px_18px_-4px_rgba(15,37,68,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all hover:-translate-y-0.5"
+                className="inline-flex items-center gap-1 sm:gap-1.5 whitespace-nowrap px-2 py-1 sm:px-4 sm:py-2 rounded-full bg-[#0f2544] hover:bg-[#208EC1] dark:bg-[#208EC1] dark:hover:bg-sky-400 text-white text-[10.5px] sm:text-xs font-black shadow-[0_8px_18px_-4px_rgba(15,37,68,0.35),inset_0_1px_0_rgba(255,255,255,0.2)] transition-all hover:-translate-y-0.5 shrink-0"
               >
                 <FileText className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#208EC1] dark:text-white shrink-0" />
                 <span>{dict.nav.requestQuote}</span>
@@ -305,7 +305,7 @@ export default function SiteHeader() {
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="lg:hidden w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#0f2544] dark:text-slate-200"
+                className="lg:hidden w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-slate-200 dark:border-slate-700 flex items-center justify-center text-[#0f2544] dark:text-slate-200 shrink-0"
                 aria-label="القائمة"
               >
                 {mobileMenuOpen ? (
