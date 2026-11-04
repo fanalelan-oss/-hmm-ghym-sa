@@ -30,6 +30,9 @@ import {
   Flame,
   Camera,
   Layers,
+  X,
+  Video,
+  Image as ImageIcon,
 } from "lucide-react";
 
 const categoryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -62,7 +65,7 @@ function PortfolioContent() {
   const [mediaFilter, setMediaFilter] = useState<"all" | "image" | "video">("all");
   const [visibleCount, setVisibleCount] = useState<number>(18);
 
-  // مزامنة القسم المختار مع معلمة الرابط ?category=
+  // مزامنة القسم المختار مع معلمة الرابط ?category= ومع أزرار الرجوع/التقدم بالمتصفح
   useEffect(() => {
     const cat = searchParams.get("category");
     if (cat && db.services.some((s) => s.id === cat)) {
@@ -72,6 +75,17 @@ function PortfolioContent() {
     }
   }, [searchParams, db.services]);
 
+  useEffect(() => {
+    const handlePopState = () => {
+      if (typeof window === "undefined") return;
+      const params = new URLSearchParams(window.location.search);
+      const cat = params.get("category");
+      setSelectedCategory(cat && db.services.some((s) => s.id === cat) ? cat : null);
+    };
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, [db.services]);
+
   const selectCategory = (catId: string | null) => {
     setSelectedCategory(catId);
     setVisibleCount(18);
@@ -79,7 +93,9 @@ function PortfolioContent() {
     setMediaFilter("all");
     if (typeof window !== "undefined") {
       const url = catId ? `/portfolio?category=${catId}` : "/portfolio";
-      window.history.pushState({}, "", url);
+      if (window.location.pathname + window.location.search !== url) {
+        window.history.pushState({ category: catId }, "", url);
+      }
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
@@ -120,13 +136,34 @@ function PortfolioContent() {
   // فلترة الأقسام بناءً على شريط البحث (في صفحة الأقسام الرئيسية)
   const filteredDepartments = useMemo(() => {
     if (!searchQuery.trim()) return departmentCards;
-    const q = searchQuery.toLowerCase();
+    const q = searchQuery.toLowerCase().trim();
     return departmentCards.filter(
       (dept) =>
         dept.label.toLowerCase().includes(q) ||
         (dept.tagline && dept.tagline.toLowerCase().includes(q))
     );
   }, [departmentCards, searchQuery]);
+
+  // إحصائيات مشاريع القسم الحالي بدقة (الكل، الصور، الفيديوهات)
+  const categoryStats = useMemo(() => {
+    if (!selectedCategory) return { total: 0, images: 0, videos: 0 };
+    const allInCat = db.portfolio.filter((item) => {
+      return (
+        item.category === selectedCategory ||
+        (selectedCategory === "chipboard" &&
+          (item.category as string) === "chipboard-wood-marble-cladding") ||
+        (selectedCategory === "interiors" &&
+          (item.category as string) === "interior-design-decor-finishing") ||
+        (selectedCategory === "shades" &&
+          (item.category as string) === "car-shades-pergolas-screens")
+      );
+    });
+    return {
+      total: allInCat.length,
+      images: allInCat.filter((p) => p.type === "image").length,
+      videos: allInCat.filter((p) => p.type === "video").length,
+    };
+  }, [db.portfolio, selectedCategory]);
 
   // فلترة مشاريع القسم المحدد (عند دخول القسم)
   const departmentProjects = useMemo(() => {
@@ -147,7 +184,7 @@ function PortfolioContent() {
 
       if (!searchQuery.trim()) return true;
 
-      const q = searchQuery.toLowerCase();
+      const q = searchQuery.toLowerCase().trim();
       const titleMatch =
         (item.title.ar || "").toLowerCase().includes(q) ||
         (item.title.en || "").toLowerCase().includes(q) ||
@@ -216,8 +253,18 @@ function PortfolioContent() {
                     ? "کاروباری شعبہ تلاش کریں..."
                     : "Search project departments (signage, cladding, shades...)"
                 }
-                className="w-full ps-10 pe-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
+                className="w-full ps-10 pe-9 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute top-1/2 -translate-y-1/2 end-2.5 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  aria-label="مسح البحث"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -346,7 +393,7 @@ function PortfolioContent() {
               </div>
 
               <span className="self-start sm:self-auto px-3 py-1 rounded-full bg-[#208EC1] text-white text-xs font-black shadow-xs">
-                {departmentProjects.length}{" "}
+                {categoryStats.total}{" "}
                 {lang === "ar" ? "مشروعاً منفذاً" : "Executed Projects"}
               </span>
             </div>
@@ -354,11 +401,11 @@ function PortfolioContent() {
         </ScrollReveal>
       </div>
 
-      {/* شريط البحث وفلاتر الوسائط داخل القسم */}
+      {/* شريط البحث وفلاتر الوسائط داخل القسم مع أعداد دقيقة لكل خيار */}
       <div className="smart-container">
         <div className="clean-card rounded-2xl p-2.5 sm:p-3 shadow-xs">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-2 sm:gap-3 items-center">
-            <div className="md:col-span-7 relative">
+            <div className="md:col-span-6 relative">
               <Search className="w-4 h-4 text-slate-400 absolute top-1/2 -translate-y-1/2 start-3.5" />
               <input
                 type="text"
@@ -372,38 +419,76 @@ function PortfolioContent() {
                     ? "ابحث في مشاريع هذا القسم بالاسم، المدينة (الرياض، جدة...) أو الهاشتاق"
                     : "Search projects in this department..."
                 }
-                className="w-full ps-10 pe-3 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
+                className="w-full ps-10 pe-9 py-2 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm focus:outline-none focus:border-[#208EC1] transition-colors"
               />
+              {searchQuery && (
+                <button
+                  type="button"
+                  onClick={() => setSearchQuery("")}
+                  className="absolute top-1/2 -translate-y-1/2 end-2.5 p-1 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+                  aria-label="مسح البحث"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              )}
             </div>
 
-            <div className="md:col-span-5 flex items-center gap-1.5">
-              {(["all", "image", "video"] as const).map((mType) => (
-                <button
-                  key={mType}
-                  type="button"
-                  onClick={() => {
-                    setMediaFilter(mType);
-                    setVisibleCount(18);
-                  }}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all ${
-                    mediaFilter === mType
-                      ? "bg-[#11345C] text-white dark:bg-[#208EC1]"
-                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
-                  }`}
-                >
-                  {mType === "all"
-                    ? lang === "ar"
-                      ? "الكل"
-                      : "All"
-                    : mType === "image"
-                    ? lang === "ar"
-                      ? "صور"
-                      : "Photos"
-                    : lang === "ar"
-                    ? "فيديو"
-                    : "Videos"}
-                </button>
-              ))}
+            {/* أزرار تصفية الوسائط مع بيان عدد المتوفر لكل نوع */}
+            <div className="md:col-span-6 flex items-center gap-1.5">
+              {[
+                {
+                  id: "all" as const,
+                  label: lang === "ar" ? "الكل" : "All",
+                  count: categoryStats.total,
+                  Icon: Layers,
+                },
+                {
+                  id: "image" as const,
+                  label: lang === "ar" ? "صور" : "Photos",
+                  count: categoryStats.images,
+                  Icon: ImageIcon,
+                },
+                {
+                  id: "video" as const,
+                  label: lang === "ar" ? "فيديو" : "Videos",
+                  count: categoryStats.videos,
+                  Icon: Video,
+                },
+              ].map((mType) => {
+                const isSelected = mediaFilter === mType.id;
+                const isZero = mType.count === 0;
+
+                return (
+                  <button
+                    key={mType.id}
+                    type="button"
+                    onClick={() => {
+                      setMediaFilter(mType.id);
+                      setVisibleCount(18);
+                    }}
+                    className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 border select-none ${
+                      isSelected
+                        ? "bg-[#11345C] text-white dark:bg-[#208EC1] border-[#11345C] dark:border-[#208EC1] shadow-xs"
+                        : isZero
+                        ? "bg-slate-100/60 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 border-transparent hover:bg-slate-200/60"
+                        : "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200/60 dark:border-white/5 hover:bg-slate-200"
+                    }`}
+                  >
+                    <span>{mType.label}</span>
+                    <span
+                      className={`text-[9.5px] px-1.5 py-0.2 rounded-full font-black ${
+                        isSelected
+                          ? "bg-white/25 text-white"
+                          : isZero
+                          ? "bg-slate-200/50 dark:bg-slate-700/40 text-slate-400"
+                          : "bg-slate-200 dark:bg-slate-700 text-slate-600 dark:text-slate-300"
+                      }`}
+                    >
+                      {mType.count}
+                    </span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -412,22 +497,56 @@ function PortfolioContent() {
       {/* شبكة الأعمال المنفذة للقسم المختار (عمودين متجاورين بالجوال) */}
       <div className="smart-container">
         {displayedProjects.length === 0 ? (
-          <div className="clean-card rounded-2xl p-10 text-center space-y-3">
-            <p className="text-sm font-bold text-slate-700 dark:text-slate-300">
-              {lang === "ar"
-                ? "لا توجد مشاريع مطابقة لبحثك في هذا القسم"
-                : "No projects match your search in this department"}
+          <div className="clean-card rounded-2xl p-8 sm:p-12 text-center space-y-3">
+            <div className="w-12 h-12 mx-auto rounded-2xl bg-[#208EC1]/10 text-[#208EC1] flex items-center justify-center">
+              {mediaFilter === "video" ? (
+                <Video className="w-6 h-6" />
+              ) : (
+                <Search className="w-6 h-6" />
+              )}
+            </div>
+
+            <p className="text-sm sm:text-base font-bold text-slate-800 dark:text-white max-w-lg mx-auto">
+              {mediaFilter === "video" && categoryStats.videos === 0
+                ? lang === "ar"
+                  ? `لا توجد مقاطع فيديو مسجلة لهذا القسم حالياً — كافة مشاريع القسم موثقة بالصور عالية الدقة (${categoryStats.images} صورة)`
+                  : `No videos currently recorded for this department — all projects are documented in HD photos (${categoryStats.images} photos)`
+                : searchQuery.trim()
+                ? lang === "ar"
+                  ? `لا توجد نتائج تطابق بحثك عن "${searchQuery}" في هذا القسم`
+                  : `No projects match "${searchQuery}" in this department`
+                : lang === "ar"
+                ? "لا توجد مشاريع مطابقة للفلتر المحدد"
+                : "No projects match the selected filter"}
             </p>
-            <button
-              type="button"
-              onClick={() => {
-                setSearchQuery("");
-                setMediaFilter("all");
-              }}
-              className="px-4 py-2 rounded-xl bg-[#208EC1] text-white text-xs font-bold"
-            >
-              {lang === "ar" ? "إعادة تعيين الفلاتر" : "Reset Filters"}
-            </button>
+
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
+              {mediaFilter === "video" && categoryStats.images > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setMediaFilter("image");
+                    setSearchQuery("");
+                  }}
+                  className="px-4 py-2 rounded-xl bg-[#208EC1] text-white text-xs font-bold hover:bg-[#1a76a0] transition-colors shadow-xs"
+                >
+                  {lang === "ar"
+                    ? `عرض صور مشاريع هذا القسم (${categoryStats.images} صورة)`
+                    : `View Department Photos (${categoryStats.images})`}
+                </button>
+              )}
+
+              <button
+                type="button"
+                onClick={() => {
+                  setSearchQuery("");
+                  setMediaFilter("all");
+                }}
+                className="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-200 transition-colors"
+              >
+                {lang === "ar" ? "عرض كافة أعمال القسم" : "Show All Department Works"}
+              </button>
+            </div>
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-2.5 sm:gap-5">

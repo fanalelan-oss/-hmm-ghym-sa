@@ -23,7 +23,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
-const DB_STORAGE_KEY = 'hg_db_persisted_v2';
+const DB_STORAGE_KEY = 'hg_db_persisted_v3';
 
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('ar');
@@ -41,10 +41,23 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const refreshDb = async () => {
     let localCached: DatabaseSchema | null = null;
     try {
+      // Clean up legacy stale caches from older builds
+      localStorage.removeItem('hg_db_persisted');
+      localStorage.removeItem('hg_db_persisted_v2');
+
       const raw = localStorage.getItem(DB_STORAGE_KEY);
       if (raw) {
         localCached = JSON.parse(raw) as DatabaseSchema;
-        if (localCached?.settings && Array.isArray(localCached?.portfolio)) {
+        const initialCount = ((initialData as unknown as DatabaseSchema).portfolio || []).length;
+        const initialTimestamp = (initialData as unknown as DatabaseSchema).updatedAt || 0;
+        const cachedCount = (localCached?.portfolio || []).length;
+        const cachedTimestamp = localCached?.updatedAt || 0;
+
+        // If local cache is missing fields, has fewer projects, or is older than the bundled build, discard it
+        if (!localCached?.settings || cachedCount < initialCount || cachedTimestamp < initialTimestamp) {
+          localStorage.removeItem(DB_STORAGE_KEY);
+          localCached = null;
+        } else {
           setDb(localCached);
         }
       }
